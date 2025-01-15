@@ -49,8 +49,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps.setInt(5, entity.getTentativiFalliti());
 			ps.setBoolean(6, entity.isLocked());
 			ps.setLong(7, entity.getId());
-			
-			
+			ps.execute();
 
 		} catch (SQLException e) {
 			throw new DAOException(e);

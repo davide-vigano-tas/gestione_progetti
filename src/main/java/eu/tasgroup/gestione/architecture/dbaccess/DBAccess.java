@@ -10,14 +10,16 @@ import eu.tasgroup.gestione.architetture.dao.DAOException;
 public class DBAccess {
 
     private static DataSource dataSource;
+    private static InitialContext testContext; // For injecting custom context during tests
 
-    // Otteniamo una connessione dal pool di connessioni configurato in WildFly
+    public static void setTestContext(InitialContext context) {
+        testContext = context;
+    }
+
     public static synchronized Connection getConnection() throws NamingException, DAOException {
         try {
-            // Inizializzazione di dataSource solo se non è già stato fatto
             if (dataSource == null) {
-                InitialContext contesto = new InitialContext();
-                // Legge la configurazione JNDI per la connessione MySQL
+                InitialContext contesto = testContext != null ? testContext : new InitialContext();
                 dataSource = (DataSource) contesto.lookup("java:/MySQLDS");
             }
             return dataSource.getConnection();
