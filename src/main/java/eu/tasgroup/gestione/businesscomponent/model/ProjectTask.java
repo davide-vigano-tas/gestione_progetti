@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
-import eu.tasgroup.gestione.businesscomponent.enumerated.Stato;
+import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 
 public class ProjectTask implements Serializable{
 	private static final long serialVersionUID = 4442416040038390835L;
@@ -15,7 +15,7 @@ public class ProjectTask implements Serializable{
 	private String nome_task;
 	private String descrizione;
 	private long id_dipendente;
-	private Stato stato;
+	private StatoTask stato;
 	private Date scadenza;
 	private Fase fase;
 	public long getId() {
@@ -48,10 +48,10 @@ public class ProjectTask implements Serializable{
 	public void setId_dipendente(long id_dipendente) {
 		this.id_dipendente = id_dipendente;
 	}
-	public Stato getStato() {
+	public StatoTask getStato() {
 		return stato;
 	}
-	public void setStato(Stato stato) {
+	public void setStato(StatoTask stato) {
 		this.stato = stato;
 	}
 	public Date getScadenza() {
