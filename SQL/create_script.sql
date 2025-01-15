@@ -31,7 +31,7 @@ CREATE TABLE projects (
     data_inizio DATE NOT NULL,
     data_fine DATE NOT NULL,
     budget DECIMAL(10,2) NOT NULL,
-    stato ENUM('Creato', 'In Progress', 'Completato', 'Annullato') DEFAULT 'Creato',
+    stato ENUM('CREATO', 'IN_PROGRESS', 'COMPLETATO', 'ANNULATO') DEFAULT 'CREATO',
     id_cliente INT NOT NULL, 
     id_responsabile INT NOT NULL,
     percentuale_completamento INT DEFAULT 0 CHECK (percentuale_completamento BETWEEN 0 AND 100),
@@ -70,9 +70,9 @@ CREATE TABLE project_tasks (
     nome_task VARCHAR(100) NOT NULL,
     descrizione VARCHAR(255) NOT NULL,
     id_dipendente INT,
-    stato ENUM('Da Iniziare', 'In Progress', 'Completato') DEFAULT 'Da Iniziare',
+    stato ENUM('DA_INIZIARE', 'IN_PROGRESS', 'COMPLETATO') DEFAULT 'DA_INIZIARE',
     scadenza DATE NOT NULL,
-    fase ENUM('Plan', 'Analisi', 'Design', 'Build', 'Test', 'Deploy') DEFAULT 'Plan',
+    fase ENUM('PLAN', 'ANALIS', 'DESIGN', 'BUILD', 'TEST', 'DEPLOY') DEFAULT 'PLAN',
     CONSTRAINT fk_project FOREIGN KEY (id_progetto) REFERENCES projects(id) ON DELETE CASCADE,
     CONSTRAINT fk_employee_task FOREIGN KEY (id_dipendente) REFERENCES users(id) ON DELETE SET NULL
 );
