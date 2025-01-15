@@ -108,8 +108,8 @@ public interface DAOConstants {
 	String UPDATE_PROJECT_TASK = "update project_tasks set id_progetto = ?, nome_task = ?, descrizione = ?, id_dipendente = ?, stato = ?, scadenza = ?, fase = ? where id = ?;";
 	
 	String UPDATE_PROJECT_TASK_DIPENDENTE = "update project_tasks set id_dipendente = ? where id = ?;";
-	String UPDATE_PROJECT_FASE = "update project_tasks set fase = ? where id = ?;";
-	String UPDATE_PROJECT_STATO = "update project_tasks set stato = ? where id = ?;";
+	String UPDATE_PROJECT_TASK_FASE = "update project_tasks set fase = ? where id = ?;";
+	String UPDATE_PROJECT_TASK_STATO = "update project_tasks set stato = ? where id = ?;";
 
 	String DELETE_PROJECT_TASK = "delete from project_tasks where id = ?;";
 
