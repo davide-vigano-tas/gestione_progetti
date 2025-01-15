@@ -20,7 +20,8 @@ CREATE TABLE users_roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     role VARCHAR(30) NOT NULL,
     id_users INT NOT NULL,
-    CONSTRAINT fk_id_users FOREIGN KEY (id_users) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_id_users FOREIGN KEY (id_users) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_role_user UNIQUE(role, id_users)
 );
 
 -- PROJECT

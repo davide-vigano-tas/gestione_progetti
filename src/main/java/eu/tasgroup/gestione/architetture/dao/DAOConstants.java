@@ -8,7 +8,6 @@ public interface DAOConstants {
 	String SELECT_USERS = "SELECT * FROM users";
 	String SELECT_USER_ID = "SELECT * FROM users WHERE id = ?";
 	String SELECT_USER_USERNAME = "SELECT * FROM users WHERE username = ?";
-	String SELECT_USER_PASSWORD = "SELECT * FROM users WHERE password = ? AND username = ?";
 	String SELECT_USER_EMAIL = "SELECT * FROM users WHERE email = ?";
 
 	String SELECT_USER_ROLES_BY_USERNAME = "SELECT r.role FROM users u "
@@ -27,9 +26,10 @@ public interface DAOConstants {
 	String INSERT_USERS_ROLES = "INSERT INTO users_roles (id_users, role) VALUES (?, ?)"; 
 
 	// UPDATE
-	String UPDATE_USER = "UPDATE users SET nome = ?, cognome = ?, username = ?, password = ?, "
+	String UPDATE_USER = "UPDATE users SET nome = ?, cognome = ?, username = ?, "
 	        + "email = ?, tentativi_falliti = ?, locked = ? WHERE id = ?";
-	String UPDATE_USER_ROLES = "UPDATE users_roles SET role = ? WHERE id_users = ?";
+	String UPDATE_USER_ROLES = "UPDATE users_roles SET role = ? WHERE id_users = ? AND role = ?";
+	
 
 
 	/*---------------------- PROJECT*/
