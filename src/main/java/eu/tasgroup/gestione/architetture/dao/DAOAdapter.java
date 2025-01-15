@@ -17,13 +17,13 @@ public abstract class DAOAdapter<T> implements GenericDAO<T>{
 	}
 
 	@Override
-	public void delete(Connection conn, T entity) throws DAOException {
+	public void delete(Connection conn, long id) throws DAOException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public T getById(Connection conn, T entity) throws DAOException {
+	public T getById(Connection conn, long id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
