@@ -92,4 +92,57 @@ public interface DAOConstants {
 	
 	// DELETE
 	String DELETE_USER_SKILL ="delete from user_skills where id = ?"; 
+	
+	
+	
+	//   --project tasks
+
+	String INSERT_PROJECT_TASK = "insert into project_tasks (id_progetto, nome_task, descrizione, id_dipendente, stato, scadenza, fase) values (?, ?, ?, ?, ?, ?, ?);";
+
+	String SELECT_PROJECT_TASKS = "select * from project_tasks;";
+	String SELECT_PROJECT_TASK = "select * from project_tasks where id = ?;";
+	String SELECT_PROJECT_TASKS_BY_PROJECT = "select * from project_tasks where id_progetto = ?;";
+	String SELECT_PROJECT_TASKS_BY_DIPENDENTE = "select * from project_tasks where id_dipendente = ?;";
+
+	String UPDATE_PROJECT_TASK = "update project_tasks set id_progetto = ?, nome_task = ?, descrizione = ?, id_dipendente = ?, stato = ?, scadenza = ?, fase = ? where id = ?;";
+	
+	String UPDATE_PROJECT_TASK_DIPENDENTE = "update project_tasks set id_dipendente = ? where id = ?;";
+	String UPDATE_PROJECT_FASE = "update project_tasks set fase = ? where id = ?;";
+	String UPDATE_PROJECT_STATO = "update project_tasks set stato = ? where id = ?;";
+
+	String DELETE_PROJECT_TASK = "delete from project_tasks where id = ?;";
+
+
+
+	//   -- timesheets
+
+	String INSERT_TIMESHEET = "insert into timesheets (id_dipendente, id_progetto, id_task, ore_lavorate, data, approvato) values (?, ?, ?, ?, ?, ?);";
+
+	String SELECT_TIMESHEETS = "select * from timesheets;";
+	String SELECT_TIMESHEET = "select * from timesheets where id = ?;";
+	String SELECT_TIMESHEET_BY_DIPENDENTE = "select * from timesheets where id_dipendente =?;";
+	String SELECT_TIMESHEET_BY_PROJECT = "select * from timesheets where id_progetto = ?;";
+
+	String UPDATE_TIMESHEET = "update timesheets set id_dipendente = ?, id_progetto = ?, id_task = ?, ore_lavorate = ?, data = ?, approvato = ? where id = ?;";
+
+	String DELETE_TIMESHEET = "delete from timesheets where id = ?;";
+
+
+
+	//    --audit logs
+
+	String INSERT_AUDIT_LOG = "insert into audit_logs (utente, operazione, data) values (?, ?, ?);";
+
+	String SELECT_AUDIT_LOGS = "select * from audit_logs;";
+
+	String UPDATE_AUDT_LOG = "update audit_logs set utente = ?, operasione = ?, data = ? where id = ?;";
+
+	String DELETE_AUDIT_LOG = "delete from audit_logs where id = ?;";
+
+
+
+
+
+	
+	
 }
