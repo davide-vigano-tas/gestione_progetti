@@ -99,14 +99,14 @@ public interface DAOConstants {
 	
 	//   --project tasks
 
-	String INSERT_PROJECT_TASK = "insert into project_tasks (id_progetto, nome_task, descrizione, id_dipendente, stato, scadenza, fase) values (?, ?, ?, ?, ?, ?, ?);";
+	String INSERT_PROJECT_TASK = "insert into project_tasks (id_progetto, nome_task, descrizione, id_dipendente, scadenza, fase) values (?, ?, ?, ?, ?, ?);";
 
 	String SELECT_PROJECT_TASKS = "select * from project_tasks;";
 	String SELECT_PROJECT_TASK = "select * from project_tasks where id = ?;";
 	String SELECT_PROJECT_TASKS_BY_PROJECT = "select * from project_tasks where id_progetto = ?;";
 	String SELECT_PROJECT_TASKS_BY_DIPENDENTE = "select * from project_tasks where id_dipendente = ?;";
 
-	String UPDATE_PROJECT_TASK = "update project_tasks set id_progetto = ?, nome_task = ?, descrizione = ?, id_dipendente = ?, stato = ?, scadenza = ?, fase = ? where id = ?;";
+	String UPDATE_PROJECT_TASK = "update project_tasks set nome_task = ?, descrizione = ?, id_dipendente = ?, stato = ?, scadenza = ?, fase = ? where id = ?;";
 	
 	String UPDATE_PROJECT_TASK_DIPENDENTE = "update project_tasks set id_dipendente = ? where id = ?;";
 	String UPDATE_PROJECT_TASK_FASE = "update project_tasks set fase = ? where id = ?;";
