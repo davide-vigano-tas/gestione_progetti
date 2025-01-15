@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS user_skills;
+DROP TABLE IF EXISTS timesheets;
+DROP TABLE IF EXISTS project_tasks;
+DROP TABLE IF EXISTS payments;
+
+DROP TABLE IF EXISTS skills;
+DROP TABLE IF EXISTS projects;
+
+DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS users;
+
+DROP TABLE IF EXISTS audit_logs;

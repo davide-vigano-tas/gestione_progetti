@@ -1,4 +1,4 @@
-ALTER SESSION SET NLS_DATE_LANGUAGE = 'ITALIAN';
+SET lc_time_names = 'it_IT';
 
 -- USER
 
