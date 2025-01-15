@@ -28,7 +28,7 @@ public interface DAOConstants {
 	// UPDATE
 	String UPDATE_USER = "UPDATE users SET nome = ?, cognome = ?, username = ?, "
 	        + "email = ?, tentativi_falliti = ?, locked = ? WHERE id = ?";
-	String UPDATE_USER_ROLES = "UPDATE users_roles SET role = ? WHERE id_users = ?";
+	String UPDATE_USER_ROLES = "UPDATE users_roles SET role = ? WHERE id_users = ? AND role = ?";
 	
 
 
