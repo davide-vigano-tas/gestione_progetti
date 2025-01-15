@@ -50,9 +50,10 @@ public interface DAOConstants {
 	String UPDATE_PROJECT = "UPDATE projects SET nome_progetto = ?, descrizione = ?, data_inizio = ?, "
 	        + "data_fine = ?, budget = ?, stato = ?, id_responsabile = ?, percentuale_completamento = ? WHERE id = ?";
 	
+	// DELETE
+	String DELETE_PROJECT = "DELETE FROM projects WHERE id = ?";
+	
 	/*------------------- PAYMENT*/
-	
-	
 	
 	// SELECT
 	String SELECT_PAYMENTS = "select * from payments";
