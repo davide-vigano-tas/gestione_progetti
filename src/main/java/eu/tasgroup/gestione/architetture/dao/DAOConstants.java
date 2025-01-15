@@ -40,7 +40,7 @@ public interface DAOConstants {
 	// SELECT
 	String SELECT_PROJECTS = "SELECT * FROM projects";
 	String SELECT_PROJECT_ID = "SELECT * FROM projects WHERE id = ?";
-	String SELECT_PROJECT_STATUS = "SELECT * FROM projects WHERE id = ? AND stato = ?";
+	String SELECT_PROJECT_STATUS = "SELECT * FROM projects WHERE stato = ?";
 	String SELECT_PROJECTS_CLIENTE = "SELECT * FROM projects WHERE id_cliente = ?";
 	String SELECT_PROJECTS_RESPONSABILE = "SELECT * FROM projects WHERE id_responsabile = ?";
 	String SELECT_PROJECT_COMPLETAMENTO = "SELECT percentuale_completamento FROM projects WHERE id = ?";
