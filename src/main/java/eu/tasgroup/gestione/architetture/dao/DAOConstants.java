@@ -31,6 +31,9 @@ public interface DAOConstants {
 	String UPDATE_USER_ROLES = "UPDATE users_roles SET role = ? WHERE id_users = ? AND role = ?";
 	
 
+	//DELETE
+	String DELETE_USER = "delete from users where id = ?";
+	String DELETE_USER_ROLE = "delete from users_roles where id = ?";
 
 	/*---------------------- PROJECT*/
 
@@ -47,7 +50,7 @@ public interface DAOConstants {
 	        + "id_responsabile, costo_progetto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 	// UPDATE
-	String UPDATE_PROJECT = "UPDATE projects SET nome_progetto = ?, descrizione = ?, data_inizio = ?, "
+	String UPDATE_PROJECT = "UPDATE projects SET nome_progetto = ?, descrizione = ?, "
 	        + "data_fine = ?, budget = ?, stato = ?, id_responsabile = ?, percentuale_completamento = ? WHERE id = ?";
 	
 	// DELETE
