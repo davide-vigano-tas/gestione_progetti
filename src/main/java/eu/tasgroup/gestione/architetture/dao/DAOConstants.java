@@ -126,6 +126,7 @@ public interface DAOConstants {
 	String SELECT_TIMESHEET_BY_PROJECT = "select * from timesheets where id_progetto = ?;";
 
 	String UPDATE_TIMESHEET = "update timesheets set id_dipendente = ?, id_progetto = ?, id_task = ?, ore_lavorate = ?, data = ? where id = ?;";
+	String APPROVA_TIMESHEET = "update timesheets set approvato = ? where id = ?;";
 
 	String DELETE_TIMESHEET = "delete from timesheets where id = ?;";
 
