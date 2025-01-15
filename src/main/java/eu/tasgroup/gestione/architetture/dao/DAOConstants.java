@@ -118,7 +118,7 @@ public interface DAOConstants {
 
 	//   -- timesheets
 
-	String INSERT_TIMESHEET = "insert into timesheets (id_dipendente, id_progetto, id_task, ore_lavorate, data, approvato) values (?, ?, ?, ?, ?, ?);";
+	String INSERT_TIMESHEET = "insert into timesheets (id_dipendente, id_progetto, id_task, ore_lavorate, data) values (?, ?, ?, ?, ?);";
 
 	String SELECT_TIMESHEETS = "select * from timesheets;";
 	String SELECT_TIMESHEET = "select * from timesheets where id = ?;";
