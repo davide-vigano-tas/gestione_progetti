@@ -86,6 +86,7 @@ public interface DAOConstants {
 	
 	// SELECT
 	String SELECT_USERS_SKILLS = "select * from user_skills";
+	String SELECT_USER_SKILL = "select * from user_skills where id = ?";
 	
 	// INSERT
 	String INSERT_USER_SKILL = "insert into user_skills(id_competenze, id_utente) values(?, ?)";
