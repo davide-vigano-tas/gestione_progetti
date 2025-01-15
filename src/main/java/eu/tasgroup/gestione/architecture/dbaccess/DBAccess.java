@@ -2,38 +2,37 @@ package eu.tasgroup.gestione.architecture.dbaccess;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 
 public class DBAccess {
 
-	private static Connection conn;
-	private static DataSource dataSource;
+    private static DataSource dataSource;
 
-	public static synchronized Connection getConnection() throws NamingException, DAOException {
-		try {
-			// JNDI, prendiamo i parametri dalla configurazione wildfly
-			InitialContext contesto = new InitialContext();
-			// Legge string jndi
-			dataSource = (DataSource) contesto.lookup("java:/MySQLDS");
-			conn = dataSource.getConnection();
-			return conn;
-		} catch (SQLException sql) {
-			throw new DAOException(sql);
-		}
-	}
+    // Otteniamo una connessione dal pool di connessioni configurato in WildFly
+    public static synchronized Connection getConnection() throws NamingException, DAOException {
+        try {
+            // Inizializzazione di dataSource solo se non è già stato fatto
+            if (dataSource == null) {
+                InitialContext contesto = new InitialContext();
+                // Legge la configurazione JNDI per la connessione MySQL
+                dataSource = (DataSource) contesto.lookup("java:/MySQLDS");
+            }
+            return dataSource.getConnection();
+        } catch (SQLException sql) {
+            throw new DAOException(sql);
+        }
+    }
 
-	public static void closeConnection() throws DAOException {
-		try {
-			if (conn != null) {
-				conn.close();
-			}
-		} catch (SQLException sql) {
-			throw new DAOException(sql);
-		}
-	}
+    public static void closeConnection(Connection conn) throws DAOException {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException sql) {
+            throw new DAOException(sql);
+        }
+    }
 }
