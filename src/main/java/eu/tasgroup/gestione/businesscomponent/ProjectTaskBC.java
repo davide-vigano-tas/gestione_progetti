@@ -17,12 +17,13 @@ public class ProjectTaskBC {
 	private ProjectTaskDAO ptDAO;
 
 	public ProjectTaskBC() throws DAOException, NamingException {
-		this.conn = DBAccess.getConnection();
+		
 		this.ptDAO = ProjectTaskDAO.getFactory();
 	}
 
-	public ProjectTask createOrUpdate(ProjectTask pt) throws DAOException {
+	public ProjectTask createOrUpdate(ProjectTask pt) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			if (ptDAO.getById(conn, pt.getId()) != null) {
 				ptDAO.update(conn, pt);
 				return pt;
@@ -44,8 +45,9 @@ public class ProjectTaskBC {
 		}
 	}
 
-	public ProjectTask updateFase(Fase fase, long id) throws DAOException {
+	public ProjectTask updateFase(Fase fase, long id) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			ptDAO.updateFase(conn, fase, id);
 			return ptDAO.getById(conn, id);
 		} finally {
@@ -53,8 +55,9 @@ public class ProjectTaskBC {
 		}
 	}
 
-	public ProjectTask updateStato(StatoTask stato, long id) throws DAOException {
+	public ProjectTask updateStato(StatoTask stato, long id) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			ptDAO.updateStato(conn, stato, id);
 			return ptDAO.getById(conn, id);
 		} finally {
@@ -62,40 +65,45 @@ public class ProjectTaskBC {
 		}
 	}
 
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			ptDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public ProjectTask getByID(long id) throws DAOException {
+	public ProjectTask getByID(long id) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			return ptDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public ProjectTask[] getByAll() throws DAOException {
+	public ProjectTask[] getByAll() throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			return ptDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public List<ProjectTask> getByDipendente(long idDip) throws DAOException {
+	public List<ProjectTask> getByDipendente(long idDip) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			return ptDAO.getByDipendente(conn, idDip);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public List<ProjectTask> getByProject(long idProject) throws DAOException {
+	public List<ProjectTask> getByProject(long idProject) throws DAOException, NamingException {
 		try {
+			this.conn = DBAccess.getConnection();
 			return ptDAO.getByProject(conn, idProject);
 		} finally {
 			DBAccess.closeConnection(conn);
