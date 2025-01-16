@@ -1,4 +1,4 @@
-package eu.tasgroup.gestione.architetture.dao;
+package test.eu.tasgroup.gestione.architetture.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import eu.tasgroup.gestione.architecture.dbaccess.DBAccess;
+import eu.tasgroup.gestione.architetture.dao.AuditLogDAO;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import test.eu.tasgroup.gestione.DBAccessContext;
 
