@@ -11,9 +11,10 @@ import eu.tasgroup.gestione.businesscomponent.model.User;
 import eu.tasgroup.gestione.businesscomponent.security.Algoritmo;
 
 public class UserDAO extends DAOAdapter<User> implements DAOConstants {
-	
-	private UserDAO() {}
-	
+
+	private UserDAO() {
+	}
+
 	public static UserDAO getFactory() {
 		return new UserDAO();
 	}
@@ -30,7 +31,6 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps.setString(5, entity.getEmail());
 
 			ps.execute();
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -43,7 +43,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 		try {
 			ps = conn.prepareStatement(UPDATE_USER);
 			ps.setString(1, entity.getNome());
-			ps.setString(2,  entity.getCognome());
+			ps.setString(2, entity.getCognome());
 			ps.setString(3, entity.getUsername());
 			ps.setString(4, entity.getEmail());
 			ps.setInt(5, entity.getTentativiFalliti());
@@ -55,7 +55,6 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			throw new DAOException(e);
 		}
 	}
-	
 
 	@Override
 	public User getById(Connection conn, long id) throws DAOException {
@@ -65,7 +64,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps = conn.prepareStatement(SELECT_USER_ID);
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				user = new User();
 				user.setId(rs.getLong(1));
 				user.setNome(rs.getString(2));
@@ -76,16 +75,15 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 				user.setTentativiFalliti(rs.getInt(7));
 				user.setLocked(rs.getBoolean(8));
 				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
-				
-			} 
-			
+
+			}
+
 			return user;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
-	
+
 	public User getByUsername(Connection conn, String username) throws DAOException {
 		User user = null;
 		PreparedStatement ps;
@@ -93,7 +91,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps = conn.prepareStatement(SELECT_USER_USERNAME);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				user = new User();
 				user.setId(rs.getLong(1));
 				user.setNome(rs.getString(2));
@@ -104,15 +102,15 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 				user.setTentativiFalliti(rs.getInt(7));
 				user.setLocked(rs.getBoolean(8));
 				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
-				
-			} 
-			
+
+			}
+
 			return user;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public User getByEmail(Connection conn, String email) throws DAOException {
 		User user = null;
 		PreparedStatement ps;
@@ -120,7 +118,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps = conn.prepareStatement(SELECT_USER_EMAIL);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				user = new User();
 				user.setId(rs.getLong(1));
 				user.setNome(rs.getString(2));
@@ -131,9 +129,9 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 				user.setTentativiFalliti(rs.getInt(7));
 				user.setLocked(rs.getBoolean(8));
 				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
-				
-			} 
-			
+
+			}
+
 			return user;
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -145,15 +143,13 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 		User[] users = null;
 
 		try {
-			Statement stmt = conn.createStatement(
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_READ_ONLY);
-			
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
 			ResultSet rs = stmt.executeQuery(SELECT_USERS);
 			rs.last();
 			users = new User[rs.getRow()];
 			rs.beforeFirst();
-			for(int i = 0; rs.next(); i++) {
+			for (int i = 0; rs.next(); i++) {
 				User user = new User();
 				user.setId(rs.getLong(1));
 				user.setNome(rs.getString(2));
@@ -165,19 +161,18 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 				user.setLocked(rs.getBoolean(8));
 				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
 				users[i] = user;
-			} 
+			}
 			return users;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public User[] getBySkill(Connection conn, Skills skill) throws DAOException {
 		User[] users = null;
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement(SELECT_USERS_BY_SKILL,
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
+			ps = conn.prepareStatement(SELECT_USERS_BY_SKILL, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
 			ps.setString(1, skill.name());
 			ResultSet rs = ps.executeQuery();
@@ -185,7 +180,7 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			users = new User[rs.getRow()];
 			rs.beforeFirst();
 			for (int i = 0; rs.next(); i++) {
-				User user  = new User();
+				User user = new User();
 				user.setId(rs.getLong(1));
 				user.setNome(rs.getString(2));
 				user.setCognome(rs.getString(3));
@@ -195,18 +190,18 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 				user.setTentativiFalliti(rs.getInt(7));
 				user.setLocked(rs.getBoolean(8));
 				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
-				
+
 				users[i] = user;
-				
-			} 
-			
+
+			}
+
 			return users;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 
 	}
-	
+
 	@Override
 	public void delete(Connection conn, long id) throws DAOException {
 		PreparedStatement ps;
@@ -214,7 +209,6 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			ps = conn.prepareStatement(DELETE_USER);
 			ps.setLong(1, id);
 			ps.execute();
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);

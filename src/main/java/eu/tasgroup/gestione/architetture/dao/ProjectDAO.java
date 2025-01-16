@@ -57,9 +57,9 @@ public class ProjectDAO implements DAOConstants, GenericDAO<Project> {
 			ps.setString(5, entity.getStato().toString());
 			ps.setLong(6, entity.getIdResponsabile());
 			ps.setLong(7, entity.getPercentualeCompletamento());
-			
+
 			ps.setLong(8, entity.getId());
-			
+
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -188,7 +188,7 @@ public class ProjectDAO implements DAOConstants, GenericDAO<Project> {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public List<Project> getListProjectByResponsabile(Connection conn, long id) throws DAOException {
 		try {
 			PreparedStatement ps = conn.prepareStatement(SELECT_PROJECTS_RESPONSABILE);
@@ -222,7 +222,5 @@ public class ProjectDAO implements DAOConstants, GenericDAO<Project> {
 
 		return progetti;
 	}
-
-	
 
 }

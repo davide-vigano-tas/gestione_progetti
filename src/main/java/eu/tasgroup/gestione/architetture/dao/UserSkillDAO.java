@@ -22,8 +22,8 @@ public class UserSkillDAO extends DAOAdapter<UserSkill> implements DAOConstants 
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(INSERT_USER_SKILL);
-			ps.setLong(1, entity.getId_competenze());
-			ps.setLong(2, entity.getId_utente());
+			ps.setLong(1, entity.getIdCompetenze());
+			ps.setLong(2, entity.getIdUtente());
 
 			ps.execute();
 		} catch (SQLException e) {
@@ -61,8 +61,8 @@ public class UserSkillDAO extends DAOAdapter<UserSkill> implements DAOConstants 
 				UserSkill userSkill = new UserSkill();
 
 				userSkill.setId(rs.getLong(1));
-				userSkill.setId_competenze(rs.getLong(2));
-				userSkill.setId_utente(rs.getLong(3));
+				userSkill.setIdCompetenze(rs.getLong(2));
+				userSkill.setIdUtente(rs.getLong(3));
 
 				userSkills[i] = userSkill;
 			}
@@ -88,8 +88,8 @@ public class UserSkillDAO extends DAOAdapter<UserSkill> implements DAOConstants 
 				userSkill = new UserSkill();
 
 				userSkill.setId(rs.getLong(1));
-				userSkill.setId_competenze(rs.getLong(2));
-				userSkill.setId_utente(rs.getLong(3));
+				userSkill.setIdCompetenze(rs.getLong(2));
+				userSkill.setIdUtente(rs.getLong(3));
 			}
 
 		} catch (SQLException e) {

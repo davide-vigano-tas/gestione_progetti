@@ -23,7 +23,7 @@ public class PaymentDAO extends DAOAdapter<Payment> implements DAOConstants {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(INSERT_PAYMENT);
-			ps.setLong(1, entity.getId_progetto());
+			ps.setLong(1, entity.getIdProgetto());
 			ps.setDouble(2, entity.getCifra());
 
 			ps.execute();
@@ -48,7 +48,7 @@ public class PaymentDAO extends DAOAdapter<Payment> implements DAOConstants {
 			if(rs.next()) {
 				payment = new Payment();
 				payment.setId(rs.getLong(1));
-				payment.setId_progetto(rs.getLong(2));
+				payment.setIdProgetto(rs.getLong(2));
 				payment.setCifra(rs.getDouble(3));
 				
 			} 
@@ -78,7 +78,7 @@ public class PaymentDAO extends DAOAdapter<Payment> implements DAOConstants {
 			for(int i = 0; rs.next(); i++) {
 				Payment payment = new Payment();
 				payment.setId(rs.getLong(1));
-				payment.setId_progetto(rs.getLong(2));
+				payment.setIdProgetto(rs.getLong(2));
 				payment.setCifra(rs.getDouble(3));
 				payments[i] = payment;
 			} 
@@ -103,7 +103,7 @@ public class PaymentDAO extends DAOAdapter<Payment> implements DAOConstants {
 			for (int i = 0; rs.next(); i++) {
 				Payment payment = new Payment();
 				payment.setId(rs.getLong(1));
-				payment.setId_progetto(rs.getLong(2));
+				payment.setIdProgetto(rs.getLong(2));
 				payment.setCifra(rs.getDouble(3));
 				payments[i] = payment;
 				
@@ -132,7 +132,7 @@ public class PaymentDAO extends DAOAdapter<Payment> implements DAOConstants {
 			for (int i = 0; rs.next(); i++) {
 				Payment payment = new Payment();
 				payment.setId(rs.getLong(1));
-				payment.setId_progetto(rs.getLong(2));
+				payment.setIdProgetto(rs.getLong(2));
 				payment.setCifra(rs.getDouble(3));
 				payments[i] = payment;
 				

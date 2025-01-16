@@ -10,8 +10,9 @@ import eu.tasgroup.gestione.businesscomponent.model.Role;
 
 public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 
-	private RoleDAO() {}
-	
+	private RoleDAO() {
+	}
+
 	public static RoleDAO getFactory() {
 		return new RoleDAO();
 	}
@@ -25,7 +26,6 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			ps.setString(2, entity.getRole().name());
 
 			ps.execute();
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -45,13 +45,12 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public Ruoli[] getByUserId(Connection conn, long id_user) throws DAOException {
 		Ruoli[] roles = null;
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement(SELECT_USER_ROLES_BY_USER_ID,
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
+			ps = conn.prepareStatement(SELECT_USER_ROLES_BY_USER_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
 			ps.setLong(1, id_user);
 			ResultSet rs = ps.executeQuery();
@@ -59,25 +58,22 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			roles = new Ruoli[rs.getRow()];
 			rs.beforeFirst();
 			for (int i = 0; rs.next(); i++) {
-		
-				
+
 				roles[i] = Ruoli.valueOf(rs.getString(1));
-				
-			} 
-			
+
+			}
+
 			return roles;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
-	
+
 	public Ruoli[] getByUsername(Connection conn, String username) throws DAOException {
 		Ruoli[] roles = null;
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement(SELECT_USER_ROLES_BY_USERNAME,
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
+			ps = conn.prepareStatement(SELECT_USER_ROLES_BY_USERNAME, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
@@ -85,19 +81,17 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			roles = new Ruoli[rs.getRow()];
 			rs.beforeFirst();
 			for (int i = 0; rs.next(); i++) {
-		
-				
+
 				roles[i] = Ruoli.valueOf(rs.getString(1));
-				
-			} 
-			
+
+			}
+
 			return roles;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
-	
+
 	public void delete(Connection conn, Ruoli ruolo, long id) throws DAOException {
 		PreparedStatement ps;
 		try {
@@ -105,11 +99,10 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			ps.setString(1, ruolo.name());
 			ps.setLong(2, id);
 			ps.execute();
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 }

@@ -3,35 +3,43 @@ package eu.tasgroup.gestione.businesscomponent.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UserSkill implements Serializable{
+public class UserSkill implements Serializable {
 
 	private static final long serialVersionUID = -988738152236513943L;
-	
+
 	private long id;
-	private long id_competenze;
-	private long id_utente;
+	private long idCompetenze;
+	private long idUtente;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getId_competenze() {
-		return id_competenze;
+
+	public long getIdCompetenze() {
+		return idCompetenze;
 	}
-	public void setId_competenze(long id_competenze) {
-		this.id_competenze = id_competenze;
+
+	public void setIdCompetenze(long idCompetenze) {
+		this.idCompetenze = idCompetenze;
 	}
-	public long getId_utente() {
-		return id_utente;
+
+	public long getIdUtente() {
+		return idUtente;
 	}
-	public void setId_utente(long id_utente) {
-		this.id_utente = id_utente;
+
+	public void setIdUtente(long idUtente) {
+		this.idUtente = idUtente;
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, id_competenze, id_utente);
+		return Objects.hash(id, idCompetenze, idUtente);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,14 +49,12 @@ public class UserSkill implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		UserSkill other = (UserSkill) obj;
-		return id == other.id && id_competenze == other.id_competenze && id_utente == other.id_utente;
+		return id == other.id && idCompetenze == other.idCompetenze && idUtente == other.idUtente;
 	}
+
 	@Override
 	public String toString() {
-		return "UserSkill [id=" + id + ", id_competenze=" + id_competenze + ", id_utente=" + id_utente + "]";
+		return "UserSkill [id=" + id + ", id_competenze=" + idCompetenze + ", id_utente=" + idUtente + "]";
 	}
-	
-	
-	
 
 }

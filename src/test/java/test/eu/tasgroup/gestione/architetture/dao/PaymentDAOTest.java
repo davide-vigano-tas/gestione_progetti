@@ -91,7 +91,7 @@ class PaymentDAOTest {
 			List<Project> pr = ProjectDAO.getFactory().getListProjectByCliente(conn, cliente.getId());
 			project = pr.get(0);
 			
-			payment.setId_progetto(project.getId());
+			payment.setIdProgetto(project.getId());
 			PaymentDAO.getFactory().create(conn, payment);
 			
 			Payment[] ps = PaymentDAO.getFactory().getByUser(conn, cliente);

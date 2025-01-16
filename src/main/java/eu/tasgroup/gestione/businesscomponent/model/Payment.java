@@ -9,7 +9,7 @@ public class Payment implements Serializable{
 	private static final long serialVersionUID = 2636460469019243963L;
 
 	private long id;
-	private long id_progetto;
+	private long idProgetto;
 	private double cifra;
 	public long getId() {
 		return id;
@@ -17,11 +17,11 @@ public class Payment implements Serializable{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getId_progetto() {
-		return id_progetto;
+	public long getIdProgetto() {
+		return idProgetto;
 	}
-	public void setId_progetto(long id_progetto) {
-		this.id_progetto = id_progetto;
+	public void setIdProgetto(long idProgetto) {
+		this.idProgetto = idProgetto;
 	}
 	public double getCifra() {
 		return cifra;
@@ -31,7 +31,7 @@ public class Payment implements Serializable{
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cifra, id, id_progetto);
+		return Objects.hash(cifra, id, idProgetto);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -43,11 +43,11 @@ public class Payment implements Serializable{
 			return false;
 		Payment other = (Payment) obj;
 		return Double.doubleToLongBits(cifra) == Double.doubleToLongBits(other.cifra) && id == other.id
-				&& id_progetto == other.id_progetto;
+				&& idProgetto == other.idProgetto;
 	}
 	@Override
 	public String toString() {
-		return "Payment [id=" + id + ", id_progetto=" + id_progetto + ", cifra=" + cifra + "]";
+		return "Payment [id=" + id + ", id_progetto=" + idProgetto + ", cifra=" + cifra + "]";
 	}
 	
 	

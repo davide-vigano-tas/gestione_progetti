@@ -4,17 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class AuditLog implements Serializable{
+public class AuditLog implements Serializable {
 	private static final long serialVersionUID = 195969313819477500L;
 
 	private long id;
 	private String utente;
 	private String operazione;
 	private Date data;
-	
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}

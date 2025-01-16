@@ -93,12 +93,12 @@ class TimesheetDAOTest {
 		project1.setCostoProgetto(50000.00);
 
 		projectTask = new ProjectTask();
-		projectTask.setNome_task("Task1");
+		projectTask.setNomeTask("Task1");
 		projectTask.setDescrizione("Descrizione Task");
 		projectTask.setScadenza(new Date());
 
 		timeSheet = new Timesheet();
-		timeSheet.setOre_lavorate(8);
+		timeSheet.setOreLavorate(8);
 		timeSheet.setData(new Date());
 
 	}
@@ -133,8 +133,8 @@ class TimesheetDAOTest {
 			Project[] progetti = ProjectDAO.getFactory().getAll(conn);
 			project1.setId(progetti[0].getId());
 
-			projectTask.setId_progetto(project1.getId());
-			projectTask.setId_dipendente(dipendente.getId());
+			projectTask.setIdProgetto(project1.getId());
+			projectTask.setIdDipendente(dipendente.getId());
 			projectTask.setFase(Fase.PLAN);
 
 			ProjectTaskDAO.getFactory().create(conn, projectTask);
@@ -142,9 +142,9 @@ class TimesheetDAOTest {
 
 			projectTask.setId(projectTasks[0].getId());
 
-			timeSheet.setId_progetto(project1.getId());
-			timeSheet.setId_dipendente(dipendente.getId());
-			timeSheet.setId_task(projectTask.getId());
+			timeSheet.setIdProgetto(project1.getId());
+			timeSheet.setIdDipendente(dipendente.getId());
+			timeSheet.setIdTask(projectTask.getId());
 
 			TimesheetDAO.getFactory().create(conn, timeSheet);
 			Timesheet[] timesheets = TimesheetDAO.getFactory().getAll(conn);
@@ -194,7 +194,7 @@ class TimesheetDAOTest {
 		try {
 			conn = DBAccess.getConnection();
 			
-			timeSheet.setOre_lavorate(9);
+			timeSheet.setOreLavorate(9);
 			GregorianCalendar c = new GregorianCalendar(10, 10, 2025);
 			timeSheet.setData(c.getTime());
 
@@ -202,7 +202,7 @@ class TimesheetDAOTest {
 			timeSheet = TimesheetDAO.getFactory().getById(conn, timeSheet.getId());
 
 			assertNotNull(timeSheet);
-			assertEquals(timeSheet.getOre_lavorate(), 9);
+			assertEquals(timeSheet.getOreLavorate(), 9);
 			assertNotEquals(timeSheet.getData(), new Date());
 		} catch (Exception e) {
 			fail("Failed testUpdate : " + e.getMessage());
@@ -229,7 +229,7 @@ class TimesheetDAOTest {
 		try {
 			conn = DBAccess.getConnection();
 			
-			List<Timesheet> list = TimesheetDAO.getFactory().getByDipendente(conn, timeSheet.getId_dipendente());
+			List<Timesheet> list = TimesheetDAO.getFactory().getByDipendente(conn, timeSheet.getIdDipendente());
 			assertEquals(list.size(),1);
 
 		} catch (Exception e) {
@@ -242,7 +242,7 @@ class TimesheetDAOTest {
 		try {
 			conn = DBAccess.getConnection();
 			
-			List<Timesheet> list = TimesheetDAO.getFactory().getByDipendente(conn, timeSheet.getId_dipendente());
+			List<Timesheet> list = TimesheetDAO.getFactory().getByDipendente(conn, timeSheet.getIdDipendente());
 			assertEquals(list.size(),1);
 
 		} catch (Exception e) {

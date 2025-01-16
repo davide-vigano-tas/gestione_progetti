@@ -67,8 +67,8 @@ class UserSkillDAOTest {
 			
 			skill = skills2[0];
 			
-			uk.setId_competenze(skill.getId());
-			uk.setId_utente(user1.getId());
+			uk.setIdCompetenze(skill.getId());
+			uk.setIdUtente(user1.getId());
 			
 			UserSkillDAO.getFactory().create(conn, uk);
 			
@@ -89,8 +89,8 @@ class UserSkillDAOTest {
 			assertTrue(usk.length >= 1, "Almeno un elemento");
 			for(UserSkill userskill : usk) {
 				assertNotNull(userskill, "Non deve contenere elementi nulli");
-				if(userskill.getId_competenze()==uk.getId_competenze() &&
-						userskill.getId_utente() == uk.getId_utente()) {
+				if(userskill.getIdCompetenze()==uk.getIdCompetenze() &&
+						userskill.getIdUtente() == uk.getIdUtente()) {
 					uk = userskill;
 					break;
 				}

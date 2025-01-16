@@ -73,7 +73,7 @@ class ProjectTaskDAOTest {
 		project.setDataFine(new Date(LocalDateTime.now().plusMonths(6).getSecond()*1000));
 		
 		pt = new ProjectTask();
-		pt.setNome_task("accarezzare il gatto davanti casa");
+		pt.setNomeTask("accarezzare il gatto davanti casa");
 		pt.setDescrizione("gia che ci sei dagli da mangiare che ha fame");
 		pt.setScadenza(new Date());
 		pt.setFase(Fase.DESIGN);
@@ -104,8 +104,8 @@ class ProjectTaskDAOTest {
 			List<Project> pr = ProjectDAO.getFactory().getListProjectByCliente(conn, cliente.getId());
 			project = pr.get(0);
 			
-			pt.setId_progetto(project.getId());
-			pt.setId_dipendente(dipendente.getId());
+			pt.setIdProgetto(project.getId());
+			pt.setIdDipendente(dipendente.getId());
 			ProjectTaskDAO.getFactory().create(conn, pt);
 			
 			List<ProjectTask> pts = ProjectTaskDAO.getFactory().getByDipendente(conn, dipendente.getId());
@@ -143,14 +143,14 @@ class ProjectTaskDAOTest {
 		try {
 			conn = DBAccess.getConnection();
 			
-			assertEquals(dipendente.getId(), pt.getId_dipendente());
+			assertEquals(dipendente.getId(), pt.getIdDipendente());
 			
-			pt.setId_dipendente(projectmanager.getId());
+			pt.setIdDipendente(projectmanager.getId());
 			
 			ProjectTaskDAO.getFactory().updateDipendente(conn, pt);
 			
 			assertEquals(0,ProjectTaskDAO.getFactory().getByDipendente(conn, dipendente.getId()).size());
-			assertEquals(projectmanager.getId(),ProjectTaskDAO.getFactory().getByDipendente(conn, projectmanager.getId()).get(0).getId_dipendente(), "i dipendenti devono coincidere");
+			assertEquals(projectmanager.getId(),ProjectTaskDAO.getFactory().getByDipendente(conn, projectmanager.getId()).get(0).getIdDipendente(), "i dipendenti devono coincidere");
 			
 			assertEquals(pt.getFase(), Fase.DESIGN);
 			assertEquals(pt.getStato(), StatoTask.DA_INIZIARE);
@@ -164,9 +164,9 @@ class ProjectTaskDAOTest {
 			assertEquals(pt.getStato(), StatoTask.COMPLETATO);
 			
 			
-			pt.setNome_task("MIAO");
+			pt.setNomeTask("MIAO");
 			ProjectTaskDAO.getFactory().update(conn, pt);
-			assertEquals("MIAO", ProjectTaskDAO.getFactory().getById(conn, pt.getId()).getNome_task());
+			assertEquals("MIAO", ProjectTaskDAO.getFactory().getById(conn, pt.getId()).getNomeTask());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

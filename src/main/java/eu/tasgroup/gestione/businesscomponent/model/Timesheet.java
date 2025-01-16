@@ -8,60 +8,74 @@ public class Timesheet implements Serializable {
 	private static final long serialVersionUID = 7654336974232692517L;
 
 	private long id;
-	private long id_dipendente;
-	private long id_progetto;
-	private long id_task;
-	private double ore_lavorate;
+	private long idDipendente;
+	private long idProgetto;
+	private long idTask;
+	private double oreLavorate;
 	private Date data;
 	private boolean approvato;
-	
-	
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getId_dipendente() {
-		return id_dipendente;
+
+	public long getIdDipendente() {
+		return idDipendente;
 	}
-	public void setId_dipendente(long id_dipendente) {
-		this.id_dipendente = id_dipendente;
+
+	public void setIdDipendente(long idDipendente) {
+		this.idDipendente = idDipendente;
 	}
-	public long getId_progetto() {
-		return id_progetto;
+
+	public long getIdProgetto() {
+		return idProgetto;
 	}
-	public void setId_progetto(long id_progetto) {
-		this.id_progetto = id_progetto;
+
+	public void setIdProgetto(long idProgetto) {
+		this.idProgetto = idProgetto;
 	}
-	public long getId_task() {
-		return id_task;
+
+	public long getIdTask() {
+		return idTask;
 	}
-	public void setId_task(long id_task) {
-		this.id_task = id_task;
+
+	public void setIdTask(long idTask) {
+		this.idTask = idTask;
 	}
-	public double getOre_lavorate() {
-		return ore_lavorate;
+
+	public double getOreLavorate() {
+		return oreLavorate;
 	}
-	public void setOre_lavorate(double ore_lavorate) {
-		this.ore_lavorate = ore_lavorate;
+
+	public void setOreLavorate(double oreLavorate) {
+		this.oreLavorate = oreLavorate;
 	}
+
 	public Date getData() {
 		return data;
 	}
+
 	public void setData(Date data) {
 		this.data = data;
 	}
+
 	public boolean isApprovato() {
 		return approvato;
 	}
+
 	public void setApprovato(boolean approvato) {
 		this.approvato = approvato;
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(approvato, data, id, id_dipendente, id_progetto, id_task, ore_lavorate);
+		return Objects.hash(approvato, data, id, idDipendente, idProgetto, idTask, oreLavorate);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,13 +86,13 @@ public class Timesheet implements Serializable {
 			return false;
 		Timesheet other = (Timesheet) obj;
 		return approvato == other.approvato && Objects.equals(data, other.data) && id == other.id
-				&& id_dipendente == other.id_dipendente && id_progetto == other.id_progetto && id_task == other.id_task
-				&& Double.doubleToLongBits(ore_lavorate) == Double.doubleToLongBits(other.ore_lavorate);
+				&& idDipendente == other.idDipendente && idProgetto == other.idProgetto && idTask == other.idTask
+				&& Double.doubleToLongBits(oreLavorate) == Double.doubleToLongBits(other.oreLavorate);
 	}
+
 	@Override
 	public String toString() {
-		return "Timesheet [id=" + id + ", id_dipendente=" + id_dipendente + ", id_progetto=" + id_progetto
-				+ ", id_task=" + id_task + ", ore_lavorate=" + ore_lavorate + ", data=" + data + ", approvato="
-				+ approvato + "]";
+		return "Timesheet [id=" + id + ", id_dipendente=" + idDipendente + ", id_progetto=" + idProgetto + ", id_task="
+				+ idTask + ", ore_lavorate=" + oreLavorate + ", data=" + data + ", approvato=" + approvato + "]";
 	}
 }

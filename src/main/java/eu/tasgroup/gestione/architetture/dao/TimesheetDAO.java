@@ -24,10 +24,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 		try {
 			ps = conn.prepareStatement(INSERT_TIMESHEET);
 			
-			ps.setLong(1, entity.getId_dipendente());
-			ps.setLong(2, entity.getId_progetto());
-			ps.setLong(3, entity.getId_task());
-			ps.setDouble(4, entity.getOre_lavorate());
+			ps.setLong(1, entity.getIdDipendente());
+			ps.setLong(2, entity.getIdProgetto());
+			ps.setLong(3, entity.getIdTask());
+			ps.setDouble(4, entity.getOreLavorate());
 			ps.setDate(5, new java.sql.Date(entity.getData().getTime()));
 			
 			ps.execute();
@@ -43,10 +43,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 		try {
 			ps = conn.prepareStatement(UPDATE_TIMESHEET);
 			
-			ps.setLong(1, entity.getId_dipendente());
-			ps.setLong(2, entity.getId_progetto());
-			ps.setLong(3, entity.getId_task());
-			ps.setDouble(4, entity.getOre_lavorate());
+			ps.setLong(1, entity.getIdDipendente());
+			ps.setLong(2, entity.getIdProgetto());
+			ps.setLong(3, entity.getIdTask());
+			ps.setDouble(4, entity.getOreLavorate());
 			ps.setDate(5, new java.sql.Date(entity.getData().getTime()));
 			ps.setLong(6, entity.getId());
 			
@@ -98,10 +98,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 			if (rs.next()) {
 				timesheet = new Timesheet(); 
 				timesheet.setId(rs.getLong(1));
-				timesheet.setId_dipendente(rs.getLong(2));
-				timesheet.setId_progetto(rs.getLong(3));
-				timesheet.setId_task(rs.getLong(4));
-				timesheet.setOre_lavorate(rs.getDouble(5));
+				timesheet.setIdDipendente(rs.getLong(2));
+				timesheet.setIdProgetto(rs.getLong(3));
+				timesheet.setIdTask(rs.getLong(4));
+				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
 				timesheet.setApprovato(rs.getBoolean(7));
 			}
@@ -125,10 +125,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				Timesheet timesheet = new Timesheet();
 				timesheet = new Timesheet(); 
 				timesheet.setId(rs.getLong(1));
-				timesheet.setId_dipendente(rs.getLong(2));
-				timesheet.setId_progetto(rs.getLong(3));
-				timesheet.setId_task(rs.getLong(4));
-				timesheet.setOre_lavorate(rs.getDouble(5));
+				timesheet.setIdDipendente(rs.getLong(2));
+				timesheet.setIdProgetto(rs.getLong(3));
+				timesheet.setIdTask(rs.getLong(4));
+				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
 				timesheet.setApprovato(rs.getBoolean(7));
 				timesheets[i] = timesheet;
@@ -152,10 +152,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				Timesheet timesheet = new Timesheet();
 				timesheet = new Timesheet(); 
 				timesheet.setId(rs.getLong(1));
-				timesheet.setId_dipendente(rs.getLong(2));
-				timesheet.setId_progetto(rs.getLong(3));
-				timesheet.setId_task(rs.getLong(4));
-				timesheet.setOre_lavorate(rs.getDouble(5));
+				timesheet.setIdDipendente(rs.getLong(2));
+				timesheet.setIdProgetto(rs.getLong(3));
+				timesheet.setIdTask(rs.getLong(4));
+				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
 				timesheet.setApprovato(rs.getBoolean(7));
 				timesheets.add(timesheet);
@@ -178,10 +178,10 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				Timesheet timesheet = new Timesheet();
 				timesheet = new Timesheet(); 
 				timesheet.setId(rs.getLong(1));
-				timesheet.setId_dipendente(rs.getLong(2));
-				timesheet.setId_progetto(rs.getLong(3));
-				timesheet.setId_task(rs.getLong(4));
-				timesheet.setOre_lavorate(rs.getDouble(5));
+				timesheet.setIdDipendente(rs.getLong(2));
+				timesheet.setIdProgetto(rs.getLong(3));
+				timesheet.setIdTask(rs.getLong(4));
+				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
 				timesheet.setApprovato(rs.getBoolean(7));
 				timesheets.add(timesheet);

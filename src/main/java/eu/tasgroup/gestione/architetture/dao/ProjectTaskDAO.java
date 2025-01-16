@@ -13,25 +13,26 @@ import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 
 public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConstants {
-	private ProjectTaskDAO() {}
-	
+	private ProjectTaskDAO() {
+	}
+
 	public static ProjectTaskDAO getFactory() {
 		return new ProjectTaskDAO();
 	}
-	
+
 	@Override
 	public void create(Connection conn, ProjectTask entity) throws DAOException {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(INSERT_PROJECT_TASK);
-			
-			ps.setLong(1, entity.getId_progetto());
-			ps.setString(2, entity.getNome_task());
+
+			ps.setLong(1, entity.getIdProgetto());
+			ps.setString(2, entity.getNomeTask());
 			ps.setString(3, entity.getDescrizione());
-			ps.setLong(4, entity.getId_dipendente());
+			ps.setLong(4, entity.getIdDipendente());
 			ps.setDate(5, new java.sql.Date(entity.getScadenza().getTime()));
 			ps.setString(6, entity.getFase().name());
-			
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -41,61 +42,63 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 	@Override
 	public void update(Connection conn, ProjectTask entity) throws DAOException {
 		PreparedStatement ps;
-		
+
 		try {
 			ps = conn.prepareStatement(UPDATE_PROJECT_TASK);
-			
-			ps.setString(1, entity.getNome_task());
+
+			ps.setString(1, entity.getNomeTask());
 			ps.setString(2, entity.getDescrizione());
-			ps.setLong(3, entity.getId_dipendente());
+			ps.setLong(3, entity.getIdDipendente());
 			ps.setString(4, entity.getStato().name());
 			ps.setDate(5, new java.sql.Date(entity.getScadenza().getTime()));
 			ps.setString(6, entity.getFase().name());
 			ps.setLong(7, entity.getId());
-			
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public void updateDipendente(Connection conn, ProjectTask entity) throws DAOException {
 		PreparedStatement ps;
-		
+
 		try {
 			ps = conn.prepareStatement(UPDATE_PROJECT_TASK_DIPENDENTE);
-			
-			ps.setLong(1, entity.getId_dipendente());
+
+			ps.setLong(1, entity.getIdDipendente());
 			ps.setLong(2, entity.getId());
-			
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
+
 	public void updateFase(Connection conn, Fase fase, long id) throws DAOException {
 		PreparedStatement ps;
-		
+
 		try {
 			ps = conn.prepareStatement(UPDATE_PROJECT_TASK_FASE);
-			
+
 			ps.setString(1, fase.name());
 			ps.setLong(2, id);
-			
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
+
 	public void updateStato(Connection conn, StatoTask stato, long id) throws DAOException {
 		PreparedStatement ps;
-		
+
 		try {
 			ps = conn.prepareStatement(UPDATE_PROJECT_TASK_STATO);
-			
+
 			ps.setString(1, stato.name());
 			ps.setLong(2, id);
-			
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -129,10 +132,10 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 			if (rs.next()) {
 				projectTask = new ProjectTask();
 				projectTask.setId(rs.getLong(1));
-				projectTask.setId_progetto(rs.getLong(2));
-				projectTask.setNome_task(rs.getString(3));
+				projectTask.setIdProgetto(rs.getLong(2));
+				projectTask.setNomeTask(rs.getString(3));
 				projectTask.setDescrizione(rs.getString(4));
-				projectTask.setId_dipendente(rs.getLong(5));
+				projectTask.setIdDipendente(rs.getLong(5));
 				projectTask.setStato(StatoTask.valueOf(rs.getString(6)));
 				projectTask.setScadenza(new java.util.Date(rs.getDate(7).getTime()));
 				projectTask.setFase(Fase.valueOf(rs.getString(8)));
@@ -156,10 +159,10 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 			for (int i = 0; rs.next(); ++i) {
 				ProjectTask projectTask = new ProjectTask();
 				projectTask.setId(rs.getLong(1));
-				projectTask.setId_progetto(rs.getLong(2));
-				projectTask.setNome_task(rs.getString(3));
+				projectTask.setIdProgetto(rs.getLong(2));
+				projectTask.setNomeTask(rs.getString(3));
 				projectTask.setDescrizione(rs.getString(4));
-				projectTask.setId_dipendente(rs.getLong(5));
+				projectTask.setIdDipendente(rs.getLong(5));
 				projectTask.setStato(StatoTask.valueOf(rs.getString(6)));
 				projectTask.setScadenza(new java.util.Date(rs.getDate(7).getTime()));
 				projectTask.setFase(Fase.valueOf(rs.getString(8)));
@@ -171,6 +174,7 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 		return projectTasks;
 
 	}
+
 	public List<ProjectTask> getByDipendente(Connection conn, long idDipendente) throws DAOException {
 		List<ProjectTask> projectTasks = new ArrayList<ProjectTask>();
 		PreparedStatement ps;
@@ -178,14 +182,14 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 			ps = conn.prepareStatement(SELECT_PROJECT_TASKS_BY_DIPENDENTE);
 			ps.setLong(1, idDipendente);
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				ProjectTask projectTask = new ProjectTask();
 				projectTask.setId(rs.getLong(1));
-				projectTask.setId_progetto(rs.getLong(2));
-				projectTask.setNome_task(rs.getString(3));
+				projectTask.setIdProgetto(rs.getLong(2));
+				projectTask.setNomeTask(rs.getString(3));
 				projectTask.setDescrizione(rs.getString(4));
-				projectTask.setId_dipendente(rs.getLong(5));
+				projectTask.setIdDipendente(rs.getLong(5));
 				projectTask.setStato(StatoTask.valueOf(rs.getString(6)));
 				projectTask.setScadenza(new java.util.Date(rs.getDate(7).getTime()));
 				projectTask.setFase(Fase.valueOf(rs.getString(8)));
@@ -196,7 +200,7 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 		}
 		return projectTasks;
 	}
-	
+
 	public List<ProjectTask> getByProject(Connection conn, long idProject) throws DAOException {
 		List<ProjectTask> projectTasks = new ArrayList<ProjectTask>();
 		PreparedStatement ps;
@@ -204,14 +208,14 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 			ps = conn.prepareStatement(SELECT_PROJECT_TASKS_BY_PROJECT);
 			ps.setLong(1, idProject);
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				ProjectTask projectTask = new ProjectTask();
 				projectTask.setId(rs.getLong(1));
-				projectTask.setId_progetto(rs.getLong(2));
-				projectTask.setNome_task(rs.getString(3));
+				projectTask.setIdProgetto(rs.getLong(2));
+				projectTask.setNomeTask(rs.getString(3));
 				projectTask.setDescrizione(rs.getString(4));
-				projectTask.setId_dipendente(rs.getLong(5));
+				projectTask.setIdDipendente(rs.getLong(5));
 				projectTask.setStato(StatoTask.valueOf(rs.getString(6)));
 				projectTask.setScadenza(new java.util.Date(rs.getDate(7).getTime()));
 				projectTask.setFase(Fase.valueOf(rs.getString(8)));
@@ -222,7 +226,5 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 		}
 		return projectTasks;
 	}
-	
-	
 
 }
