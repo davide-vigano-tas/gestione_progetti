@@ -73,7 +73,7 @@ CREATE TABLE project_tasks (
     id_dipendente INT,
     stato ENUM('DA_INIZIARE', 'IN_PROGRESS', 'COMPLETATO') DEFAULT 'DA_INIZIARE',
     scadenza DATE NOT NULL,
-    fase ENUM('PLAN', 'ANALIS', 'DESIGN', 'BUILD', 'TEST', 'DEPLOY') DEFAULT 'PLAN',
+    fase ENUM('PLAN', 'ANALISI', 'DESIGN', 'BUILD', 'TEST', 'DEPLOY') DEFAULT 'PLAN',
     CONSTRAINT fk_project FOREIGN KEY (id_progetto) REFERENCES projects(id) ON DELETE CASCADE,
     CONSTRAINT fk_employee_task FOREIGN KEY (id_dipendente) REFERENCES users(id) ON DELETE SET NULL
 );
