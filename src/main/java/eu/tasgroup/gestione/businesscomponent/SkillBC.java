@@ -14,13 +14,14 @@ public class SkillBC {
 	private Connection conn;
 	private SkillDAO sDAO;
 
-	public SkillBC() throws DAOException, NamingException {
-		this.conn = DBAccess.getConnection();
+	public SkillBC() {
+		
 		this.sDAO = SkillDAO.getFactory();
 	}
 
-	public Skill create(Skill s) throws DAOException {
+	public Skill create(Skill s) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			sDAO.create(conn, s);
 			Skill[] skills = sDAO.getAll(conn);
 
@@ -37,48 +38,54 @@ public class SkillBC {
 		}
 	}
 	
-	public Skill getByID(long id) throws DAOException {
+	public Skill getByID(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return sDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public Skill[] getByAll() throws DAOException {
+	public Skill[] getByAll() throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return sDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public Skill[] getByTipo(Skills tipo) throws DAOException {
+	public Skill[] getByTipo(Skills tipo) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return sDAO.getByTipo(conn, tipo);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public Skill[] getByUser(long idUser) throws DAOException {
+	public Skill[] getByUser(long idUser) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return sDAO.getByUser(conn, idUser);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			sDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public void deleteByTipo(Skills tipo) throws DAOException {
+	public void deleteByTipo(Skills tipo) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			sDAO.deleteByTipo(conn, tipo);
 		} finally {
 			DBAccess.closeConnection(conn);

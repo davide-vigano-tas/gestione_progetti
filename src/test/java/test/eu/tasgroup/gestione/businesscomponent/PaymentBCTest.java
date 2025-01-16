@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.PaymentBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
