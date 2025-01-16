@@ -18,7 +18,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import eu.tasgroup.gestione.architecture.dbaccess.DBAccess;
 import eu.tasgroup.gestione.architetture.dao.UserDAO;
-import eu.tasgroup.gestione.businesscomponent.model.Skill;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 import test.eu.tasgroup.gestione.DBAccessContext;
 
