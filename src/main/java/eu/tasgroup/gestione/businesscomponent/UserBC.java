@@ -89,6 +89,15 @@ public class UserBC {
 		}
 	}
 	
+	public User[] getByRole(Ruoli role) throws DAOException, NamingException {
+		try {
+			conn = DBAccess.getConnection();
+			return userDAO.getByRole(conn, role);
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
+	
 	public void addSkill(User user, Skill skill) throws DAOException, NamingException {
 		try {
 			conn = DBAccess.getConnection();

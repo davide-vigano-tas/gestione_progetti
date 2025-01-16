@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Skills;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 import eu.tasgroup.gestione.businesscomponent.security.Algoritmo;
@@ -200,6 +201,39 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			throw new DAOException(e);
 		}
 
+	}
+	public User[] getByRole(Connection conn, Ruoli role) throws DAOException {
+		User[] users = null;
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(SELECT_USERS_BY_ROLES, ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			ps.setString(1, role.name());
+			ResultSet rs = ps.executeQuery();
+			rs.last();
+			users = new User[rs.getRow()];
+			rs.beforeFirst();
+			for (int i = 0; rs.next(); i++) {
+				User user = new User();
+				user.setId(rs.getLong(1));
+				user.setNome(rs.getString(2));
+				user.setCognome(rs.getString(3));
+				user.setUsername(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setEmail(rs.getString(6));
+				user.setTentativiFalliti(rs.getInt(7));
+				user.setLocked(rs.getBoolean(8));
+				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
+				
+				users[i] = user;
+				
+			}
+			
+			return users;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		
 	}
 
 	@Override

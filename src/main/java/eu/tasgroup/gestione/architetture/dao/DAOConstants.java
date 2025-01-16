@@ -20,6 +20,10 @@ public interface DAOConstants {
 	String SELECT_USERS_BY_SKILL = "select u.id, u.nome, u.cognome, u.username, u.password, u.email, u.tentativi_falliti, "
 			+ "u.locked, u.data_creazione from user_skills uk"
 			+ "   join users u on u.id = uk.id_utente join skills sk on sk.id = uk.id_competenze where sk.tipo = ?";
+	
+	String SELECT_USERS_BY_ROLES = "select u.id, u.nome, u.cognome, u.username, u.password, u.email, u.tentativi_falliti, "
+			+ "u.locked, u.data_creazione "
+			+ "FROM users u JOIN users_roles r ON u.id = r.id_users WHERE r.role = ?";
 
 	// INSERT
 	String INSERT_USERS = "INSERT INTO users (nome, cognome, username, password, email) VALUES (?, ?, ?, ?, ?)";

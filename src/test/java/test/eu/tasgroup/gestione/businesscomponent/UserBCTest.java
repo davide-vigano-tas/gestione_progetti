@@ -86,7 +86,11 @@ class UserBCTest {
 			ubc.addRole(user, role);
 			Connection conn = DBAccess.getConnection();
 			Ruoli[] roles = RoleDAO.getFactory().getByUserId(conn, user.getId());
+			User[] users = ubc.getByRole(Ruoli.ADMIN);
 			assertTrue(roles.length == 1, "Lunghezza errata");
+			assertTrue(users.length ==1);
+			users = ubc.getByRole(Ruoli.CLIENTE);
+			assertTrue(users.length ==0);
 			
 			
 			DBAccess.closeConnection(conn);
