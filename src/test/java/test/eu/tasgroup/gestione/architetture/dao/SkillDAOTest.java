@@ -138,7 +138,7 @@ class SkillDAOTest {
 			UserDAO.getFactory().delete(conn, user1.getId());
 			skill = SkillDAO.getFactory().getById(conn, skill.getId());
 			
-			assertNull(skill, "Skill non deve essere null");
+			assertNull(skill, "Skill deve essere null");
 			
 			
 			DBAccess.closeConnection(conn);
