@@ -1,4 +1,4 @@
-package test.eu.tasgroup.gestione.architecture.dao;
+package test.eu.tasgroup.gestione.architetture.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
