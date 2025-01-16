@@ -16,53 +16,59 @@ public class PaymentBC {
 	private Connection conn;
 	private PaymentDAO paymentDAO;
 
-	public PaymentBC() throws DAOException, NamingException {
-		conn = DBAccess.getConnection();
+	public PaymentBC()  {
+		
 		paymentDAO = PaymentDAO.getFactory();
 	}
 
-	public void create(Payment payment) throws DAOException {
+	public void create(Payment payment) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			paymentDAO.create(conn, payment);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			paymentDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public void getById(long id) throws DAOException {
+	public Payment getById(long id) throws DAOException, NamingException {
 		try {
-			paymentDAO.getById(conn, id);
+			conn = DBAccess.getConnection();
+			return paymentDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Payment[] getByProject(Project project) throws DAOException {
+	public Payment[] getByProject(Project project) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return paymentDAO.getByProject(conn, project);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Payment[] getByUser(User user) throws DAOException {
+	public Payment[] getByUser(User user) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return paymentDAO.getByUser(conn, user);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Payment[] getAll() throws DAOException {
+	public Payment[] getAll() throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return paymentDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
