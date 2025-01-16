@@ -16,12 +16,12 @@ public class TimesheetBC {
 	private TimesheetDAO timesheetDAO;
 
 	public TimesheetBC() throws DAOException, NamingException {
-		conn = DBAccess.getConnection();
 		timesheetDAO = TimesheetDAO.getFactory();
 	}
 
-	public void createOrUpdate(Timesheet timesheet) throws DAOException {
+	public void createOrUpdate(Timesheet timesheet) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			if (timesheetDAO.getById(conn, timesheet.getId()) != null)
 				timesheetDAO.update(conn, timesheet);
 			else
@@ -31,48 +31,54 @@ public class TimesheetBC {
 		}
 	}
 
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			timesheetDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public void getById(long id) throws DAOException {
+	public Timesheet getById(long id) throws DAOException, NamingException {
 		try {
-			timesheetDAO.getById(conn, id);
+			conn = DBAccess.getConnection();
+			return timesheetDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public void approva(long id, boolean stato) throws DAOException {
+	public void approva(long id, boolean stato) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			timesheetDAO.approva(conn, id, stato);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Timesheet[] getAll() throws DAOException {
+	public Timesheet[] getAll() throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return timesheetDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public List<Timesheet> getListByDipendente(long id) throws DAOException {
+	public List<Timesheet> getListByDipendente(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return timesheetDAO.getByDipendente(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public List<Timesheet> getListByProject(long id) throws DAOException {
+	public List<Timesheet> getListByProject(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return timesheetDAO.getByProject(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
