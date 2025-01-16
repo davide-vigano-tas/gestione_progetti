@@ -63,9 +63,9 @@ public class ProjectBC {
 		}
 	}
 
-	public void getById(long id) throws DAOException {
+	public Project getById(long id) throws DAOException {
 		try {
-			projectDAO.getById(conn, id);
+			return projectDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
