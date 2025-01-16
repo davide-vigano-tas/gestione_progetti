@@ -11,12 +11,18 @@ import java.util.List;
 import eu.tasgroup.gestione.businesscomponent.model.Timesheet;
 
 public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
+	
+	private TimesheetDAO() {}
+	
+	public static TimesheetDAO getFactory() {
+		return new TimesheetDAO();
+	}
 
 	@Override
 	public void create(Connection conn, Timesheet entity) throws DAOException {
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement(INSERT_PROJECT_TASK);
+			ps = conn.prepareStatement(INSERT_TIMESHEET);
 			
 			ps.setLong(1, entity.getId_dipendente());
 			ps.setLong(2, entity.getId_progetto());
@@ -35,7 +41,7 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 		PreparedStatement ps;
 		
 		try {
-			ps = conn.prepareStatement(UPDATE_PROJECT_TASK);
+			ps = conn.prepareStatement(UPDATE_TIMESHEET);
 			
 			ps.setLong(1, entity.getId_dipendente());
 			ps.setLong(2, entity.getId_progetto());
