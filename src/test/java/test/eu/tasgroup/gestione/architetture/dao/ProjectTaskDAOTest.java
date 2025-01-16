@@ -1,4 +1,4 @@
-package eu.tasgroup.gestione.architetture.dao;
+package test.eu.tasgroup.gestione.architetture.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,6 +20,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import eu.tasgroup.gestione.architecture.dbaccess.DBAccess;
+import eu.tasgroup.gestione.architetture.dao.ProjectDAO;
+import eu.tasgroup.gestione.architetture.dao.ProjectTaskDAO;
+import eu.tasgroup.gestione.architetture.dao.UserDAO;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
