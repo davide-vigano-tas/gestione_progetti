@@ -16,12 +16,13 @@ public class ProjectBC {
 	private ProjectDAO projectDAO;
 
 	public ProjectBC() throws DAOException, NamingException {
-		conn = DBAccess.getConnection();
+		
 		projectDAO = ProjectDAO.getFactory();
 	}
 
-	public Project createOrUpdate(Project project) throws DAOException {
+	public Project createOrUpdate(Project project) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			if (projectDAO.getById(conn, project.getId()) != null) {
 				projectDAO.update(conn, project);
 				return projectDAO.getById(conn, project.getId());
@@ -47,56 +48,63 @@ public class ProjectBC {
 		}
 	}
 
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			projectDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public int getPercentualeCompletamento(long id) throws DAOException {
+	public int getPercentualeCompletamento(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getCompletamentoByProjectID(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Project getById(long id) throws DAOException {
+	public Project getById(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public Project[] getAll() throws DAOException {
+	public Project[] getAll() throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 
-	public List<Project> getListProjectByStatus(StatoProgetto stato) throws DAOException {
+	public List<Project> getListProjectByStatus(StatoProgetto stato) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getListProjectByStatus(conn, stato);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public List<Project> getListProjectByCliente(long id) throws DAOException {
+	public List<Project> getListProjectByCliente(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getListProjectByCliente(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public List<Project> getListProjectByResponsabile(long id) throws DAOException {
+	public List<Project> getListProjectByResponsabile(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return projectDAO.getListProjectByResponsabile(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);

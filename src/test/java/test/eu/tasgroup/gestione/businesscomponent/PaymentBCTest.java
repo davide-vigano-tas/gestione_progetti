@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.PaymentBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
@@ -69,14 +70,19 @@ class PaymentBCTest {
 
 	@BeforeEach
     void setUp() throws NamingException, ClassNotFoundException {
+	
     	DBAccessContext.setDBAccessContext();
     }
 
+	
 	@Test
 	@Order(1)
 	void testCreateAndGetByUser() {
 		try {
-
+			uBC = new UserBC();
+			pBC = new ProjectBC();
+			payBC = new PaymentBC();
+			
 			cliente = uBC.createOrUpdate(cliente);
 			projectmanager = uBC.createOrUpdate(projectmanager);
 			
@@ -109,7 +115,9 @@ class PaymentBCTest {
 	void testGetByProject() {
 		try {
 		
-	
+			uBC = new UserBC();
+			pBC = new ProjectBC();
+			payBC = new PaymentBC();
 			Payment[] ps = payBC.getByProject(project);
 			assertNotNull(ps, "Elenco payments non deve essere null");
 			assertTrue(ps.length == 1, "Deve contenere un elemento");
@@ -126,6 +134,9 @@ class PaymentBCTest {
 	@Order(3)
 	void testGetById() {
 		try {
+			uBC = new UserBC();
+			pBC = new ProjectBC();
+			payBC = new PaymentBC();
 		
 			payment = payBC.getById(payment.getId());
 
@@ -141,6 +152,9 @@ class PaymentBCTest {
 	@Order(3)
 	void testGetAll() {
 		try {
+			uBC = new UserBC();
+			pBC = new ProjectBC();
+			payBC = new PaymentBC();
 			Payment[] ps = payBC.getAll();
 			assertNotNull(ps, "Elenco payments non deve essere null");
 			assertTrue(ps.length >= 1, "Deve contenere almeno un elemento");
@@ -157,7 +171,9 @@ class PaymentBCTest {
 	@Order(4)
 	void testDelete() {
 		try {
-			
+			uBC = new UserBC();
+			pBC = new ProjectBC();
+			payBC = new PaymentBC();
 			payBC.delete(payment.getId());
 			payment = payBC.getById(payment.getId());
 			assertNull(payment, "Il pagamento non è stato eliminato con successo");
