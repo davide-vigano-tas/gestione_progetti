@@ -121,6 +121,70 @@ public class UserBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
+	
+	public void updateRole(Role roleFrom, Ruoli ruoloTo) throws DAOException, NamingException {
+		try {
+			conn = DBAccess.getConnection();
+			roleDAO.update(conn, roleFrom, ruoloTo);
+			
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
+	
+	public Role[] getRolesByUsername(String username) throws DAOException, NamingException {
+		Role[] roles = new Role[0];
+		try {
+			conn = DBAccess.getConnection();
+			User user = userDAO.getByUsername(conn, username);
+			if(user == null) return roles;
+			
+			Ruoli[] ruoli = roleDAO.getByUsername(conn, username);
+			roles = new Role[ruoli.length];
+			for(int i = 0; i<roles.length; i++) {
+				Role newRuolo = new Role();
+				newRuolo.setIdUser(user.getId());
+				newRuolo.setRole(ruoli[i]);
+				roles[i] = newRuolo;
+			}
+			
+			return roles;
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
+	
+	public Role[] getRolesById(long id) throws DAOException, NamingException {
+		Role[] roles = new Role[0];
+		try {
+			conn = DBAccess.getConnection();
+			User user = userDAO.getById(conn, id);
+			if(user == null) return roles;
+			
+			Ruoli[] ruoli = roleDAO.getByUserId(conn, id);
+			roles = new Role[ruoli.length];
+			for(int i = 0; i<roles.length; i++) {
+				Role newRuolo = new Role();
+				newRuolo.setIdUser(user.getId());
+				newRuolo.setRole(ruoli[i]);
+				roles[i] = newRuolo;
+			}
+			
+			return roles;
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
+	
+	public void deleteRole(Ruoli ruoli, User user) throws DAOException, NamingException {
+		try {
+			conn = DBAccess.getConnection();
+			roleDAO.delete(conn, ruoli, user.getId());
+		} finally {
+			DBAccess.closeConnection(conn);
+		}	
+	}
+	
 	public void delete(User user) throws DAOException, NamingException {
 		try {
 			conn = DBAccess.getConnection();

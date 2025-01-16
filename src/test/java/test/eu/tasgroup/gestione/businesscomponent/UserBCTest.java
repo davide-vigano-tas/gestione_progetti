@@ -44,7 +44,7 @@ class UserBCTest {
 		skill.setTipo(Skills.JAVA17);
 		
 		role = new Role();
-		role.setIdUser(user.getId());
+	
 		role.setRole(Ruoli.ADMIN);
 		
 	}
@@ -82,7 +82,7 @@ class UserBCTest {
 	void testAddRole() {
 		try {
 			ubc = new UserBC();
-			
+			role.setIdUser(user.getId());
 			ubc.addRole(user, role);
 			Connection conn = DBAccess.getConnection();
 			Ruoli[] roles = RoleDAO.getFactory().getByUserId(conn, user.getId());
@@ -97,19 +97,45 @@ class UserBCTest {
 		}
 	}
 	
+
+	@Test
+	@Order(3)
+	void testUpdateRoleAndGetByUser() {
+		try {
+			ubc = new UserBC();
+			System.out.println(role);
+			ubc.updateRole(role, Ruoli.DIPENDENTE);
+			Role[] roles = ubc.getRolesById(user.getId());
+			assertTrue(roles.length == 1, "Lunghezza errata");
+			roles = ubc.getRolesByUsername(user.getUsername());
+			assertTrue(roles.length == 1, "Lunghezza errata");
+			role = roles[0];
+			
+			assertEquals(Ruoli.DIPENDENTE, role.getRole(), "Ruolo non aggiornato");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Failed: "+e.getMessage());
+		}
+	}
+	
+	
 	@Test
 	@Order(3)
 	void testDelete() {
 		try {
 			ubc = new UserBC();
 			
-		
-			Connection conn = DBAccess.getConnection();
-			RoleDAO.getFactory().delete(conn, Ruoli.ADMIN, user.getId());
-			ubc.delete(user);
+			ubc.deleteRole(Ruoli.DIPENDENTE, user);
 			
+			Connection conn = DBAccess.getConnection();
+			
+			Role[] roles = ubc.getRolesById(user.getId());
+			assertTrue(roles.length == 0, "Lunghezza errata");
+			SkillDAO.getFactory().delete(conn, skill.getId());
 			DBAccess.closeConnection(conn);
 			
+			ubc.delete(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Failed: "+e.getMessage());

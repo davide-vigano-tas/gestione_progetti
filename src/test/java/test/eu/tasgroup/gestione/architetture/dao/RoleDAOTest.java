@@ -103,8 +103,8 @@ class RoleDAOTest {
 		try {
 			conn = DBAccess.getConnection();
 			
-			role1.setRole(Ruoli.ADMIN);
-			RoleDAO.getFactory().update(conn, role1, Ruoli.PROJECT_MANAGER);
+			role1.setRole(Ruoli.PROJECT_MANAGER);
+			RoleDAO.getFactory().update(conn, role1, Ruoli.ADMIN);
 			
 			Ruoli[] roles = RoleDAO.getFactory().getByUsername(conn, user1.getUsername());
 			assertNotNull(roles, "Elenco ruoli non deve essere nullo");

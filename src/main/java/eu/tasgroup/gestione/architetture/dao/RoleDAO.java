@@ -36,9 +36,9 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(UPDATE_USER_ROLES);
-			ps.setString(1, entity.getRole().name());
+			ps.setString(1, ruolo.name());
 			ps.setLong(2, entity.getIdUser());
-			ps.setString(3, ruolo.name());
+			ps.setString(3, entity.getRole().name());
 			ps.execute();
 
 		} catch (SQLException e) {
