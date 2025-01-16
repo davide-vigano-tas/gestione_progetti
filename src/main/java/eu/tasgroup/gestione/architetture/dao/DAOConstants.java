@@ -33,7 +33,7 @@ public interface DAOConstants {
 
 	//DELETE
 	String DELETE_USER = "delete from users where id = ?";
-	String DELETE_USER_ROLE = "delete from users_roles where id = ?";
+	String DELETE_USER_ROLE = "delete from users_roles where role = ? and id_users = ?";
 
 	/*---------------------- PROJECT*/
 

@@ -25,7 +25,6 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 			ps.setString(2, entity.getRole().name());
 
 			ps.execute();
-			conn.commit();
 			
 
 		} catch (SQLException e) {
@@ -33,15 +32,14 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 		}
 	}
 
-	@Override
-	public void update(Connection conn, Role entity) throws DAOException {
+	public void update(Connection conn, Role entity, Ruoli ruolo) throws DAOException {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(UPDATE_USER_ROLES);
 			ps.setString(1, entity.getRole().name());
 			ps.setLong(2, entity.getIdUser());
-			ps.setString(3, entity.getRole().name());
-			
+			ps.setString(3, ruolo.name());
+			ps.execute();
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -100,12 +98,12 @@ public class RoleDAO extends DAOAdapter<Role> implements DAOConstants {
 	}
 	
 	
-	@Override
-	public void delete(Connection conn, long id) throws DAOException {
+	public void delete(Connection conn, Ruoli ruolo, long id) throws DAOException {
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(DELETE_USER_ROLE);
-			ps.setLong(1, id);
+			ps.setString(1, ruolo.name());
+			ps.setLong(2, id);
 			ps.execute();
 			
 
