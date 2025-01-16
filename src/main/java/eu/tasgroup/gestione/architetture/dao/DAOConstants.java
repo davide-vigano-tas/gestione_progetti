@@ -78,7 +78,7 @@ public interface DAOConstants {
 	String SELECT_SKILL = "select * from skills where id = ?";
 	String SELECT_SKILLS_BY_TIPO = "select * from skills where tipo = ?";
 	String SELECT_SKILLS_BY_USER = "select s.id, s.tipo from user_skills uk join skills s on"
-			+ " uk.id_competenze = uk.id where uk.id_utente = ?"; 
+			+ " uk.id_competenze = s.id where uk.id_utente = ?"; 
 	// INSERT
 	String INSERT_SKILL = "insert into skills(tipo) value(?)";
 	// DELETE
