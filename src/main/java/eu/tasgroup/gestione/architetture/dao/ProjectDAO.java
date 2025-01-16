@@ -111,6 +111,27 @@ public class ProjectDAO implements DAOConstants, GenericDAO<Project> {
 		return progetto;
 	}
 
+	public int getCompletamentoByProjectID(Connection conn, long id) throws DAOException {
+		int completamento = 0;
+		PreparedStatement ps;
+
+		try {
+			ps = conn.prepareStatement(SELECT_PROJECT_COMPLETAMENTO);
+			ps.setLong(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				completamento = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+
+		return completamento;
+	}
+
 	@Override
 	public Project[] getAll(Connection conn) throws DAOException {
 		Project[] progetti = null;
@@ -147,34 +168,59 @@ public class ProjectDAO implements DAOConstants, GenericDAO<Project> {
 	}
 
 	public List<Project> getListProjectByStatus(Connection conn, StatoProgetto stato) throws DAOException {
-		List<Project> progetti = new ArrayList<Project>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(SELECT_PROJECT_STATUS);
 			ps.setString(1, stato.toString());
-
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				Project progetto = new Project();
-				progetto.setId(rs.getLong(1));
-				progetto.setNomeProgetto(rs.getString(2));
-				progetto.setDescrizione(rs.getString(3));
-				progetto.setDataInizio(new java.util.Date(rs.getDate(4).getTime()));
-				progetto.setDataFine(new java.util.Date(rs.getDate(5).getTime()));
-				progetto.setBudget(rs.getDouble(6));
-				progetto.setStato(StatoProgetto.valueOf(rs.getString(7)));
-				progetto.setIdCliente(rs.getLong(8));
-				progetto.setIdResponsabile(rs.getLong(9));
-				progetto.setPercentualeCompletamento(rs.getInt(10));
-				progetto.setCostoProgetto(rs.getDouble(11));
-
-				progetti.add(progetto);
-			}
+			return getListaProgetti(ps);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
+	}
+
+	public List<Project> getListProjectByCliente(Connection conn, long id) throws DAOException {
+		try {
+			PreparedStatement ps = conn.prepareStatement(SELECT_PROJECTS_CLIENTE);
+			ps.setLong(1, id);
+			return getListaProgetti(ps);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	public List<Project> getListProjectByResponsabile(Connection conn, long id) throws DAOException {
+		try {
+			PreparedStatement ps = conn.prepareStatement(SELECT_PROJECTS_RESPONSABILE);
+			ps.setLong(1, id);
+			return getListaProgetti(ps);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+	}
+
+	private List<Project> getListaProgetti(PreparedStatement ps) throws SQLException {
+		List<Project> progetti = new ArrayList<Project>();
+		ResultSet rs = ps.executeQuery();
+
+		while (rs.next()) {
+			Project progetto = new Project();
+			progetto.setId(rs.getLong(1));
+			progetto.setNomeProgetto(rs.getString(2));
+			progetto.setDescrizione(rs.getString(3));
+			progetto.setDataInizio(new java.util.Date(rs.getDate(4).getTime()));
+			progetto.setDataFine(new java.util.Date(rs.getDate(5).getTime()));
+			progetto.setBudget(rs.getDouble(6));
+			progetto.setStato(StatoProgetto.valueOf(rs.getString(7)));
+			progetto.setIdCliente(rs.getLong(8));
+			progetto.setIdResponsabile(rs.getLong(9));
+			progetto.setPercentualeCompletamento(rs.getInt(10));
+			progetto.setCostoProgetto(rs.getDouble(11));
+
+			progetti.add(progetto);
+		}
+
 		return progetti;
 	}
+
+	
 
 }
