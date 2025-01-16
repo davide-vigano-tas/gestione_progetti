@@ -15,45 +15,35 @@ import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 public class ProjectTaskBC {
 	private Connection conn;
 	private ProjectTaskDAO ptDAO;
-	
+
 	public ProjectTaskBC() throws DAOException, NamingException {
 		this.conn = DBAccess.getConnection();
 		this.ptDAO = ProjectTaskDAO.getFactory();
 	}
-	
+
 	public ProjectTask createOrUpdate(ProjectTask pt) throws DAOException {
 		try {
-			if(pt.getId() == 0) {
+			if (ptDAO.getById(conn, pt.getId()) != null) {
+				ptDAO.update(conn, pt);
+				return pt;
+			} else {
 				ptDAO.create(conn, pt);
 				ProjectTask[] tasks = ptDAO.getAll(conn);
-				
+
 				ProjectTask newTask = new ProjectTask();
-				newTask = tasks[tasks.length-1];
-				
+				newTask = tasks[tasks.length - 1];
+
 				for (int i = 0; i < tasks.length - 1; i++) {
 					if (tasks[i].getId() > newTask.getId())
 						newTask = tasks[i];
 				}
 				return newTask;
 			}
-			else {
-				ptDAO.update(conn, pt);
-				return pt;
-			}
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
-	public ProjectTask updateDipendente(ProjectTask pt) throws DAOException {
-		try {
-			ptDAO.updateDipendente(conn, pt);
-			return pt;
-		} finally {
-			DBAccess.closeConnection(conn);
-		}
-	}
-	
+
 	public ProjectTask updateFase(Fase fase, long id) throws DAOException {
 		try {
 			ptDAO.updateFase(conn, fase, id);
@@ -62,6 +52,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
+
 	public ProjectTask updateStato(StatoTask stato, long id) throws DAOException {
 		try {
 			ptDAO.updateStato(conn, stato, id);
@@ -70,7 +61,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
+
 	public void delete(long id) throws DAOException {
 		try {
 			ptDAO.delete(conn, id);
@@ -78,7 +69,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
+
 	public ProjectTask getByID(long id) throws DAOException {
 		try {
 			return ptDAO.getById(conn, id);
@@ -86,7 +77,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
+
 	public ProjectTask[] getByAll() throws DAOException {
 		try {
 			return ptDAO.getAll(conn);
@@ -94,7 +85,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
+
 	public List<ProjectTask> getByDipendente(long idDip) throws DAOException {
 		try {
 			return ptDAO.getByDipendente(conn, idDip);
@@ -102,7 +93,7 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
-	
+
 	public List<ProjectTask> getByProject(long idProject) throws DAOException {
 		try {
 			return ptDAO.getByProject(conn, idProject);
