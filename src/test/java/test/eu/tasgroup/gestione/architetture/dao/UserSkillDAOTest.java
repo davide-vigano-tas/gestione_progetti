@@ -1,9 +1,6 @@
 package test.eu.tasgroup.gestione.architetture.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 
@@ -17,17 +14,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import eu.tasgroup.gestione.architecture.dbaccess.DBAccess;
+import eu.tasgroup.gestione.architetture.dao.SkillDAO;
 import eu.tasgroup.gestione.architetture.dao.UserDAO;
+import eu.tasgroup.gestione.architetture.dao.UserSkillDAO;
+import eu.tasgroup.gestione.businesscomponent.enumerated.Skills;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
 import eu.tasgroup.gestione.businesscomponent.model.User;
+import eu.tasgroup.gestione.businesscomponent.model.UserSkill;
 import test.eu.tasgroup.gestione.DBAccessContext;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class UserDAOTest {
+class UserSkillDAOTest {
 	
 	private Connection conn;
 	private static User user1;
-	private static User user2;
+	private static Skill skill;
+	private static UserSkill uk;
 	
 
 	@BeforeAll
@@ -40,33 +41,39 @@ class UserDAOTest {
 		user1.setPassword("pass");
 		user1.setEmail("sam@gmail.com");
 		
+		skill = new Skill();
+		skill.setTipo(Skills.ANGULAR);
 		
-		user2 = new User();
-		user2.setNome("Rob");
-		user2.setCognome("Bru");
-		user2.setUsername("robbru");
-		user2.setPassword("pass");
-		user2.setEmail("rob@gmail.com");
-	
+		uk = new UserSkill();
 	}
 
-    @BeforeEach
+	@BeforeEach
     void setUp() throws NamingException, ClassNotFoundException {
     	DBAccessContext.setDBAccessContext();
     }
-
 	@Test
 	@Order(1)
-	void testCreateAndGetByUsername() {
+	void testCreate() {
 		try {
 			conn = DBAccess.getConnection();
 			UserDAO.getFactory().create(conn, user1);
-			UserDAO.getFactory().create(conn, user2);
 			user1 = UserDAO.getFactory().getByUsername(conn, user1.getUsername());
-			user2 = UserDAO.getFactory().getByUsername(conn, user2.getUsername());
+		
+			
+			SkillDAO.getFactory().create(conn, skill);
+			
+			Skill[] skills2 = SkillDAO.getFactory().getByTipo(conn, Skills.ANGULAR);
+			
+			
+			skill = skills2[0];
+			
+			uk.setId_competenze(skill.getId());
+			uk.setId_utente(user1.getId());
+			
+			UserSkillDAO.getFactory().create(conn, uk);
+			
+			
 			DBAccess.closeConnection(conn);
-			assertNotNull(user1, "User1 non dovrebbe essere null");
-			assertNotNull(user2, "User2 non dovrebbe essere null");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Failed: "+e.getMessage());
@@ -75,13 +82,21 @@ class UserDAOTest {
 	
 	@Test
 	@Order(2)
-	void getById() {
+	void testGetAll() {
 		try {
 			conn = DBAccess.getConnection();
-			user1 = UserDAO.getFactory().getById(conn, user1.getId());
-			user2 = UserDAO.getFactory().getById(conn, user2.getId());
-			assertNotNull(user1, "User1 non dovrebbe essere null");
-			assertNotNull(user2, "User2 non dovrebbe essere null");
+			UserSkill[] usk = UserSkillDAO.getFactory().getAll(conn);
+			assertTrue(usk.length >= 1, "Almeno un elemento");
+			for(UserSkill userskill : usk) {
+				assertNotNull(userskill, "Non deve contenere elementi nulli");
+				if(userskill.getId_competenze()==uk.getId_competenze() &&
+						userskill.getId_utente() == uk.getId_utente()) {
+					uk = userskill;
+					break;
+				}
+			}
+			assertTrue(uk.getId() != 0, "Id non valido");
+			
 			DBAccess.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,13 +106,12 @@ class UserDAOTest {
 	
 	@Test
 	@Order(3)
-	void getByEmail() {
+	void testGetById() {
 		try {
 			conn = DBAccess.getConnection();
-			user1 = UserDAO.getFactory().getByEmail(conn, user1.getEmail());
-			user2 = UserDAO.getFactory().getByEmail(conn, user2.getEmail());
-			assertNotNull(user1, "User1 non dovrebbe essere null");
-			assertNotNull(user2, "User2 non dovrebbe essere null");
+			uk = UserSkillDAO.getFactory().getById(conn, uk.getId());
+			assertNotNull(uk, "Elemento non deve essere nullo");
+			
 			DBAccess.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,42 +121,48 @@ class UserDAOTest {
 	
 	@Test
 	@Order(4)
-	void testUpdate() {
+	void testGetSkillByUser() {
 		try {
 			conn = DBAccess.getConnection();
-			user1.setNome("Samuel");
-			user2.setNome("Roberto");
+			Skill[] skills = SkillDAO.getFactory().getByUser(conn, user1.getId());
+			assertTrue(skills.length == 1, "Lunghezza errata");
 			
-			UserDAO.getFactory().update(conn, user1);
-			UserDAO.getFactory().update(conn, user2);
 			
-			user1 = UserDAO.getFactory().getByEmail(conn, user1.getEmail());
-			user2 = UserDAO.getFactory().getByEmail(conn, user2.getEmail());
-			assertNotNull(user1, "User1 non dovrebbe essere null");
-			assertNotNull(user2, "User2 non dovrebbe essere null");
-			assertEquals("Samuel", user1.getNome(), "Nome non aggiornato correttamente");
-			assertEquals("Roberto", user2.getNome(), "Nome non aggiornato correttamente");
+			
 			DBAccess.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Failed: "+e.getMessage());
 		}
 	}
-
+	
+	@Test
+	@Order(5)
+	void testGetUserBySkill() {
+		try {
+			conn = DBAccess.getConnection();
+			User[] users = UserDAO.getFactory().getBySkill(conn, skill.getTipo());
+			assertTrue(users.length >= 1, "Lunghezza errata: almeno 1");
+			
+			DBAccess.closeConnection(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Failed: "+e.getMessage());
+		}
+	}
 	
 	@Test
 	@Order(5)
 	void testDelete() {
 		try {
 			conn = DBAccess.getConnection();
+			UserSkillDAO.getFactory().delete(conn, uk.getId());
+			uk = UserSkillDAO.getFactory().getById(conn, uk.getId());
 			
+			SkillDAO.getFactory().delete(conn, skill.getId());
 			UserDAO.getFactory().delete(conn, user1.getId());
-			UserDAO.getFactory().delete(conn, user2.getId());
 			
-			user1 = UserDAO.getFactory().getByEmail(conn, user1.getEmail());
-			user2 = UserDAO.getFactory().getByEmail(conn, user2.getEmail());
-			assertNull(user1, "User1 dovrebbe essere null");
-			assertNull(user2, "User2 dovrebbe essere null");
+			assertNull(uk, "Elemento deve essere nullo");
 			DBAccess.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();

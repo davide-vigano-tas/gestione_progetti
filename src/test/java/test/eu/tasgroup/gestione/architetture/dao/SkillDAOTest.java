@@ -111,25 +111,10 @@ class SkillDAOTest {
 		}
 	}
 	
-	@Test
-	@Order(4)
-	void testGetByUser() {
-		try {
-			conn = DBAccess.getConnection();
 
-			
-			assertNotNull(skill, "Skill non deve essere null");
-			
-			
-			DBAccess.closeConnection(conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Failed: "+e.getMessage());
-		}
-	}
 	
 	@Test
-	@Order(5)
+	@Order(4)
 	void testDelete() {
 		try {
 			conn = DBAccess.getConnection();
