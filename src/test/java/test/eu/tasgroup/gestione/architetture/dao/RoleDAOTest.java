@@ -86,6 +86,7 @@ class RoleDAOTest {
 			conn = DBAccess.getConnection();
 			
 			Ruoli[] roles = RoleDAO.getFactory().getByUsername(conn, user1.getUsername());
+			
 			assertNotNull(roles, "Elenco ruoli non deve essere nullo");
 			assertTrue(roles.length >= 2, "Almeno due ruoli");
 
