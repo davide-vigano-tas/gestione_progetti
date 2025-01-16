@@ -14,12 +14,12 @@ public class AuditLogBC {
 	private AuditLogDAO alDAO;
 	
 	public AuditLogBC() throws DAOException, NamingException {
-		this.conn = DBAccess.getConnection();
-		this.alDAO = AuditLogDAO.getFactory();
+		alDAO = AuditLogDAO.getFactory();
 	}
 	
-	public void createOrUpdate(AuditLog al) throws DAOException {
+	public void createOrUpdate(AuditLog al) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			if(al.getId() == 0)
 				alDAO.create(conn, al);
 			else
@@ -29,24 +29,27 @@ public class AuditLogBC {
 		}
 	}
 	
-	public void delete(long id) throws DAOException {
+	public void delete(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			alDAO.delete(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public AuditLog getById(long id) throws DAOException {
+	public AuditLog getById(long id) throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return alDAO.getById(conn, id);
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
 	}
 	
-	public AuditLog[] getAll() throws DAOException {
+	public AuditLog[] getAll() throws DAOException, NamingException {
 		try {
+			conn = DBAccess.getConnection();
 			return alDAO.getAll(conn);
 		} finally {
 			DBAccess.closeConnection(conn);
