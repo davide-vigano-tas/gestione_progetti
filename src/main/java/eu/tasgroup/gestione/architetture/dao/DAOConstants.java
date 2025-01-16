@@ -140,6 +140,8 @@ public interface DAOConstants {
 	String INSERT_AUDIT_LOG = "insert into audit_logs (utente, operazione, data) values (?, ?, ?);";
 
 	String SELECT_AUDIT_LOGS = "select * from audit_logs;";
+	
+	String SELECT_AUDIT_LOG = "select * from audit_logs where id = ?;";
 
 	String UPDATE_AUDT_LOG = "update audit_logs set utente = ?, operasione = ?, data = ? where id = ?;";
 
