@@ -130,7 +130,7 @@ class ProjectTaskBCTest {
 			assertTrue(pt.getNomeTask().equals("la mucca fa mu ma la mia fa business component"));
 			
 			projectTaskBC = new ProjectTaskBC();
-			ProjectTask[] pts = projectTaskBC.getByAll();
+			ProjectTask[] pts = projectTaskBC.getAll();
 
 			assertEquals(pts.length, 1);
 
@@ -151,7 +151,7 @@ class ProjectTaskBCTest {
 			assertEquals(pt.getFase(), Fase.TEST);
 			
 			projectTaskBC = new ProjectTaskBC();
-			ProjectTask[] pts = projectTaskBC.getByAll();
+			ProjectTask[] pts = projectTaskBC.getAll();
 
 			assertEquals(pts.length, 1);
 
@@ -172,7 +172,7 @@ class ProjectTaskBCTest {
 			assertEquals(pt.getStato(), StatoTask.COMPLETATO);
 			
 			projectTaskBC = new ProjectTaskBC();
-			ProjectTask[] pts = projectTaskBC.getByAll();
+			ProjectTask[] pts = projectTaskBC.getAll();
 
 			assertEquals(pts.length, 1);
 
@@ -193,7 +193,7 @@ class ProjectTaskBCTest {
 			assertNotNull(pt);
 			
 			projectTaskBC = new ProjectTaskBC();
-			ProjectTask[] pts = projectTaskBC.getByAll();
+			ProjectTask[] pts = projectTaskBC.getAll();
 
 			assertEquals(pts.length, 1);
 
@@ -209,7 +209,7 @@ class ProjectTaskBCTest {
 		ProjectTaskBC projectTaskBC;
 		try {
 			projectTaskBC = new ProjectTaskBC();
-			ProjectTask[] pts = projectTaskBC.getByAll();
+			ProjectTask[] pts = projectTaskBC.getAll();
 
 			assertEquals(pts.length, 1);
 

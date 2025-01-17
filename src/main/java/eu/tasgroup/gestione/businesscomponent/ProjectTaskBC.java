@@ -78,7 +78,7 @@ public class ProjectTaskBC {
 		}
 	}
 
-	public ProjectTask[] getByAll() throws DAOException {
+	public ProjectTask[] getAll() throws DAOException {
 		try {
 			return ptDAO.getAll(conn);
 		} finally {
