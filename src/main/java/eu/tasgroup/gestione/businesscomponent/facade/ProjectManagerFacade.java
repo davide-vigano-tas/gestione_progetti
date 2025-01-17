@@ -15,6 +15,7 @@ import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
+import eu.tasgroup.gestione.businesscomponent.model.Skill;
 import eu.tasgroup.gestione.businesscomponent.model.Timesheet;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
@@ -66,8 +67,16 @@ public class ProjectManagerFacade {
 		return userBC.getByEmail(email);
 	}
 
-	// TODO: lista di tutti i dipendenti
-	// TODO: lista dei dipendenti per determinate skill
+	public User[] getByRole(Ruoli role) throws DAOException, NamingException {
+		userBC = new UserBC();
+		return userBC.getByRole(role);
+	}
+	
+	public User[] getBySkill(Skill skill) throws DAOException, NamingException {
+		userBC = new UserBC();
+		return userBC.getBySkill(skill);
+	}
+	
 	// TODO: lista dei dipendenti non assegnati
 
 	/*------------------------------- Gestione dei progetti --------------------------------*/
