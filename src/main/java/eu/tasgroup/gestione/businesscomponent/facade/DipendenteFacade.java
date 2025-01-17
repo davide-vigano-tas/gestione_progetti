@@ -100,22 +100,22 @@ public class DipendenteFacade {
 	}
 	
 	//------------------Update stato ProjectTask
-	public ProjectTask updateProjectTaskStato(StatoTask stato, long id) throws DAOException {
+	public ProjectTask updateProjectTaskStato(StatoTask stato, long id) throws DAOException, NamingException {
 		return ptBC.updateStato(stato, id);
 	}
 	
 	//------------------ ProjectTask by id
-	public ProjectTask getProjectTaskById(long id) throws DAOException {
+	public ProjectTask getProjectTaskById(long id) throws DAOException, NamingException {
 		return ptBC.getByID(id);
 	}
 	
 	//---------/////////ProjectTask by dipendente
-	public List<ProjectTask> getProjectTaskByDipendente(long id) throws DAOException {
+	public List<ProjectTask> getProjectTaskByDipendente(long id) throws DAOException, NamingException {
 		return ptBC.getByDipendente(id);
 	}
 	
 	//------------------------- ProjectTask by proj
-	public List<ProjectTask> getProjectTaskByProject(long id) throws DAOException {
+	public List<ProjectTask> getProjectTaskByProject(long id) throws DAOException, NamingException {
 		return ptBC.getByProject(id);
 	}
 	
