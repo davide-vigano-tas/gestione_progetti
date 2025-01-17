@@ -20,7 +20,7 @@ body {
 }
 
 .navbar {
-	background-color: #313132;
+	background-color: rgb(215, 215, 215);
 }
 
 nav.navbar{
@@ -81,7 +81,6 @@ footer section {
 }
 
 p.copyright {
-	/*Per pulire la formattazione footer*/
 	clear: both;
 	margin-left: 30px;
 	margin-bottom: 30px;

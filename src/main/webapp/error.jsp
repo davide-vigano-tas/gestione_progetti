@@ -1,6 +1,6 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.PrintStream"%>
-<%@page import="eu.tasgroup.ordini.architecture.dao.DAOException"%>
+<%@page import="eu.tasgroup.gestione.architetture.dao.DAOException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isErrorPage="true"%>
 <!DOCTYPE html>
