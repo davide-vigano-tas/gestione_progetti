@@ -33,6 +33,7 @@ public class Registration extends HttpServlet {
 			cf = ClienteFacade.getInstance();
 		} catch (DAOException | NamingException e) {
 			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
 	}
 

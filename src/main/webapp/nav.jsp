@@ -63,18 +63,18 @@
             %>
                         <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/tasks.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/tasks.jsp">
                         Tasks
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/timsheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/timsheets.jsp">
                         Timesheets
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/skills.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/skills.jsp">
                        Le tue skill
                     </a>
                 </li>
@@ -82,7 +82,7 @@
                        <ul class="navbar-nav ms-auto">
 
 					<li>
-					 <a  href="<%= application.getContextPath() %>/dip/dipendente/home.jsp">
+					 <a  href="<%= application.getContextPath() %>/dip/developer/home.jsp">
 					 
 				
 					 	<%=  username %>

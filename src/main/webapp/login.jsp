@@ -1,11 +1,34 @@
+<%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
+<%@page import="java.util.List"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.facade.AdminFacade"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+   <%
+   
+   if(session.getAttribute("username") != null) {
+		AdminFacade af = AdminFacade.getInstance(); 
+		String username = (String) session.getAttribute("username");
+   	List<Role> roles = Arrays.asList(af.getRolesByUsername(username));
+   	if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))){
+			response.sendRedirect(request.getContextPath()+"/cliente/home.jsp");
+   	} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
+   		response.sendRedirect(request.getContextPath()+"/dip/dipendente/home.jsp");
+		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))){
+			response.sendRedirect(request.getContextPath()+"/dip/projman/home.jsp");
+		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))){
+			response.sendRedirect(request.getContextPath()+"/admin/home.jsp");
+		} 
+   } else  {
+   %>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="cdn.html" %>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login page</title>
 <link rel="stylesheet"
 	href="/<%=application.getServletContextName()%>/css/style.css">
 <script>
@@ -150,3 +173,4 @@
 
 </body>
 </html>
+<% } %>
