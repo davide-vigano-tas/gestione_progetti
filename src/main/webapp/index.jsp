@@ -44,6 +44,8 @@
 		 filter: brightness(110%);
 	}
 	
+
+	
 </style>
 </head>
 <jsp:include page="nav.jsp"/>

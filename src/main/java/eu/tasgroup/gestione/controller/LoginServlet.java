@@ -55,9 +55,15 @@ public class LoginServlet extends HttpServlet {
 			try {
 				
 				User user = af.getByUsername(username);
-				if(user == null) response.sendRedirect("login.jsp?error=not_found");
-				if(!Algoritmo.verificaPassword(password, user.getPassword())) 
+				if(user == null)  {
+					response.sendRedirect("login.jsp?error=not_found");
+					return ;
+				}
+				if(!Algoritmo.verificaPassword(password, user.getPassword())) {
 					response.sendRedirect("login.jsp?error=incorrect_password");
+					return;
+				}
+					
 				
 				Role[] roles = af.getRolesById(user.getId());
 				session.setAttribute("username", username);

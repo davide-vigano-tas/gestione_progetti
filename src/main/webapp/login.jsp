@@ -4,8 +4,8 @@
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
 <%@page import="java.util.List"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.facade.AdminFacade"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
    <%
    
@@ -45,6 +45,24 @@
             selectElement.value = optionValue;
         }
     };
+    window.onload = function() {
+        	const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const erDiv = document.getElementById('error');
+        erDiv.style.display='none';
+        if(error) {
+           
+        	erDiv.style.display='block';
+            if(error === 'not_found') {
+            	 console.log(error);
+				erDiv.textContent = 'Username non trovato';
+            }
+            if(error === 'incorrect_password')  {
+				erDiv.textContent = 'Password errata';
+            }
+        }
+        };
+   
 </script>
 
 <style>
@@ -85,6 +103,9 @@
 						<h3 class="panel-title mt-4">Login</h3>
 					</div>
 					<div class="panel-body">
+					<div id="error" class="alert alert-danger" >
+								
+					</div>
 						<form action="/<%=application.getServletContextName()%>/login"
 							method="post" class="form-horizontal" id="utenteForm">
 							
@@ -103,6 +124,8 @@
 									</div>
 								</div>
 							</div>
+							
+							
 
 							<!---------------------------------------------------------- Password -->
 							<div class="form-group mb-2">
@@ -168,11 +191,7 @@
 						%>
 
 					</div>
-					<div class="panel-footer text-center mb-3">
-						<small>Se hai dimenticato la pasword: <a
-							href="resetPassword.jsp">Clicca qui per reimpostarla</a>
-						</small>
-					</div>
+			
 				</div>
 			</div>
 		</div>
