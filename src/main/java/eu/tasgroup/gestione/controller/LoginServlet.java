@@ -17,6 +17,7 @@ import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 import eu.tasgroup.gestione.businesscomponent.security.Algoritmo;
+import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -44,6 +45,10 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String userType = request.getParameter("userType");
 		
+		username = EscapeHTML.escapeHtml(username);
+		password = EscapeHTML.escapeHtml(password);
+		userType = EscapeHTML.escapeHtml(userType);
+		
 		HttpSession session = request.getSession();
 		
 		if(username != null && password != null & userType != null) {
@@ -55,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("login.jsp?error=incorrect_password");
 				
 				Role[] roles = af.getRolesById(user.getId());
+				session.setAttribute("username", username);
 				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))) {
 					response.sendRedirect("cliente/home.jsp");
 					return;
