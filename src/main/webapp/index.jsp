@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="cdn.html" %>
-<title>Insert title here</title>
+<title>Tas home</title>
 <link rel="stylesheet" href="/<%= application.getServletContextName() %>/css/style.css"> 
 
 <style>
@@ -34,11 +34,43 @@
 		margin-right: 25px;
 		border-radius: 10px;
 	}
+	.login{
+		border-radius: 30px;
+		
+	}
+	
+	.login:hover {
+		border-radius: 20px;
+		 filter: brightness(110%);
+	}
 	
 </style>
 </head>
 <jsp:include page="nav.jsp"/>
 <body>
+<div class="container-fluid">
+	<div class="container-sm my-4 login" style="max-width: 70%;"> 
+	<button class="btn btn-primary login" style="background-color: #105491; width: 100%;">
+		<h4 class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Cliente&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+	</button>
+	</div>
+	<div class="container-sm my-4 login" style=" max-width: 70%;">
+	<button class="btn btn-primary login" style="background-color: #11a27a; width: 100%;" >
+		<h4 class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Dipendente&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+	</button>
+	</div>
+	
+	<div class="container-sm my-4 login" style=" max-width: 70%;">
+	<button class="btn btn-primary login" style="background-color: #e4204e; width: 100%;">
+				<h4 class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Admin&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+	</button>
+	</div>
+
+</div>
+
 
 <footer><%@ include file="footer.html" %></footer>
 </body>

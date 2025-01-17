@@ -6,7 +6,7 @@
 <%@page import="java.util.List"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<%= application.getContextPath() %>/index.jsp" style="display: flex; align-items: center;">
+        <a class="navbar-brand navbar-text" href="<%= application.getContextPath() %>/index.jsp" style="display: flex; align-items: center;">
             <img src="img/sito-logo.png" alt="logo" style="height: 30px; margin-right: 20px; margin-left: 10px;">
     
         </a>
@@ -22,12 +22,12 @@
             %>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/registrazione.jsp">
+                    <a class="nav-link  navbar-text" href="<%= application.getContextPath() %>/registrazione.jsp">
                         <i class="bi bi-person-plus"></i> Sign up
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/login.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/login.jsp">
                         <i class="bi bi-box-arrow-in-right"></i> Login
                     </a>
                 </li>
@@ -37,12 +37,12 @@
             %>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/cliente/progetti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/progetti.jsp">
                         I tuoi progetti
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/cliente/pagamenti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/pagamenti.jsp">
                         I tuoi pagamenti
                     </a>
                 </li>
@@ -52,18 +52,18 @@
             %>
                         <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/dipendente/tasks.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/tasks.jsp">
                         Tasks
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/dipendente/timsheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/timsheets.jsp">
                         Timesheets
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/dipendente/skills.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/dipendente/skills.jsp">
                        Le tue skill
                     </a>
                 </li>
@@ -74,18 +74,18 @@
             %>
                 <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/projman/dipendenti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/dipendenti.jsp">
                         Dipendenti
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/projman/progetti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/progetti.jsp">
                         Progetti
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/dip/projman/timesheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/timesheets.jsp">
                        Timesheets
                     </a>
                 </li>
@@ -96,7 +96,7 @@
             %>
                             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/admin/skills.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/skills.jsp">
                         Skills
                     </a>
                 </li>
@@ -107,19 +107,19 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/admin/timesheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/timesheets.jsp">
                        Timesheets
                     </a>
                 </li>
                              
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/admin/progetti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/progetti.jsp">
                        Progetti
                     </a>
                 </li>
                 
                   <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/admin/pagamenti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/pagamenti.jsp">
                        Pagamenti
                     </a>
                 </li>
@@ -138,7 +138,7 @@
 					 </a>
 					</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/logout.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/logout.jsp">
                         <i class="bi bi-power"></i> Logout
                     </a>
                 </li>
