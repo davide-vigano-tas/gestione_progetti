@@ -224,7 +224,6 @@
 	class="form-horizontal needs-validation" id="utenteForm">
 	
 		<input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
-		<input type="hidden" name="azione" id="azione" value="registrazione">
 		
 			<!-- ---------------------------------  Nome -->
 			<div class="mb-3 row">

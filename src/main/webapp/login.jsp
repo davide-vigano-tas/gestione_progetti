@@ -1,3 +1,4 @@
+<%@page import="java.util.UUID"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
@@ -22,6 +23,10 @@
 			response.sendRedirect(request.getContextPath()+"/admin/home.jsp");
 		} 
    } else  {
+	   
+	   String csrfToken = UUID.randomUUID().toString();
+		request.getSession().setAttribute("csrfToken", csrfToken);
+		request.setAttribute("csrfToken", csrfToken);
    %>
 <!DOCTYPE html>
 <html>
@@ -80,8 +85,10 @@
 						<h3 class="panel-title mt-4">Login</h3>
 					</div>
 					<div class="panel-body">
-						<form action="/<%=application.getServletContextName()%>/controllo"
+						<form action="/<%=application.getServletContextName()%>/login"
 							method="post" class="form-horizontal" id="utenteForm">
+							
+							<input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
 
 							<!---------------------------------------------------------- Username -->
 							<div class="form-group mb-2">
