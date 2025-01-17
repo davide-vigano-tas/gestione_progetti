@@ -44,7 +44,7 @@
 		 filter: brightness(110%);
 	}
 	
-		.col-md-3 > a{
+	.col-md-3 > a{
 		color: #03122F;
 		border-radius: 25px;
 		min-width: 7.5em;
@@ -58,7 +58,6 @@
 		border-radius: 25px;
 		border: 0.5rem solid  #a70fff;
 	}
-	
 	
 </style>
 </head>
@@ -104,15 +103,22 @@
             
                 <div class="col-md-3 text-center">
                 	<a class="btn" href="PAGINA PROGETTI DEL CLIENTE">
-                     <i class="bi bi-code-square" style="font-size: 2rem;"></i><br>
+                     <i class="bi bi-window" style="font-size: 2rem;"></i><br>
                      <strong>Progetti</strong>
                 	</a>
                 </div>
                 
                 <div class="col-md-3 text-center">
                 	<a class="btn" href="/user/pagamenti">
-                     <i class="bi bi-currency-euro" style="font-size: 2rem;"></i><br>
-                     <strong>Pagamenti</strong>
+                     <i class="bi bi-code" style="font-size: 2rem;"></i><br>
+                     <strong>Tasks</strong>
+                	</a>
+                </div>
+                
+                <div class="col-md-3 text-center">
+                	<a class="btn" href="/user/pagamenti">
+                     <i class="bi bi-calendar2-week" style="font-size: 2rem;"></i><br>
+                     <strong>Timesheets</strong>
                 	</a>
                 </div>
                 
