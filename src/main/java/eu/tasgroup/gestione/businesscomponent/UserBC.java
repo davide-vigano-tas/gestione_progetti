@@ -163,6 +163,15 @@ public class UserBC {
 		}
 	}
 	
+	public User[] getDipendentiNonAssegnati() throws DAOException, NamingException {
+		try {
+			conn = DBAccess.getConnection();
+			return userDAO.getDipendentiNonAssegnati(conn);
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
+	
 	public Role[] getRolesById(long id) throws DAOException, NamingException {
 		Role[] roles = new Role[0];
 		try {

@@ -168,6 +168,34 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 			throw new DAOException(e);
 		}
 	}
+	public User[] getDipendentiNonAssegnati(Connection conn) throws DAOException {
+		User[] users = null;
+
+		try {
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			ResultSet rs = stmt.executeQuery(SELECT_DIPENDENTI_NON_ASSEGNATI);
+			rs.last();
+			users = new User[rs.getRow()];
+			rs.beforeFirst();
+			for (int i = 0; rs.next(); i++) {
+				User user = new User();
+				user.setId(rs.getLong(1));
+				user.setNome(rs.getString(2));
+				user.setCognome(rs.getString(3));
+				user.setUsername(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setEmail(rs.getString(6));
+				user.setTentativiFalliti(rs.getInt(7));
+				user.setLocked(rs.getBoolean(8));
+				user.setDataCreazione(rs.getTimestamp(9).toLocalDateTime());
+				users[i] = user;
+			}
+			return users;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+	}
 
 	public User[] getBySkill(Connection conn, Skills skill) throws DAOException {
 		User[] users = null;
@@ -235,6 +263,8 @@ public class UserDAO extends DAOAdapter<User> implements DAOConstants {
 		}
 		
 	}
+	
+	
 
 	@Override
 	public void delete(Connection conn, long id) throws DAOException {

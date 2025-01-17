@@ -77,7 +77,10 @@ public class ProjectManagerFacade {
 		return userBC.getBySkill(skill);
 	}
 	
-	// TODO: lista dei dipendenti non assegnati
+	/*--------------------------- lista dei dipendenti non assegnati */
+	public User[] getDipendentiNonAssegnati() throws DAOException, NamingException {
+		return userBC.getDipendentiNonAssegnati();
+	}
 
 	/*------------------------------- Gestione dei progetti --------------------------------*/
 

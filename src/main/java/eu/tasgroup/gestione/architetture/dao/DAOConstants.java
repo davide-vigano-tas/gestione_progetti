@@ -9,6 +9,10 @@ public interface DAOConstants {
 	String SELECT_USER_ID = "SELECT * FROM users WHERE id = ?";
 	String SELECT_USER_USERNAME = "SELECT * FROM users WHERE username = ?";
 	String SELECT_USER_EMAIL = "SELECT * FROM users WHERE email = ?";
+	String SELECT_DIPENDENTI_NON_ASSEGNATI = "select d.id, d.nome, d.cognome, d.username, d.password"
+			+ ", d.email, d.tentativi_falliti, d.locked, d.data_creazione from users d join users_roles r"
+			+ " on d.id = r.id_users "
+			+ "where r.role = 'DIPENDENTE' and not exists(select * from project_tasks t where t.id_dipendente = d.id)";
 
 	String SELECT_USER_ROLES_BY_USERNAME = "SELECT r.role FROM users u "
 	        + "JOIN users_roles r ON u.id = r.id_users "
@@ -49,6 +53,7 @@ public interface DAOConstants {
 	String SELECT_PROJECTS_RESPONSABILE = "SELECT * FROM projects WHERE id_responsabile = ?";
 	String SELECT_PROJECT_COMPLETAMENTO = "SELECT percentuale_completamento FROM projects WHERE id = ?";
 
+	
 	// INSERT
 	String INSERT_PROJECT = "INSERT INTO projects (nome_progetto, descrizione, data_inizio, data_fine, budget, id_cliente, "
 	        + "id_responsabile, costo_progetto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
