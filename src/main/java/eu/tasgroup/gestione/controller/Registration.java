@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.ClienteFacade;
 import eu.tasgroup.gestione.businesscomponent.model.User;
-import eu.tasgroup.gestione.businesscomponent.security.Algoritmo;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 
 /**
@@ -45,6 +44,8 @@ public class Registration extends HttpServlet {
 			String password = EscapeHTML.escapeHtml(request.getParameter("password"));
 			String email = EscapeHTML.escapeHtml(request.getParameter("email"));
 			
+			System.out.println("Pass: "+password+" "+password.equals("12qwasZX?"));
+			
 			validateField(nome, "nome", "Il campo nome non può essere vuoto e deve contenere "
 					+ "solo lettere.");
 			validateField(cognome, "cognome", "Il campo cognome non può essere vuoto e deve contenere "
@@ -60,7 +61,7 @@ public class Registration extends HttpServlet {
 			User user = new User();
 			user.setNome(nome);
 			user.setCognome(cognome);
-			user.setPassword(Algoritmo.converti(password));
+			user.setPassword(password);
 			user.setUsername(username);
 			user.setEmail(email);
 			

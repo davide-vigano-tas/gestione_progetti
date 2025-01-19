@@ -32,7 +32,6 @@
 <html>
 <head>
 <%@ include file="cdn.html" %>
-<meta charset="ISO-8859-1">
 <title>Login page</title>
 <link rel="stylesheet"
 	href="/<%=application.getServletContextName()%>/css/style.css">

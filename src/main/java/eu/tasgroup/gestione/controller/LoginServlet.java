@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 		password = EscapeHTML.escapeHtml(password);
 		userType = EscapeHTML.escapeHtml(userType);
 		
+		
 		HttpSession session = request.getSession();
 		
 		if(username != null && password != null & userType != null) {
@@ -75,6 +76,9 @@ public class LoginServlet extends HttpServlet {
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))) {
 					response.sendRedirect("dip/projman/home.jsp");
+					return;
+				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))) {
+					response.sendRedirect("admin/home.jsp");
 					return;
 				} 
 				
