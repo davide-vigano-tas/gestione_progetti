@@ -1,6 +1,7 @@
 package test.eu.tasgroup.gestione.architecture.dbaccess;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.PrintWriter;
 import java.sql.Connection;

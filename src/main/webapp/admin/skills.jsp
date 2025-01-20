@@ -89,12 +89,9 @@
         if(error) {
            
         	erDiv.style.display='block';
-            if(error === 'not_found') {
-            	 console.log(error);
-				erDiv.textContent = 'Username non trovato';
-            }
-            if(error === 'incorrect_password')  {
-				erDiv.textContent = 'Password errata';
+     
+            if(error === 'invalid_skill')  {
+				erDiv.textContent = 'Skill non valida';
             }
         }
     };
@@ -112,12 +109,13 @@
 								
 					</div>
 		
-			<div class="table-responsive my-2">
+			<div class="table-responsive my-2" id="skillsAccordion">
 			<table id="itemTable" class="table table-hover">
 				<thead>
 					<tr>
 						<th style="width: 20%;">Id</th>
 						<th style="width: 20%;">Skill</th>
+						<th style="width: 20%;">&nbsp;</th>
 						<th style="width: 20%;">&nbsp;</th>
 					</tr>
 				</thead>
@@ -142,18 +140,18 @@
 							
 								<td style="vertical-align: middle;">
 									
-						   <a class="btn btn-outline-dark btn-lg d-flex align-items-center justify-content-between w-100 mt-4 mb-4" 
+						   <a class="btn btn-outline-dark btn-lg d-flex align-items-center justify-content-between w-50 mt-3 mb-3" 
 								   data-bs-toggle="collapse" 
-								   href="#userBySkill" role="button" 
+								   href="#userBySkill<%= got.getId() %>" role="button" 
 								   aria-expanded="false" 
-								   aria-controls="userBySkill">
+								   aria-controls="userBySkill<%= got.getId() %>">
 								    <span class="me-2 fs-3"> 
-								        <i class="fa-solid fa-wallet"></i>
-								        &nbsp;Dipendenti con skill
+								        <i class="bi bi-people-fill"></i>
+								        &nbsp;Dipendenti 
 								    </span>
-								    <i class="fas fa-chevron-down fa-lg"></i>
+								    <i class="bi bi-caret-down-fill"></i>
 								</a>
-							 	<div class="collapse" id="userBySkill">
+							 	<div class="collapse" id="userBySkill<%= got.getId()%>" data-bs-parent="#skillsAccordion">
 						  	<% 
 						  	
 						  	User[] uBySkill = AdminFacade.getInstance().getDipendentiBySkill(got); %>
@@ -195,6 +193,15 @@
 						     
 								
 								</td>
+								<td style="vertical-align: middle;">
+								
+								<form action="/<%= application.getServletContextName()%>/admin/deleteSkill?id=<%=got.getId()%>" method="post">
+									<button type="submit" class="btn btn-danger btn-sm">
+										<i class="bi bi-trash"></i>
+									</button>
+								</form>
+								</td>
+								
 							</tr>
 
 					<%
@@ -206,7 +213,7 @@
 			
 			<form action="/<%= application.getServletContextName()%>/admin/addSkill" method="post">
 					
-						<select class="form-select" name = "type" id="type" required >
+						<select class="form-select" name = "skill" id="skill" required >
 						   	<option value="JAVA8">Java8</option>
 						   	<option value="JAVA17">Java17</option>
 						   	<option value="PYTHON">Python</option>
