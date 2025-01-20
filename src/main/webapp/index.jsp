@@ -53,21 +53,21 @@
 <div class="container-fluid">
 	<div class="container-sm my-4 login" style="max-width: 70%;"> 
 	<a class="btn btn-primary login" style="background-color: #105491; width: 100%;" href="login.jsp">
-		<h4 class="h4 py-4" style="color: white; text-align: center;"> 
-		Entra come Cliente&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+		<span class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Cliente&nbsp;<i class="bi bi-box-arrow-in-right"></i></span>
 	</a>
 	</div>
 	<div class="container-sm my-4 login" style=" max-width: 70%;">
 	<a class="btn btn-primary login" style="background-color: #11a27a; width: 100%;" href="login.jsp?option=dipendente">
-		<h4 class="h4 py-4" style="color: white; text-align: center;"> 
-		Entra come Dipendente&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+		<span class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Dipendente&nbsp;<i class="bi bi-box-arrow-in-right"></i></span>
 	</a>
 	</div>
 	
 	<div class="container-sm my-4 login" style=" max-width: 70%;">
 	<a class="btn btn-primary login" style="background-color: #e4204e; width: 100%;"  href="login.jsp?option=admin">
-				<h4 class="h4 py-4" style="color: white; text-align: center;"> 
-		Entra come Admin&nbsp;<i class="bi bi-box-arrow-in-right"></i></h4>
+				<span class="h4 py-4" style="color: white; text-align: center;"> 
+		Entra come Admin&nbsp;<i class="bi bi-box-arrow-in-right"></i></span>
 	</a>
 	</div>
 
