@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="cdn.html" %>
+<%@ include file="../cdn.html" %>
 <title>Tas home</title>
 <link rel="stylesheet" href="/<%= application.getServletContextName() %>/css/style.css"> 
 
@@ -62,7 +62,7 @@
 	
 </style>
 </head>
-<jsp:include page="nav.jsp"/>
+<jsp:include page="../nav.jsp"/>
 <body>
 <div class="container">
 	<div class="card shadow-sm mt-5">
@@ -122,6 +122,6 @@
 </div>
 
 
-<footer><%@ include file="footer.html" %></footer>
+<footer><%@ include file="../footer.html" %></footer>
 </body>
 </html>
