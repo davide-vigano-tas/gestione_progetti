@@ -88,6 +88,7 @@
 					<tr>
 						<th style="width: 20%;">Username</th>
 						<th style="width: 20%;">Email</th>
+						<th style="width: 20%;">Ruoli</th>
 						<th style="width: 20%;">&nbsp;</th>
 					</tr>
 				</thead>
@@ -109,6 +110,14 @@
 								<td style="vertical-align: middle;">
 									<%= got.getEmail() %>
 								</td>
+									<td style="vertical-align: middle;">
+										<% String roles_string = "";
+										for(Role role : user_roles) { 
+												roles_string +=  role.getRole().name() + " ";
+										 } %>
+										
+										<strong><%=roles_string%></strong>
+									</td>
 							
 								<td style="vertical-align: middle;">
 									
