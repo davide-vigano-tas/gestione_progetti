@@ -133,7 +133,7 @@
             <ul class="navbar-nav ms-auto">
 
 					<li>
-					 <a  href="<%= application.getContextPath() %>/admin/home.jsp">
+					 <a  href="<%= application.getContextPath() %>/admin/home.jsp" class="nav-link navbar-text">
 					 
 				
 					 	<%=  username %>

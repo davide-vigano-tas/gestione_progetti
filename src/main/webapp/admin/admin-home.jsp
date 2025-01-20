@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
@@ -5,14 +6,14 @@
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.User"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.facade.AdminFacade"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="error.jsp"%>
+    pageEncoding="UTF-8" errorPage="../error.jsp"%>
     <%
 	if(session.getAttribute("username") != null) {	
 		String username = (String) session.getAttribute("username");
 		User user = AdminFacade.getInstance().getByUsername(username);
 		Role[] roles = AdminFacade.getInstance().getRolesById(user.getId());
 		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))) {
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			SimpleDateFormat formato = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
    %>
 <!DOCTYPE html>
 <html>
@@ -107,7 +108,7 @@
 						<strong>Account Bloccato: <%=user.isLocked() %></strong>
 					</p>
 					<p>
-						<strong>Data Creazione: <%=formato.format(user.getDataCreazione()) %></strong>
+						<strong>Data Creazione: <%=user.getDataCreazione().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %></strong>
 					</p>
 				</div>
 			</div>
@@ -141,8 +142,8 @@
 </html>
 
 <% } else { 
-	 response.sendRedirect("/login.jsp");
+	 response.sendRedirect("login.jsp");
 	
-}
-		} else { response.sendRedirect("/login.jsp");} %>
+	}
+} else { response.sendRedirect("login.jsp");} %>
 

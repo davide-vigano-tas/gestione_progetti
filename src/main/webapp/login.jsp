@@ -5,7 +5,7 @@
 <%@page import="java.util.List"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.facade.AdminFacade"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" errorPage="../error.jsp"%>
     
    <%
    
