@@ -117,6 +117,24 @@ public interface DAOConstants {
 	String SELECT_PROJECT_TASK = "select * from project_tasks where id = ?;";
 	String SELECT_PROJECT_TASKS_BY_PROJECT = "select * from project_tasks where id_progetto = ?;";
 	String SELECT_PROJECT_TASKS_BY_DIPENDENTE = "select * from project_tasks where id_dipendente = ?;";
+	String SELECT_PROJECT_TASKS_BY_PROJECT_MANAGER = "SELECT "
+            + "    pt.id AS task_id, "
+			+ "    pt.id_progetto,"
+            + "    pt.nome_task, "
+            + "    pt.descrizione AS task_descrizione, "
+            + "    pt.id_dipendente, "
+            + "    pt.stato AS task_stato, "
+            + "    pt.scadenza AS task_scadenza, "
+            + "    pt.fase AS task_fase "
+            + "FROM "
+            + "    project_tasks pt "
+            + "JOIN "
+            + "    projects p ON pt.id_progetto = p.id "
+            + "JOIN "
+            + "    users pm ON p.id_responsabile = pm.id "
+            + "WHERE "
+            + "    pm.id = ?;";  
+
 
 	String UPDATE_PROJECT_TASK = "update project_tasks set nome_task = ?, descrizione = ?, id_dipendente = ?, stato = ?, scadenza = ?, fase = ? where id = ?;";
 	

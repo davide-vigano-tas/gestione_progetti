@@ -109,4 +109,13 @@ public class ProjectTaskBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
+
+	public List<ProjectTask> getByProjectManager(long idProjectManager) throws DAOException, NamingException {
+		try {
+			this.conn = DBAccess.getConnection();
+			return ptDAO.getByProjectManager(conn, idProjectManager);
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
 }

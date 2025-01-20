@@ -13,6 +13,7 @@ import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 
 public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConstants {
+
 	private ProjectTaskDAO() {
 	}
 
@@ -207,6 +208,32 @@ public class ProjectTaskDAO extends DAOAdapter<ProjectTask> implements DAOConsta
 		try {
 			ps = conn.prepareStatement(SELECT_PROJECT_TASKS_BY_PROJECT);
 			ps.setLong(1, idProject);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				ProjectTask projectTask = new ProjectTask();
+				projectTask.setId(rs.getLong(1));
+				projectTask.setIdProgetto(rs.getLong(2));
+				projectTask.setNomeTask(rs.getString(3));
+				projectTask.setDescrizione(rs.getString(4));
+				projectTask.setIdDipendente(rs.getLong(5));
+				projectTask.setStato(StatoTask.valueOf(rs.getString(6)));
+				projectTask.setScadenza(new java.util.Date(rs.getDate(7).getTime()));
+				projectTask.setFase(Fase.valueOf(rs.getString(8)));
+				projectTasks.add(projectTask);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return projectTasks;
+	}
+
+	public List<ProjectTask> getByProjectManager(Connection conn, long idProjectManager) throws DAOException {
+		List<ProjectTask> projectTasks = new ArrayList<ProjectTask>();
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(SELECT_PROJECT_TASKS_BY_PROJECT_MANAGER);
+			ps.setLong(1, idProjectManager);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

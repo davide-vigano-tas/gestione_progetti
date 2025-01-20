@@ -157,6 +157,11 @@ public class ProjectManagerFacade {
 		return projectTaskBC.getByProject(idProject);
 	}
 	
+	public List<ProjectTask> getListProjectTaskByProjectManager(long idProjectManager) throws DAOException, NamingException {
+		projectTaskBC = new ProjectTaskBC();
+		return projectTaskBC.getByProjectManager(idProjectManager);
+	}
+	
 
 	/*------------------------------- Gestione dei timesheet --------------------------------*/
 	
