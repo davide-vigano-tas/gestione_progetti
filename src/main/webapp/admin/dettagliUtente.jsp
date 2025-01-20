@@ -191,7 +191,24 @@
 						</button>
 					</form>
 					</div>
-					
+					<% if(user_roles.length > 1) { %>
+					<div class="my-2">
+					<form action="/<%= application.getServletContextName()%>/admin/deleteRole" method="post">
+						<input type="hidden" name="id" value="<%= retrieved.getId()%>">
+						<select class="form-select" required name="role">
+							
+							<%for(Role r: user_roles) { %>
+							<option value="<%=r.getRole().name()%>">
+							 <%=r.getRole().name().toLowerCase().replaceAll("_", " ")%></option>
+							<% } %>
+						</select>
+						<button type="submit" class="btn btn-primary btn-sm my-3">
+							<i class="bi bi-person-fill-gear"></i>
+							&nbsp;Rimuovi un ruolo
+						</button>
+					</form>
+					</div>
+					<% } %>
 				</div>
 			</div>
 			

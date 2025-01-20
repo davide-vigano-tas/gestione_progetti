@@ -13,7 +13,6 @@
 		User user = AdminFacade.getInstance().getByUsername(username);
 		Role[] roles = AdminFacade.getInstance().getRolesById(user.getId());
 		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))) {
-			SimpleDateFormat formato = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
    %>
 <!DOCTYPE html>
 <html>

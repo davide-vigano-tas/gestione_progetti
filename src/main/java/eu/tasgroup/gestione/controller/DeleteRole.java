@@ -16,8 +16,8 @@ import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
 
-@WebServlet("/admin/addRole")
-public class AddRole extends HttpServlet {
+@WebServlet("/admin/deleteRole")
+public class DeleteRole extends HttpServlet {
 
 
 	private static final long serialVersionUID = -3441532071007377099L;
@@ -56,8 +56,7 @@ public class AddRole extends HttpServlet {
 			}
 			Role r = new Role();
 			r.setIdUser(user_id);
-			r.setRole(Ruoli.valueOf(role));
-			af.addRole(user, r);
+			af.deleteRole(Ruoli.valueOf(role), user);
 			response.sendRedirect("../admin/dettagliUtente.jsp?id="+user_id);
 		}catch (Exception e) {
 			e.printStackTrace();
