@@ -131,6 +131,19 @@
                 	</a>
                 </div>
                 
+                 <div class="col-md-3 text-center">
+                	<a class="btn" href="/<%= application.getServletContextName() %>/admin/users.jsp">
+                     <i class="bi bi-people" style="font-size: 2rem;"></i><br>
+                     <strong>Utenti</strong>
+                	</a>
+                </div>
+                
+                <div class="col-md-3 text-center">
+                	<a class="btn" href="/<%= application.getServletContextName() %>/admin/skills.jsp">
+                     <i class="bi bi-code" style="font-size: 2rem;"></i><br>
+                     <strong>Skills</strong>
+                	</a>
+                </div>
             </div>
         </div>
     </div>
@@ -145,5 +158,5 @@
 	 response.sendRedirect("/gestionale-progetti/login.jsp");
 	
 	}
-} else { response.sendRedirect("/	gestionale-progetti/login.jsp");} %>
+} else { response.sendRedirect("/gestionale-progetti/login.jsp");} %>
 
