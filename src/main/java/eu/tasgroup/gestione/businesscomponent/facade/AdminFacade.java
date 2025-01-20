@@ -93,6 +93,11 @@ public class AdminFacade {
 	public User[] getUsersByRole(Ruoli ruolo) throws DAOException, NamingException {
 		return userBC.getByRole(ruolo);
 	}
+	/*--------------------------- lista dei dipendenti non assegnati */
+	public User[] getDipendentiNonAssegnati() throws DAOException, NamingException {
+		return userBC.getDipendentiNonAssegnati();
+	}
+
 	
 	/*-------------------------------Aggiunge una skill al dipendente*/
 	public void addSkill(User user, Skill skill) throws DAOException, NamingException {

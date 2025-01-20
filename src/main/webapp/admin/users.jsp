@@ -98,7 +98,33 @@
         }
     };
 
-   
+
+
+$(document).ready(function(){
+	function fetchDipendentiNonAssegnati() {
+		$.ajax({
+			url: '<%= request.getContextPath()%>/admin/nonassegnati',
+			type: 'GET',
+			success:function(response) {
+				$('#usersTableBody').html(response);
+			},
+			error: function(error) {
+				console.error(error);
+			}
+		});
+	}
+
+	
+	$('#q_form').submit(function(e) {
+		e.preventDefault();
+		fetchDipendentiNonAssegnati();
+	});
+	
+	
+});
+
+
+
 </script>
 </head>
 <jsp:include page="../nav.jsp"/>
@@ -110,7 +136,17 @@
 		<div id="error" class="alert alert-danger" >
 								
 					</div>
-		
+		<form id="q_form">
+			
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+						<i class="bi bi-search"></i>&nbsp;Dipendenti non assegnati
+					</button>
+					</span>
+				
+				</div>
+		</form>
 			<div class="table-responsive my-2">
 			<table id="itemTable" class="table table-hover">
 				<thead>
@@ -121,7 +157,7 @@
 						<th style="width: 20%;">&nbsp;</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="usersTableBody">
 					<%
 					
 						User[] users = AdminFacade.getInstance().getAllUsers();
