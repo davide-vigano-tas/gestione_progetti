@@ -18,9 +18,9 @@
    	} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
    		response.sendRedirect(request.getContextPath()+"/dipendente/dipendente-home.jsp");
 		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))){
-			response.sendRedirect(request.getContextPath()+"/dip/projman/home.jsp");
+			response.sendRedirect(request.getContextPath()+"/projectManager/projectManager-home.jsp");
 		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))){
-			response.sendRedirect(request.getContextPath()+"/admin/home.jsp");
+			response.sendRedirect(request.getContextPath()+"/admin/admin-home.jsp");
 		} 
    } else  {
 	   
