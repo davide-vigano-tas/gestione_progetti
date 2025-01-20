@@ -83,6 +83,7 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("admin/admin-home.jsp");
 					return;
 				} 
+				response.sendRedirect("login.jsp");
 				
 			}catch (Exception e) {
 				e.printStackTrace();
