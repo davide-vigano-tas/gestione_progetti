@@ -224,6 +224,7 @@
 						  </div>
 						</div>
 						
+						<!-- ----------------------responsabile -->
 						<input type="hidden" name="responsabile" id="responsabile" class="form-control" value="<%= user.getId()%>">
 						
 						<!-- ---------------------------------  Costo -->
