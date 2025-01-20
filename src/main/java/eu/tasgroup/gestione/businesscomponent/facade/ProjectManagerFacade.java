@@ -30,7 +30,7 @@ public class ProjectManagerFacade {
 	private ProjectManagerFacade() {
 	}
 
-	public static ProjectManagerFacade getIstance() throws DAOException, NamingException {
+	public static ProjectManagerFacade getInstance() throws DAOException, NamingException {
 		if (pmf == null)
 			pmf = new ProjectManagerFacade();
 
@@ -67,6 +67,7 @@ public class ProjectManagerFacade {
 		return userBC.getByEmail(email);
 	}
 
+	//-------------------- array di clienti sulla base del ruolo
 	public User[] getByRole(Ruoli role) throws DAOException, NamingException {
 		userBC = new UserBC();
 		return userBC.getByRole(role);
@@ -103,9 +104,15 @@ public class ProjectManagerFacade {
 	}
 
 	/*--------------------------------------Progetti associati al Project Manager*/
-	public List<Project> getProjectsByCliente(User user) throws DAOException, NamingException {
+	public List<Project> getProjectsByResponsabile(User user) throws DAOException, NamingException {
 		projectBC = new ProjectBC();
 		return projectBC.getListProjectByResponsabile(user.getId());
+	}
+	
+	/*--------------------------------------Progetti associati al cliente*/
+	public List<Project> getProjectsByCliente(User user) throws DAOException, NamingException {
+		projectBC = new ProjectBC();
+		return projectBC.getListProjectByCliente(user.getId());
 	}
 
 	/*------------------------------- Gestione delle task --------------------------------*/
@@ -166,5 +173,11 @@ public class ProjectManagerFacade {
 	public Timesheet[] getAllTimesheet() throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();
 		return timesheetBC.getAll();
+	}
+	
+	
+  	/*--------------------------------Ruoli di un utente*/
+	public Role[] getRolesById(long id) throws DAOException, NamingException {
+		return userBC.getRolesById(id);
 	}
 }
