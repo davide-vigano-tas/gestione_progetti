@@ -42,11 +42,6 @@
             %>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/progetti.jsp">
-                        I tuoi progetti
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/pagamenti.jsp">
                         I tuoi pagamenti
                     </a>
