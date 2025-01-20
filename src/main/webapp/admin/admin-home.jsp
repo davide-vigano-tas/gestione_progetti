@@ -142,8 +142,8 @@
 </html>
 
 <% } else { 
-	 response.sendRedirect("login.jsp");
+	 response.sendRedirect("/gestionale-progetti/login.jsp");
 	
 	}
-} else { response.sendRedirect("login.jsp");} %>
+} else { response.sendRedirect("/	gestionale-progetti/login.jsp");} %>
 
