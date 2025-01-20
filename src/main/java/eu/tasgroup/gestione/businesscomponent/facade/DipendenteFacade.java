@@ -90,7 +90,7 @@ public class DipendenteFacade {
 	}
 	
 	//-----------------------timesheet by dip
-	public List<Timesheet> timesheetByDipendente(long id) throws DAOException, NamingException {
+	public List<Timesheet> getTimesheetByDipendente(long id) throws DAOException, NamingException {
 		return tBC.getListByDipendente(id);
 	}
 	
@@ -127,5 +127,9 @@ public class DipendenteFacade {
 	//----------add skill
 	public void addSkill(long id, Skill skill) throws DAOException, NamingException {
 		userBC.addSkill(userBC.getById(id), skill);
+	}
+  	/*--------------------------------Ruoli di un utente*/
+	public Role[] getRolesById(long id) throws DAOException, NamingException {
+		return userBC.getRolesById(id);
 	}
 }
