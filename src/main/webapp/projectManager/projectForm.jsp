@@ -152,6 +152,36 @@
 						    </div>
 						  </div>
 						</div>
+						<!-- ---------------------------------  Data inizio -->
+						<div class="mb-3 row">
+						  <label for="inizio" class="col-sm-2 col-form-label">Data Inizio</label>
+						  <div class="col-sm-6">
+						    <div class="input-group">
+						      <span class="input-group-text" id="inizio-icon">
+						        <!-- <i class="bi bi-person"></i>-->
+						      </span>
+						      <input type="date" name="inizio" id="inizio" class="form-control" required>
+						    </div>
+						    <div class="invalid-feedback" id="infoInizio">
+						      inserire una data
+						    </div>
+						  </div>
+						</div>
+						<!-- ---------------------------------  Data fine -->
+						<div class="mb-3 row">
+						  <label for="fine" class="col-sm-2 col-form-label">Data Fine</label>
+						  <div class="col-sm-6">
+						    <div class="input-group">
+						      <span class="input-group-text" id="fine-icon">
+						        <!-- <i class="bi bi-person"></i>-->
+						      </span>
+						      <input type="date" name="fine" id="fine" class="form-control" required>
+						    </div>
+						    <div class="invalid-feedback" id="infoFIne">
+						      inserire una data
+						    </div>
+						  </div>
+						</div>
 						
 						<!-- ---------------------------------  Budget -->
 						<div class="mb-3 row">

@@ -1,6 +1,7 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.naming.NamingException;
@@ -36,12 +37,14 @@ public class NewProject extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			
 			String nome = EscapeHTML.escapeHtml(request.getParameter("nome"));
 			String descrizione = EscapeHTML.escapeHtml(request.getParameter("descrizione"));
 			
-			//TODO: LE DATE
-			Date dataInizio = new Date();
-			Date dataFine = new Date();
+			
+			Date dataInizio = formato.parse(request.getParameter("inizio"));
+			Date dataFine = formato.parse(request.getParameter("fine"));
 			
 			Double budget = Double.parseDouble(EscapeHTML.escapeHtml(request.getParameter("budget")));
 			
