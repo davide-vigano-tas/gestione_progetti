@@ -1,3 +1,6 @@
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.ProjectTask"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Project"%>
+<%@page import="java.util.List"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
@@ -6,7 +9,7 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="error.jsp"%>
+    pageEncoding="UTF-8" errorPage="../error.jsp"%>
     
     
 <%
@@ -117,28 +120,54 @@
             <hr>
             
             <div class="row my-4 justify-content-evenly">
-            
                 <div class="col-md-3 text-center">
-                	<a class="btn" href="pm-projects.jsp">
-                     <i class="bi bi-window" style="font-size: 2rem;"></i><br>
-                     <strong>Progetti</strong>
+                	<a class="btn" href="taskForm.jsp">
+		            	<i class="bi bi-plus" style="font-size: 2rem;"></i><br>
+                    	<strong>Nuovo</strong>
                 	</a>
                 </div>
                 
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="pm-tasks.jsp">
-                     <i class="bi bi-code" style="font-size: 2rem;"></i><br>
-                     <strong>Tasks</strong>
-                	</a>
-                </div>
-                
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="PAGINA CONLISTA DELLE TIMESHEET DA APPRO ARE">
-                     <i class="bi bi-calendar2-week" style="font-size: 2rem;"></i><br>
-                     <strong>Timesheets</strong>
-                	</a>
-                </div>
-                
+            </div>
+            <div>
+            	<table class="table table-striped" id="tabella">
+               		<thead>
+               			<tr>
+               				<th>Id</th>
+               				<th>Progetto</th>
+               				<th>Nome</th>
+               				<th>Descrizione</th>
+               				<th>Dipendente</th>
+               				<th>Stato</th>
+               				<th>Scadenza</th>
+               				<th>Fase</th>
+               			</tr>
+               		</thead>
+               		<tbody>
+               			<%
+               			List<ProjectTask> tasks = ProjectManagerFacade.getInstance().getListProjectTaskByProjectManager(user.getId());
+               			for(int i = 0; i< tasks.size(); i++){
+               			%>
+               			<tr>
+               				<td><%=tasks.get(i).getId() %></td>
+               				<td><%=ProjectManagerFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto()).getNomeProgetto() %></td>
+               				<td><%=tasks.get(i).getNomeTask() %></td>
+               				<td><%=tasks.get(i).getDescrizione() %></td>
+               				
+               				<td><%=ProjectManagerFacade.getInstance().getProjectManagerById(tasks.get(i).getIdDipendente()).getEmail() %></td>
+               				<td><%=tasks.get(i).getStato() %></td>
+               				<td><%=tasks.get(i).getScadenza() %></td>
+               				<td><%=tasks.get(i).getFase() %></td>
+               				
+               				
+               				
+               				
+               				
+               			</tr>
+               			<%
+               			}
+               			%>
+               		</tbody>
+               	</table>
             </div>
         </div>
     </div>
