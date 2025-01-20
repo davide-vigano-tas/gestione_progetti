@@ -7,8 +7,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <div class="container-fluid">
         <a class="navbar-brand navbar-text" href="<%= application.getContextPath() %>/index.jsp" style="display: flex; align-items: center;">
+       <%
+       String username = (String) session.getAttribute("username");
+       if (username == null) { %>
             <img src="img/sito-logo.png" alt="logo" style="height: 30px; margin-right: 20px; margin-left: 10px;">
-    
+    <% }  else {%>
+    <img src="../img/sito-logo.png" alt="logo" style="height: 30px; margin-right: 20px; margin-left: 10px;">
+    <% } %>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,7 +21,7 @@
         <div class="collapse navbar-collapse" id="menu">
             <%
 				AdminFacade af = AdminFacade.getInstance();            
-                String username = (String) session.getAttribute("username");
+               
             	List<Role> roles = Arrays.asList(af.getRolesByUsername(username));
                 if (username == null) {
             %>
@@ -133,7 +138,7 @@
             <ul class="navbar-nav ms-auto">
 
 					<li>
-					 <a  href="<%= application.getContextPath() %>/admin/home.jsp" class="nav-link navbar-text">
+					 <a  href="<%= application.getContextPath() %>/admin/admin-home.jsp" class="nav-link navbar-text">
 					 
 				
 					 	<%=  username %>
