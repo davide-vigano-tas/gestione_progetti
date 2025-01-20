@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebFilter({"/registra", "/login"})
+@WebFilter({"/registra", "/login", "/admin/addUser"})
 public class CSRFFilter extends HttpFilter implements Filter {
 
 

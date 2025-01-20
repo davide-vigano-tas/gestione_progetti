@@ -74,6 +74,32 @@
 	
 	
 </style>
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const optionValue = urlParams.get('option');
+        if (optionValue) {
+            const selectElement = document.getElementById('userType');
+            selectElement.value = optionValue;
+        }
+        const error = urlParams.get('error');
+        const erDiv = document.getElementById('error');
+        erDiv.style.display='none';
+        if(error) {
+           
+        	erDiv.style.display='block';
+            if(error === 'username_taken') {
+            	 console.log(error);
+				erDiv.textContent = 'Username già in uso';
+            }
+            if(error === 'email_taken')  {
+				erDiv.textContent = 'Email già in uso';
+            }
+        }
+    };
+
+   
+</script>
 </head>
 <jsp:include page="../nav.jsp"/>
 <body>
@@ -81,6 +107,9 @@
 			<header class="page-header">
 			<h3>Utenti</h3>
 		</header>
+		<div id="error" class="alert alert-danger" >
+								
+					</div>
 		
 			<div class="table-responsive my-2">
 			<table id="itemTable" class="table table-hover">
@@ -135,8 +164,13 @@
 						}%>
 				</tbody>
 			</table>
-			
-		
+			<div class="my-2">
+				<button type="button" class="btn btn-primary btn-sm" style="background-color:  green;"
+					data-bs-toggle="modal" data-bs-target="#addUserModal">
+						<i class="bi bi-person-add"></i>&nbsp;Aggiungi Dipendente
+					</button>
+			</div>
+				<jsp:include page="adduser.jsp"/>
 		</div>
 </div>
 

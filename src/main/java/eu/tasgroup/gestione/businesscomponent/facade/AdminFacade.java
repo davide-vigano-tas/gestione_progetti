@@ -53,6 +53,10 @@ public class AdminFacade {
 		return af;
 	}
 	
+	public User createUser(User user) throws DAOException, NamingException {
+		return userBC.createOrUpdate(user);
+	}
+	
 	/*------------------------------------Tutti gli utenti*/
 	public User[] getAllUsers() throws DAOException, NamingException {
 		return userBC.getAll();
