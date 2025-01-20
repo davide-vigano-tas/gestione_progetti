@@ -69,17 +69,17 @@ public class LoginServlet extends HttpServlet {
 				Role[] roles = af.getRolesById(user.getId());
 				session.setAttribute("username", username);
 
-				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name().toLowerCase())) {
+				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name())) {
 					response.sendRedirect("cliente/cliente-home.jsp");
 					return;
-				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE)) && userType.equals(Ruoli.DIPENDENTE.name().toLowerCase())) {
+				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE)) && userType.equals(Ruoli.DIPENDENTE.name())) {
 					response.sendRedirect("dipendente/dipendente-home.jsp");
 
 					return;
-				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER)) && userType.equals(Ruoli.PROJECT_MANAGER.name().toLowerCase())) {
+				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER)) && userType.equals(Ruoli.PROJECT_MANAGER.name())) {
 					response.sendRedirect("projectmanager/home.jsp");
 					return;
-				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN)) && userType.equals(Ruoli.ADMIN.name().toLowerCase())) {
+				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN)) && userType.equals(Ruoli.ADMIN.name())) {
 					response.sendRedirect("admin/admin-home.jsp");
 					return;
 				} 

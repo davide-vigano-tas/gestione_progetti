@@ -147,10 +147,10 @@
 											class="glyphicon glyphicon-cog"></i> </span> 
 											<select name="userType"
 											id="userType" class="form-control form-select" required>
-											<option value="cliente">Cliente</option>
-											<option value="dipendente">Dipendente</option>
-											<option value="projectManager">Project Manager</option>
-											<option value="admin">Admin</option>
+											<option value="CLIENTE">Cliente</option>
+											<option value="DIPENDENTE">Dipendente</option>
+											<option value="PROJECT_MANAGER">Project Manager</option>
+											<option value="ADMIN">Admin</option>
 										</select>
 									</div>
 								</div>
