@@ -185,7 +185,7 @@
 						
 						<!-- ---------------------------------  Dipendente -->
 						<div class="mb-3 row">
-						  <label for="dipendente" class="col-sm-2 col-form-label">Cliente</label>
+						  <label for="dipendente" class="col-sm-2 col-form-label">Dipendente</label>
 						  <div class="col-sm-6">
 						    <div class="input-group">
 						      <span class="input-group-text" id="dipendente-icon">
@@ -193,7 +193,7 @@
 						      </span>
 						      <select name="dipendente" id="dipendente" class="form-control">
 						      	<%
-						      		User[] dipendenti = ProjectManagerFacade.getInstance().getDipendentiNonAssegnati();
+						      		User[] dipendenti = ProjectManagerFacade.getInstance().getByRole(Ruoli.DIPENDENTE);
 						      		for(int i =0; i < dipendenti.length; i++){
 						      	%>
 						      		<option value="<%=dipendenti[i].getId() %>"><%=dipendenti[i].getEmail() %></option>
@@ -211,7 +211,7 @@
 						
 						<!-- ---------------------------------  scademnza -->
 						<div class="mb-3 row">
-						  <label for="scadenza" class="col-sm-2 col-form-label">Data Inizio</label>
+						  <label for="scadenza" class="col-sm-2 col-form-label">Scadenza</label>
 						  <div class="col-sm-6">
 						    <div class="input-group">
 						      <span class="input-group-text" id="scadenza-icon">
@@ -225,7 +225,7 @@
 						  </div>
 						</div>
 						
-						<!-- ---------------------------------  Dipendente -->
+						<!-- ---------------------------------  Fase -->
 						<div class="mb-3 row">
 						  <label for="fase" class="col-sm-2 col-form-label">Fase</label>
 						  <div class="col-sm-6">
