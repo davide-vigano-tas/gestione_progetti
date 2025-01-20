@@ -3,8 +3,10 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
-<%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.User"%>
+<%@page import="java.util.List"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Timesheet"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="error.jsp"%>
     
@@ -82,7 +84,7 @@
 <div class="container">
 	<div class="card shadow-sm mt-5">
         <div class="card-header">
-            <h4>Benvenuto <%=username%></h4>
+            <h4>Timesheets</h4>
         </div>
         <div class="card-body">
             <div class="row mb-3">
@@ -116,29 +118,49 @@
             <hr>
             
             <div class="row my-4 justify-content-evenly">
-            
                 <div class="col-md-3 text-center">
-                	<a class="btn" href="PAGINA PROGETTI DEL CLIENTE">
-                     <i class="bi bi-window" style="font-size: 2rem;"></i><br>
-                     <strong>Progetti</strong>
-                	</a>
-                </div>
-                
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="Pagina con tutte le tasks">
-                     <i class="bi bi-code" style="font-size: 2rem;"></i><br>
-                     <strong>Tasks</strong>
-                	</a>
-                </div>
-                
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="DipendenteTimesheets.jsp">
-                     <i class="bi bi-calendar2-week" style="font-size: 2rem;"></i><br>
-                     <strong>Timesheets</strong>
+                	<a class="btn" href="timesheetForm.jsp">
+		            	<i class="bi bi-plus" style="font-size: 2rem;"></i><br>
+                    	<strong>Nuova</strong>
                 	</a>
                 </div>
                 
             </div>
+            
+            <div>
+            	<table class="table table-striped" id="tabella">
+                		<thead>
+                			<tr>
+                				<th>Id</th>
+                				<th>Progetto</th>
+                				<th>Task</th>
+                				<th>ore</th>
+                				<th>Data</th>
+                				<th>Stato</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			<%
+                			List<Timesheet> timesheets = DipendenteFacade.getInstance().getTimesheetByDipendente(
+                					DipendenteFacade.getInstance().getByUsername(session.getAttribute("username").toString()).getId()
+                					);
+                			for( int i = 0; i< timesheets.size(); i++){
+                			%>
+                			<tr>
+                				<td><%=timesheets.get(i).getId() %></td>
+                				<td><%=DipendenteFacade.getInstance().getProjectById(timesheets.get(i).getIdProgetto()) %></td>
+                				<td><%=DipendenteFacade.getInstance().getProjectTaskById(timesheets.get(i).getIdTask()) %></td>
+                				<td><%=timesheets.get(i).getOreLavorate() %></td>
+                				<td><%=timesheets.get(i).getData()%></td>
+                				<td><%=timesheets.get(i).isApprovato() ? "approvato" : "rifiutato"%></td>
+                			</tr>
+                			<%
+                			}
+                			%>
+                		</tbody>
+                	</table>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -153,4 +175,3 @@
 	
 	}
 } else { response.sendRedirect("/	gestionale-progetti/login.jsp");} %>
-
