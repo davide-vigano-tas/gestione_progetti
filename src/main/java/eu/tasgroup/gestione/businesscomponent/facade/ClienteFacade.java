@@ -90,4 +90,9 @@ public class ClienteFacade {
   	public Payment[] getPaymentByCliente(User cliente) throws DAOException, NamingException {
   		return paymentBC.getByUser(cliente);
   	}
+  	
+  	/*--------------------------------Ruoli di un utente*/
+	public Role[] getRolesById(long id) throws DAOException, NamingException {
+		return userBC.getRolesById(id);
+	}
 }

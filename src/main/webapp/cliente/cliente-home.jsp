@@ -1,5 +1,21 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.facade.ClienteFacade"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.User"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="error.jsp"%>
+    
+<%
+	if(session.getAttribute("username") != null) {	
+		String username = (String) session.getAttribute("username");
+		User user = ClienteFacade.getInstance().getByUsername(username);
+		Role[] roles = ClienteFacade.getInstance().getRolesById(user.getId());
+		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))) {
+			SimpleDateFormat formato = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
+   %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,33 +83,33 @@
 <div class="container">
 	<div class="card shadow-sm mt-5">
         <div class="card-header">
-            <h4>Benvenuto [inserire qui nome cliente] </h4>
+            <h4>Benvenuto <%=username %> </h4>
         </div>
         <div class="card-body">
             <div class="row mb-3">
 				<div class="col-md-6">
 					<p>
-						<strong>Nome:</strong>
+						<strong>Nome:  <%=user.getNome() %></strong>
 					</p>
 					<p>
-						<strong>Cognome:</strong>
+						<strong>Cognome: <%=user.getCognome() %></strong>
 					</p>
 					<p>
-						<strong>Username:</strong>
+						<strong>Username: <%=username %></strong>
 					</p>
 					<p>
-						<strong>Email:</strong>
+						<strong>Email: <%=user.getEmail() %></strong>
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p>
-						<strong>Tentativi Errati:</strong> 
+						<strong>Tentativi Errati: <%=user.getTentativiFalliti() %></strong> 
 					</p>
 					<p>
-						<strong>Account Bloccato:</strong>
+						<strong>Account Bloccato: <%=user.isLocked() %></strong>
 					</p>
 					<p>
-						<strong>Data Creazione:</strong>
+						<strong>Data Creazione: <%=user.getDataCreazione().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %></strong>
 					</p>
 				</div>
 			</div>
@@ -125,3 +141,9 @@
 <footer><%@ include file="../footer.html" %></footer>
 </body>
 </html>
+
+<% } else { 
+	 response.sendRedirect("login.jsp");
+	
+	}
+} else { response.sendRedirect("login.jsp");} %>
