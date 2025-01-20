@@ -72,13 +72,13 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("cliente/home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
-					response.sendRedirect("dip/developer/home.jsp");
+					response.sendRedirect("dipendente/home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))) {
-					response.sendRedirect("dip/projman/home.jsp");
+					response.sendRedirect("projectmanager/home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))) {
-					response.sendRedirect("admin/home.jsp");
+					response.sendRedirect("admin/admin-home.jsp");
 					return;
 				} 
 				

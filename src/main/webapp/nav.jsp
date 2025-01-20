@@ -47,17 +47,7 @@
                     </a>
                 </li>
             </ul>
-                       <ul class="navbar-nav ms-auto">
-
-					<li>
-					 <a  href="<%= application.getContextPath() %>/cliente/home.jsp">
-					 
-				
-					 	<%=  username %>
-					 </a>
-					</li>
-           
-            </ul>
+                      
                <%
                 } else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))){
             %>
@@ -79,17 +69,7 @@
                     </a>
                 </li>
             </ul>
-                       <ul class="navbar-nav ms-auto">
-
-					<li>
-					 <a  href="<%= application.getContextPath() %>/dip/developer/home.jsp">
-					 
-				
-					 	<%=  username %>
-					 </a>
-					</li>
-           
-            </ul>
+                       
                <%
                 } else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))){
             %>
@@ -110,17 +90,6 @@
                        Timesheets
                     </a>
                 </li>
-            </ul>
-                       <ul class="navbar-nav ms-auto">
-
-					<li>
-					 <a  href="<%= application.getContextPath() %>/dip/projman/home.jsp">
-					 
-				
-					 	<%=  username %>
-					 </a>
-					</li>
-           
             </ul>
             
                <%
@@ -156,7 +125,12 @@
                     </a>
                 </li>
             </ul>
-             <ul class="navbar-nav ms-auto">
+
+            <%
+                }
+               
+            %>
+            <ul class="navbar-nav ms-auto">
 
 					<li>
 					 <a  href="<%= application.getContextPath() %>/admin/home.jsp">
@@ -165,15 +139,7 @@
 					 	<%=  username %>
 					 </a>
 					</li>
-           
-            </ul>
-            <%
-                }
-               
-            %>
-            <ul class="navbar-nav ms-auto">
-
-			
+        
                 <li class="nav-item">
                     <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/logout.jsp">
                         <i class="bi bi-power"></i> Logout
