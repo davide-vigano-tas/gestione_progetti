@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
 
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER)) && userType.equals(Ruoli.PROJECT_MANAGER.name())) {
-					response.sendRedirect("projectmanager/home.jsp");
+					response.sendRedirect("projectManager/projectManager-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN)) && userType.equals(Ruoli.ADMIN.name())) {
 					response.sendRedirect("admin/admin-home.jsp");
