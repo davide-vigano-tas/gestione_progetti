@@ -14,9 +14,9 @@
 		String username = (String) session.getAttribute("username");
    	List<Role> roles = Arrays.asList(af.getRolesByUsername(username));
    	if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))){
-			response.sendRedirect(request.getContextPath()+"/cliente/home.jsp");
+			response.sendRedirect(request.getContextPath()+"/cliente/cliente-home.jsp");
    	} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
-   		response.sendRedirect(request.getContextPath()+"/dip/dipendente/home.jsp");
+   		response.sendRedirect(request.getContextPath()+"/dipendente/dipendente-home.jsp");
 		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))){
 			response.sendRedirect(request.getContextPath()+"/dip/projman/home.jsp");
 		} else if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))){

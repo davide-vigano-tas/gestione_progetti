@@ -69,10 +69,10 @@ public class LoginServlet extends HttpServlet {
 				Role[] roles = af.getRolesById(user.getId());
 				session.setAttribute("username", username);
 				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))) {
-					response.sendRedirect("cliente/home.jsp");
+					response.sendRedirect("cliente/cliente-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
-					response.sendRedirect("dipendente/home.jsp");
+					response.sendRedirect("dipendente/dipendente-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))) {
 					response.sendRedirect("projectmanager/home.jsp");
