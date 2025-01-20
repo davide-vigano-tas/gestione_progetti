@@ -43,9 +43,6 @@
             const selectElement = document.getElementById('userType');
             selectElement.value = optionValue;
         }
-    };
-    window.onload = function() {
-        	const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
         const erDiv = document.getElementById('error');
         erDiv.style.display='none';
@@ -60,7 +57,8 @@
 				erDiv.textContent = 'Password errata';
             }
         }
-        };
+    };
+
    
 </script>
 

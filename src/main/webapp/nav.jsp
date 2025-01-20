@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= application.getContextPath() %>/admin/users.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/users.jsp">
                         Utenti
                     </a>
                 </li>
