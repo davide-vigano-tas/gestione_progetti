@@ -84,6 +84,7 @@ public class LoginServlet extends HttpServlet {
 					
 		            String otp = OTPUtil.generateOTP();
 		            session.setAttribute("otp", otp);
+		            System.err.println("otp: "+otp);
 
 		            // Invia OTP via email
 		            try {
