@@ -78,8 +78,21 @@
 		border-radius: 25px;
 		border: 0.5rem solid  #a70fff;
 	}
+
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        #myChart {
+            max-width: 100%;
+            height: 300px;
+        }
 	
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -185,6 +198,49 @@
                	</table>
             </div>
         </div>
+    </div>
+    <script>
+        // Fetch data from the server
+       fetch('<%= request.getContextPath()%>/admin/dashboardProjects')
+    .then(response => {
+        // Check if the response is OK (status 200-299)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON
+    })
+    .then(data => {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.categories,
+                datasets: [{
+                    label: 'Values',
+                    data: data.values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+            	responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
+    </script>
+    <div class="chart-container" style="height:70vh; width:100%">
+    
+    <canvas id="myChart" width="500" height="130"></canvas>
     </div>
 </div>
 
