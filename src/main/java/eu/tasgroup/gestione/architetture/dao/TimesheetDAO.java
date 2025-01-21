@@ -166,6 +166,33 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 		}
 		return timesheets;
 	}
+	
+	public List<Timesheet> getByProjectManager(Connection conn, long idMAnager) throws DAOException{
+		List<Timesheet> timesheets = new ArrayList<Timesheet>();
+		PreparedStatement ps;
+		
+		try {
+			ps = conn.prepareStatement(SELECT_TIMESHEETS_BY_PROJECT_MANAGER);
+			ps.setLong(1, idMAnager);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Timesheet timesheet = new Timesheet();
+				timesheet = new Timesheet(); 
+				timesheet.setId(rs.getLong(1));
+				timesheet.setIdDipendente(rs.getLong(2));
+				timesheet.setIdProgetto(rs.getLong(3));
+				timesheet.setIdTask(rs.getLong(4));
+				timesheet.setOreLavorate(rs.getDouble(5));
+				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
+				timesheet.setApprovato(rs.getObject(7) != null ? rs.getBoolean(7) : null);
+				timesheets.add(timesheet);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return timesheets;
+	}
 	public List<Timesheet> getByProject(Connection conn, long idDipendente) throws DAOException{
 		List<Timesheet> timesheets = new ArrayList<Timesheet>();
 		PreparedStatement ps;

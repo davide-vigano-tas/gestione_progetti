@@ -154,6 +154,8 @@ public interface DAOConstants {
 	String SELECT_TIMESHEET = "select * from timesheets where id = ?;";
 	String SELECT_TIMESHEET_BY_DIPENDENTE = "select * from timesheets where id_dipendente =?;";
 	String SELECT_TIMESHEET_BY_PROJECT = "select * from timesheets where id_progetto = ?;";
+	String SELECT_TIMESHEETS_BY_PROJECT_MANAGER ="SELECT t.* FROM timesheets t "
+			+ "JOIN project_tasks pt ON t.id_task = pt.id JOIN projects p ON t.id_progetto = p.id WHERE p.id_responsabile = ?";
 
 	String UPDATE_TIMESHEET = "update timesheets set id_dipendente = ?, id_progetto = ?, id_task = ?, ore_lavorate = ?, data = ? where id = ?;";
 	String APPROVA_TIMESHEET = "update timesheets set approvato = ? where id = ?;";

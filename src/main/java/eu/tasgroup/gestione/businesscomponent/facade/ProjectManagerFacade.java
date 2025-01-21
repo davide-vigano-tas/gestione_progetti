@@ -169,6 +169,10 @@ public class ProjectManagerFacade {
 		timesheetBC = new TimesheetBC();
 		return timesheetBC.getById(id);
 	}
+	public List<Timesheet>getTimesheetByManager(long id) throws DAOException, NamingException {
+		timesheetBC = new TimesheetBC();
+		return timesheetBC.getListByProjectManager(id);
+	}
 	
 	public void approvaTimesheet(long id, boolean stato) throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();

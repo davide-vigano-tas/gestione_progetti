@@ -84,5 +84,14 @@ public class TimesheetBC {
 			DBAccess.closeConnection(conn);
 		}
 	}
+	
+	public List<Timesheet> getListByProjectManager(long id) throws DAOException, NamingException {
+		try {
+			conn = DBAccess.getConnection();
+			return timesheetDAO.getByProjectManager(conn, id);
+		} finally {
+			DBAccess.closeConnection(conn);
+		}
+	}
 
 }

@@ -21,8 +21,7 @@ import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
  */
 @WebServlet("/projectManager/insertProject")
 public class InsertProject extends HttpServlet {
-	private static final long serialVersionUID = 6506827356648211374L;
-
+	private static final long serialVersionUID = -3967848348758862769L;
 	private ProjectManagerFacade pmf;
 	
 	@Override
