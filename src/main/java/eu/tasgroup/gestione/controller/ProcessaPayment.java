@@ -39,8 +39,14 @@ public class ProcessaPayment extends HttpServlet {
 		// Parametri inviati dal form
 		String projectIdParam = request.getParameter("projectId");
 		String amountParam = request.getParameter("amount");
-
+		String username = (String) request.getSession().getAttribute("username");
+		String operazione = new String();
+		
 		try {
+
+			operazione = "Genera nuovo pagamento per il progetto " + projectIdParam + " di ammontare " + amountParam + "€";
+			cf.saveLogMessage(username, operazione);
+			
 			long projectId = Long.parseLong(projectIdParam);
 			double amount = Double.parseDouble(amountParam);
 
@@ -50,6 +56,9 @@ public class ProcessaPayment extends HttpServlet {
 			if (project == null) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("{\"success\": false, \"message\": \"Progetto non trovato.\"}");
+				
+				operazione = "Fallimento nel generare il nuovo pagamento, ID del progetto non valido";
+				cf.saveLogMessage(username, operazione);
 				return;
 			}
 
@@ -62,6 +71,8 @@ public class ProcessaPayment extends HttpServlet {
 				response.getWriter()
 						.write("{\"success\": false, \"message\": \"Importo non valido. Puoi pagare fino a €"
 								+ remainingAmount + ".\"}");
+				operazione = "Fallimento nel generare il nuovo pagamento, Importo non valido";
+				cf.saveLogMessage(username, operazione);
 				return;
 			}
 
@@ -75,16 +86,31 @@ public class ProcessaPayment extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().write(
 					"{\"success\": true, \"message\": \"Pagamento di €" + amount + " registrato con successo.\"}");
+			
+			operazione = "Pagamento generato con successo, Cifra: " + amount + "€";
+			cf.saveLogMessage(username, operazione);
 			response.sendRedirect("../cliente/cliente-home.jsp");
 		} catch (NumberFormatException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("{\"success\": false, \"message\": \"Dati non validi.\"}");
+			
+			try {
+				cf.saveLogMessage(username, operazione);
+				operazione = "Fallimento nel generare il nuovo pagamento, Dati non validi";
+			} catch (DAOException | NamingException e1) {
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter()
 					.write("{\"success\": false, \"message\": \"Errore durante il salvataggio del pagamento.\"}");
+			try {
+				cf.saveLogMessage(username, operazione);
+				operazione = "Fallimento nel generare il nuovo pagamento, Errore generico";
+			} catch (DAOException | NamingException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
-
 }

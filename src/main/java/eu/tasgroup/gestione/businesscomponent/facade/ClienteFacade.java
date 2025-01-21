@@ -1,14 +1,17 @@
 package eu.tasgroup.gestione.businesscomponent.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.NamingException;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
+import eu.tasgroup.gestione.businesscomponent.AuditLogBC;
 import eu.tasgroup.gestione.businesscomponent.PaymentBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Payment;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
@@ -20,12 +23,13 @@ public class ClienteFacade {
 	private UserBC userBC;
 	private ProjectBC projectBC;
 	private PaymentBC paymentBC;
+	private AuditLogBC auditLogBC;
 	
 	private ClienteFacade() throws DAOException, NamingException {
-		
 		userBC = new UserBC();
 		projectBC = new ProjectBC();
 		paymentBC = new PaymentBC();
+		auditLogBC = new AuditLogBC();
 	}
 	
 	public static ClienteFacade getInstance() throws DAOException, NamingException {
@@ -107,5 +111,17 @@ public class ClienteFacade {
 		}
 		
 		return totale;
+	}
+	
+	/*-------------------------------Update Auditlog*/
+	public void saveLogMessage(String username, String operazione) throws DAOException, NamingException {
+		
+		AuditLog log = new AuditLog();
+		
+		log.setUtente(username);
+		log.setOperazione(operazione);
+		log.setData(new Date());
+		
+		auditLogBC.createOrUpdate(log);
 	}
 }

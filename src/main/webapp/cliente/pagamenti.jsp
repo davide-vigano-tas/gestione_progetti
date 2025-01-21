@@ -47,6 +47,7 @@ if (session.getAttribute("username") != null) {
                             <th>ID Pagamento</th>
                             <th>ID Progetto</th>
                             <th>Importo (€)</th>
+                            <th>Genera Fattura </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,16 @@ if (session.getAttribute("username") != null) {
                             <td><%= payment.getId() %></td>
                             <td><%= payment.getIdProgetto() %></td>
                             <td><%= payment.getCifra() %></td>
+                            <td>
+								<form action="<%=application.getContextPath()%>/cliente/generaFattura"
+									method="POST" target="_blank">
+									<input type="hidden" name="idPagamento"
+										value="<%=payment.getId()%>">
+									<button type="submit" class="btn btn-primary">
+										<i class="bi bi-download"></i>&nbsp;Scarica PDF
+									</button>
+								</form>
+							</td>
                         </tr>
                         <%
                             }

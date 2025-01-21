@@ -20,15 +20,33 @@ public class GeneraFatture extends HttpServlet {
 
 	private static final long serialVersionUID = -1021273040492394604L;
 
+	private ClienteFacade cf;
+
+	public void init() throws ServletException {
+		try {
+			cf = ClienteFacade.getInstance();
+		} catch (DAOException | NamingException e) {
+			e.printStackTrace();
+			throw new ServletException(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String idPagamento = request.getParameter("idPagamento");
-
+		String username = (String) request.getSession().getAttribute("username");
+		
 		// Recupera il pagamento tramite l'ID
 		Payment payment;
+		String operazione = new String();
+		
 		try {
 			payment = ClienteFacade.getInstance().getPaymentById(Long.parseLong(idPagamento));
-
+			
+			operazione = "Genera fattura per il pagamento " + idPagamento;
+			cf.saveLogMessage(username, operazione);
+			
 			if (payment != null) {
 				response.setContentType("application/pdf");
 				response.setHeader("Content-Disposition",
@@ -37,12 +55,21 @@ public class GeneraFatture extends HttpServlet {
 				try (OutputStream out = response.getOutputStream()) {
 					// Genera il PDF con PDFBox
 					InvoicePDFGenerator.generatePDF(out, payment);
+					
+					operazione = "Fattura generata correttamente";
+					cf.saveLogMessage(username, operazione);
 				} catch (Exception e) {
 					e.printStackTrace();
+					operazione = "Errore nel generare la fattura";
+					cf.saveLogMessage(username, operazione);
+					
 					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
 							"Errore durante la generazione della fattura.");
 				}
 			} else {
+				operazione = "Errore nel generare la fattura, pagamento non trovato";
+				cf.saveLogMessage(username, operazione);
+				
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pagamento non trovato.");
 			}
 

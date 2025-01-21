@@ -65,17 +65,25 @@ if (session.getAttribute("username") != null) {
 				<%
 				for (Payment payment : payments) {
 				%>
-				<tr>
+				<tr style="vertical-align: middle;">
 					<td><%=payment.getId()%></td>
-					<td><%=payment.getIdProgetto()%></td>
+					
+					<td>
+						<a type="submit" class="btn btn-default btn-md" 
+						href="/<%=application.getServletContextName()%>/cliente/pagamenti.jsp?id=<%=payment.getIdProgetto()%>">
+							<%=payment.getIdProgetto()%>
+						</a>
+					</td>
+					
 					<td><%=payment.getCifra()%></td>
 					<td>
 						<form action="<%=application.getContextPath()%>/cliente/generaFattura"
 							method="POST" target="_blank">
 							<input type="hidden" name="idPagamento"
 								value="<%=payment.getId()%>">
-							<button type="submit" class="btn btn-primary">Scarica
-								PDF</button>
+							<button type="submit" class="btn btn-primary">
+								<i class="bi bi-download"></i>&nbsp;Scarica PDF
+							</button>
 						</form>
 					</td>
 				</tr>
