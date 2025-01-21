@@ -1,12 +1,16 @@
+<%@page import="java.util.Set"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Project"%>
+<%@page import="java.util.List"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="eu.tasgroup.gestione.businesscomponent.model.Role"%>
-<%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="error.jsp"%>
+    pageEncoding="UTF-8" errorPage="../error.jsp"%>
+    
     
 <%
 	if(session.getAttribute("username") != null) {	
@@ -82,7 +86,7 @@
 <div class="container">
 	<div class="card shadow-sm mt-5">
         <div class="card-header">
-            <h4>Benvenuto <%=username%></h4>
+            <h4>Benvenuto <%=username %> </h4>
         </div>
         <div class="card-body">
             <div class="row mb-3">
@@ -115,29 +119,46 @@
 			
             <hr>
             
-            <div class="row my-4 justify-content-evenly">
-            
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="dip-projects.jsp">
-                     <i class="bi bi-window" style="font-size: 2rem;"></i><br>
-                     <strong>Progetti</strong>
-                	</a>
-                </div>
-                
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="dip-tasks.jsp">
-                     <i class="bi bi-code" style="font-size: 2rem;"></i><br>
-                     <strong>Tasks</strong>
-                	</a>
-                </div>
-                
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="DipendenteTimesheets.jsp">
-                     <i class="bi bi-calendar2-week" style="font-size: 2rem;"></i><br>
-                     <strong>Timesheets</strong>
-                	</a>
-                </div>
-                
+          
+            <div>
+            	<table class="table table-striped" id="tabella">
+               		<thead>
+               			<tr>
+               				<th>Id</th>
+               				<th>Nome</th>
+               				<th>Descrizione</th>
+               				<th>Inizio</th>
+               				<th>FIne</th>
+               				<th>Completamento</th>
+               				<th>Cliente</th>
+               				<th>Responsabile</th>
+               				<th>budget</th>
+               				<th>costo</th>
+               			</tr>
+               		</thead>
+               		<tbody>
+               			<%
+               			Set<Project> projects = DipendenteFacade.getInstance().getProjectByDipendente(user.getId());
+               			for(Project project : projects){
+               			%>
+               			<tr>
+               				<td><%=project.getId() %></td>
+               				<td><%=project.getNomeProgetto() %></td>
+               				<td><%=project.getDescrizione() %></td>
+               				<td><%=project.getDataInizio() %></td>
+               				<td><%=project.getDataFine() %></td>
+               				<td><%=project.getPercentualeCompletamento() %></td>
+               				<td><%=DipendenteFacade.getInstance().getById(project.getIdCliente()).getEmail() %></td>
+               				<td><%=DipendenteFacade.getInstance().getById(project.getIdResponsabile()).getEmail() %></td>
+               				<td><%=project.getBudget() %></td>
+               				<td><%=project.getCostoProgetto() %></td>
+               				
+               			</tr>
+               			<%
+               			}
+               			%>
+               		</tbody>
+               	</table>
             </div>
         </div>
     </div>
@@ -153,4 +174,3 @@
 	
 	}
 } else { response.sendRedirect("/	gestionale-progetti/login.jsp");} %>
-

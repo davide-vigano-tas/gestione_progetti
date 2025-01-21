@@ -1,6 +1,9 @@
 package eu.tasgroup.gestione.businesscomponent.facade;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.NamingException;
 
@@ -10,6 +13,7 @@ import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
 import eu.tasgroup.gestione.businesscomponent.SkillBC;
 import eu.tasgroup.gestione.businesscomponent.TimesheetBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
+import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
@@ -73,6 +77,12 @@ public class DipendenteFacade {
 	public int getPercentualeCompletamentoProjectID(long id) throws DAOException, NamingException {
 		return projectBC.getPercentualeCompletamento(id);
 	}
+	/*------------------------------------Percentuale completamento progetto in base all'id*/
+	public void updatePercentualeCompletamentoProjectID(long idProgetto, int n) throws DAOException, NamingException {
+		 Project project = projectBC.getById(idProgetto);
+		 project.setPercentualeCompletamento(n);
+		 projectBC.createOrUpdate(project);
+	}
 	
 	/*--------------------------------------Progetto in base all'ID*/
 	public Project getProjectById(long id) throws DAOException, NamingException {
@@ -131,5 +141,23 @@ public class DipendenteFacade {
   	/*--------------------------------Ruoli di un utente*/
 	public Role[] getRolesById(long id) throws DAOException, NamingException {
 		return userBC.getRolesById(id);
+	}
+	
+	public List<ProjectTask> getTaskByFaseAndProject(Fase fase, long idProject) throws DAOException, NamingException{
+		List<ProjectTask> tasks = new ArrayList<ProjectTask>();
+		for(ProjectTask task : ptBC.getByProject(idProject)) {
+			if(task.getFase() == fase)
+				tasks.add(task);
+		}
+		return tasks;
+	}
+	
+	public Set<Project> getProjectByDipendente(long id) throws DAOException, NamingException {
+		Set<Project> projects = new HashSet<Project>();
+		List<ProjectTask> tasks = ptBC.getByDipendente(id);
+		for(ProjectTask task : tasks) {
+			projects.add(projectBC.getById(task.getIdProgetto()));
+		}
+		return projects;
 	}
 }

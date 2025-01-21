@@ -151,7 +151,11 @@
                			%>
                			<tr>
                				<td><%=projects.get(i).getId() %></td>
-               				<td><%=projects.get(i).getNomeProgetto() %></td>
+               				<td>
+               					<a href="pm-project-detail.jsp?id=<%=projects.get(i).getId() %>">
+               				<%=projects.get(i).getNomeProgetto() %>
+               					</a>
+               				</td>
                				<td><%=projects.get(i).getDescrizione() %></td>
                				<td><%=projects.get(i).getDataInizio() %></td>
                				<td><%=projects.get(i).getDataFine() %></td>

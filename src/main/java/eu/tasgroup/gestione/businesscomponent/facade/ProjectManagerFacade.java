@@ -1,5 +1,6 @@
 package eu.tasgroup.gestione.businesscomponent.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -67,17 +68,17 @@ public class ProjectManagerFacade {
 		return userBC.getByEmail(email);
 	}
 
-	//-------------------- array di clienti sulla base del ruolo
+	// -------------------- array di clienti sulla base del ruolo
 	public User[] getByRole(Ruoli role) throws DAOException, NamingException {
 		userBC = new UserBC();
 		return userBC.getByRole(role);
 	}
-	
+
 	public User[] getBySkill(Skill skill) throws DAOException, NamingException {
 		userBC = new UserBC();
 		return userBC.getBySkill(skill);
 	}
-	
+
 	/*--------------------------- lista dei dipendenti non assegnati */
 	public User[] getDipendentiNonAssegnati() throws DAOException, NamingException {
 		return userBC.getDipendentiNonAssegnati();
@@ -108,7 +109,7 @@ public class ProjectManagerFacade {
 		projectBC = new ProjectBC();
 		return projectBC.getListProjectByResponsabile(user.getId());
 	}
-	
+
 	/*--------------------------------------Progetti associati al cliente*/
 	public List<Project> getProjectsByCliente(User user) throws DAOException, NamingException {
 		projectBC = new ProjectBC();
@@ -116,77 +117,94 @@ public class ProjectManagerFacade {
 	}
 
 	/*------------------------------- Gestione delle task --------------------------------*/
-	
+
 	public ProjectTask createOrUpdateProjectTask(ProjectTask pt) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.createOrUpdate(pt);
 	}
-	
+
 	public ProjectTask updateProjectTaskFase(Fase fase, long id) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
-		return projectTaskBC.updateFase(fase,id);
+		return projectTaskBC.updateFase(fase, id);
 	}
-	
+
 	public ProjectTask updateProjectTaskStato(StatoTask stato, long id) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.updateStato(stato, id);
 	}
-	
+
 	public void deleteProjectTask(long id) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		projectTaskBC.delete(id);
 	}
-	
+
 	public ProjectTask getProjectTaskByID(long id) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.getByID(id);
 	}
-	
+
 	public ProjectTask[] getAllProjectTask() throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.getAll();
 	}
-	
+
 	public List<ProjectTask> getListProjectTaskByDipendente(long idDip) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.getByDipendente(idDip);
 	}
-	
+
 	public List<ProjectTask> getListProjectTaskByProject(long idProject) throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.getByProject(idProject);
 	}
-	
-	public List<ProjectTask> getListProjectTaskByProjectManager(long idProjectManager) throws DAOException, NamingException {
+
+	public List<ProjectTask> getListProjectTaskByProjectManager(long idProjectManager)
+			throws DAOException, NamingException {
 		projectTaskBC = new ProjectTaskBC();
 		return projectTaskBC.getByProjectManager(idProjectManager);
 	}
-	
+
+	public List<ProjectTask> getTaskByFaseAndProject(Fase fase, long idProject) throws DAOException, NamingException {
+		projectTaskBC = new ProjectTaskBC();
+		List<ProjectTask> tasks = new ArrayList<ProjectTask>();
+		for (ProjectTask task : projectTaskBC.getByProject(idProject)) {
+			if (task.getFase() == fase)
+				tasks.add(task);
+		}
+		return tasks;
+	}
 
 	/*------------------------------- Gestione dei timesheet --------------------------------*/
-	
+
 	public Timesheet getTimesheetById(long id) throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();
 		return timesheetBC.getById(id);
 	}
-	public List<Timesheet>getTimesheetByManager(long id) throws DAOException, NamingException {
+
+	public List<Timesheet> getTimesheetByManager(long id) throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();
 		return timesheetBC.getListByProjectManager(id);
 	}
-	
+
 	public void approvaTimesheet(long id, boolean stato) throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();
 		timesheetBC.approva(id, stato);
 	}
-	
+
 	public Timesheet[] getAllTimesheet() throws DAOException, NamingException {
 		timesheetBC = new TimesheetBC();
 		return timesheetBC.getAll();
 	}
-	
-	
-  	/*--------------------------------Ruoli di un utente*/
+
+	/*--------------------------------Ruoli di un utente*/
 	public Role[] getRolesById(long id) throws DAOException, NamingException {
 		return userBC.getRolesById(id);
+	}
+
+	public void updatePercentualeCompletamentoProjectID(long idProgetto, int n) throws DAOException, NamingException {
+		projectBC = new ProjectBC();
+		Project project = projectBC.getById(idProgetto);
+		project.setPercentualeCompletamento(n);
+		projectBC.createOrUpdate(project);
 	}
 }

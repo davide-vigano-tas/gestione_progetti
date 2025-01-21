@@ -120,15 +120,7 @@ if(session.getAttribute("username") != null) {
 			
             <hr>
             
-            <div class="row my-4 justify-content-evenly">
-                <div class="col-md-3 text-center">
-                	<a class="btn" href="taskForm.jsp">
-		            	<i class="bi bi-plus" style="font-size: 2rem;"></i><br>
-                    	<strong>Nuovo</strong>
-                	</a>
-                </div>
-                
-            </div>
+         
             <div>
             	<table class="table table-striped" id="tabella">
                		<thead>
@@ -174,11 +166,6 @@ if(session.getAttribute("username") != null) {
                				</td>
                				<td><%=tasks.get(i).getScadenza() %></td>
                				<td><%=tasks.get(i).getFase() %></td>
-               				
-               				
-               				
-               				
-               				
                			</tr>
                			<%
                			}
