@@ -124,6 +124,11 @@
                        Pagamenti
                     </a>
                 </li>
+                    <li class="nav-item">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/auditlogs.jsp">
+                       AuditLog
+                    </a>
+                </li>
             </ul>
 
             <%
