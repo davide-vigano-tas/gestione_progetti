@@ -95,4 +95,17 @@ public class ClienteFacade {
 	public Role[] getRolesById(long id) throws DAOException, NamingException {
 		return userBC.getRolesById(id);
 	}
+	
+	public double getTotalPaymentsByProjectId(long id)throws DAOException, NamingException {
+		Project p = projectBC.getById(id);
+		Payment[] payments = paymentBC.getByProject(p);
+		
+		double totale = 0;
+		
+		for(Payment payment : payments) {
+			totale += payment.getCifra();
+		}
+		
+		return totale;
+	}
 }

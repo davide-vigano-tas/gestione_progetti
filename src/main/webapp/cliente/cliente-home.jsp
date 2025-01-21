@@ -92,9 +92,9 @@ if (session.getAttribute("username") != null) {
 							<th>ID</th>
 							<th>Nome</th>
 							<th>Stato</th>
-							<th>Inizio</th>
-							<th>Fine</th>
-							<th>Completamento</th>
+							<th>Progressi</th>
+							<th>Fine Prevista</th>
+							<th>Da versare</th>
 							<th>Paga Ora</th>
 							<th>Storia Pagamenti</th>
 						</tr>
@@ -107,9 +107,19 @@ if (session.getAttribute("username") != null) {
 							<td><%=project.getId()%></td>
 							<td><%=project.getNomeProgetto()%></td>
 							<td><%=project.getStato()%></td>
-							<td><%=formato.format(project.getDataInizio())%></td>
+							<td>
+								<div class="progress" style="height: 15px; margin-top: 6px;">
+									<div class="progress-bar" role="progressbar"
+										style="width: <%=project.getPercentualeCompletamento()%>%;"
+										aria-valuenow="<%=project.getPercentualeCompletamento()%>"
+										aria-valuemin="0" aria-valuemax="100"><%=project.getPercentualeCompletamento()%>%
+									</div>
+								</div>
+							</td>
 							<td><%=formato.format(project.getDataFine())%></td>
-							<td><%=project.getPercentualeCompletamento()%> %</td>
+							<td>
+								<%= project.getCostoProgetto() - ClienteFacade.getInstance().getTotalPaymentsByProjectId(project.getId()) %>
+							</td>
 
 							<%
 							Payment[] pProject = ClienteFacade.getInstance().getPaymentByCliente(user);
@@ -122,16 +132,19 @@ if (session.getAttribute("username") != null) {
 							if (totale == 0) {
 							%>
 							<td>
-								<button class="btn btn-success"
-									onclick="confirmPayment('<%=project.getId()%>', '<%=project.getNomeProgetto()%>')">
+								<button class="btn btn-success" data-bs-toggle="modal"
+									data-bs-target="#paymentModal"
+									onclick="preparePaymentModal('<%=project.getId()%>', '<%=project.getNomeProgetto()%>', '<%=project.getCostoProgetto() - totale%>')">
 									<i class="bi bi-currency-euro"></i>
 								</button>
 							</td>
+
 							<td>
-								<button type="button" class="btn btn-warning position-relative" disabled>
+								<button type="button" class="btn btn-warning position-relative"
+									disabled>
 									<i class="bi bi-clock-history"></i> <span
 										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
-										<%= pProject.length %> <span class="visually-hidden">unread messages</span>
+										<%=pProject.length%> <span class="visually-hidden">history payment</span>
 									</span>
 								</button>
 							</td>
@@ -139,20 +152,20 @@ if (session.getAttribute("username") != null) {
 							} else if (totale - project.getCostoProgetto() < 0) {
 							%>
 							<td>
-								<button class="btn btn-success"
-									onclick="confirmPayment('<%=project.getId()%>', '<%=project.getNomeProgetto()%>')">
-									<i class="bi bi-currency-euro"> Nessuno</i>
+								<button class="btn btn-success" data-bs-toggle="modal"
+									data-bs-target="#paymentModal"
+									onclick="preparePaymentModal('<%=project.getId()%>', '<%=project.getNomeProgetto()%>', '<%=project.getCostoProgetto() - totale%>')">
+									<i class="bi bi-currency-euro"></i>
 								</button>
 							</td>
-							<td>
-								<a type="submit" class="btn btn-warning position-relative" 
-									href="/<%= application.getServletContextName()%>/cliente/pagamenti.jsp?id=<%=project.getId()%>">
+							<td><a type="submit"
+								class="btn btn-warning position-relative"
+								href="/<%=application.getServletContextName()%>/cliente/pagamenti.jsp?id=<%=project.getId()%>">
 									<i class="bi bi-clock-history"></i> <span
-										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
-										<%= pProject.length %> <span class="visually-hidden">unread messages</span>
-									</span>
-								</a>
-							</td>
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
+										<%=pProject.length%> <span class="visually-hidden">history payment</span>
+								</span>
+							</a></td>
 							<%
 							} else {
 							%>
@@ -161,15 +174,14 @@ if (session.getAttribute("username") != null) {
 									<i class="bi bi-currency-euro"></i>
 								</button>
 							</td>
-							<td>
-								<a type="submit" class="btn btn-warning position-relative" 
-									href="/<%= application.getServletContextName()%>/cliente/pagamenti.jsp?id=<%=project.getId()%>">
+							<td><a type="submit"
+								class="btn btn-warning position-relative"
+								href="/<%=application.getServletContextName()%>/cliente/pagamenti.jsp?id=<%=project.getId()%>">
 									<i class="bi bi-clock-history"></i> <span
-										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
-										<%= pProject.length %> <span class="visually-hidden">unread messages</span>
-									</span>
-								</a>
-							</td>
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
+										<%=pProject.length%> <span class="visually-hidden">history payment</span>
+								</span>
+							</a></td>
 							<%
 							}
 							%>
@@ -181,43 +193,87 @@ if (session.getAttribute("username") != null) {
 				</table>
 			</div>
 		</div>
+		<div class="modal fade" id="paymentModal" tabindex="-1"
+			aria-labelledby="paymentModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="paymentModalLabel">Effettua un
+							pagamento</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<form id="paymentForm" method="POST"
+						action="/<%=application.getServletContextName()%>/cliente/processaPayment">
+						<div class="modal-body">
+							<input type="hidden" name="projectId" id="modalProjectId">
+							<div class="mb-3">
+								<label for="modalProjectName" class="form-label">Progetto</label>
+								<input type="text" class="form-control" id="modalProjectName"
+									readonly>
+							</div>
+							<div class="mb-3">
+								<label for="modalAmount" class="form-label">Importo (€)</label>
+								<input type="number" class="form-control" id="modalAmount"
+									name="amount" min="1" required>
+								<div class="form-text">
+									Puoi pagare fino a <span id="modalMaxAmount"></span> €
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Annulla</button>
+							<button type="submit" class="btn btn-success">Conferma
+								Pagamento</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
+
 
 	<footer><%@ include file="../footer.html"%></footer>
 
 	<script>
+	document.getElementById("paymentForm").addEventListener("submit", function (event) {
+	    event.preventDefault(); // Impedisce l'invio immediato del form
+
+	    const projectId = document.getElementById("modalProjectId").value;
+	    const projectName = document.getElementById("modalProjectName").value;
+	    const amount = document.getElementById("modalAmount").value;
+
+	    Swal.fire({
+	        title: "Confermi il pagamento di €"+amount+"?",
+	        text: "Stai per effettuare un pagamento per il progetto " + projectName,
+	        icon: "warning",
+	        showCancelButton: true,
+	        confirmButtonText: "Sì, conferma!",
+	        cancelButtonText: "Annulla"
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            // Se l'utente conferma, invia il form
+	            event.target.submit();
+	        } else {
+	            Swal.fire("Pagamento annullato", "Nessuna modifica è stata apportata.", "info");
+	        }
+	    });
+	});
+
         function toggleProjectsTable() {
             const container = document.getElementById('projectsTableContainer');
             container.classList.toggle('hidden');
         }
 
-        function confirmPayment(projectId, projectName) {
-
-        	console.log(projectId, projectName)
-            Swal.fire({
-                title: `Confermi il pagamento per il progetto ${projectName}?`,
-                text: "Questa operazione una volta conclusa non è più reversibile.",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sì, paga ora!",
-                cancelButtonText: "Annulla"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(`/gestionale-progetti/cliente/payment`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ projectId: projectId })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        Swal.fire(data.success ? "Successo!" : "Errore!", data.message, data.success ? "success" : "error");
-                    })
-                    .catch(() => Swal.fire("Errore!", "Errore di connessione al server.", "error"));
-                }
-            });
+        function preparePaymentModal(projectId, projectName, maxAmount) {
+            // Popola i campi della modale con i dati del progetto
+            document.getElementById("modalProjectId").value = projectId;
+            document.getElementById("modalProjectName").value = projectName;
+            document.getElementById("modalAmount").setAttribute("max", maxAmount);
+            document.getElementById("modalMaxAmount").textContent = maxAmount;
         }
+
     </script>
 </body>
 </html>

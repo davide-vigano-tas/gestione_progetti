@@ -41,8 +41,13 @@
                  if (roles.stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE))){
             %>
             <ul class="navbar-nav me-auto">
+            	<li class="nav-item">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/cliente-home.jsp">
+                        Home
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/pagamenti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/cliente/lista-pagamenti.jsp">
                         I tuoi pagamenti
                     </a>
                 </li>

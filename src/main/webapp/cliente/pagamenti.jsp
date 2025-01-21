@@ -72,6 +72,7 @@ if (session.getAttribute("username") != null) {
                     </tbody>
                 </table>
             </div>
+            <a href="<%= application.getContextPath() %>/cliente/cliente-home.jsp" class="btn btn-secondary">Torna alla Home</a>
         </div>
     </div>
     <footer><%@ include file="../footer.html"%></footer>
