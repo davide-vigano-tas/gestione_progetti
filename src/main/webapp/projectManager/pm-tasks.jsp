@@ -149,7 +149,11 @@
                			%>
                			<tr>
                				<td><%=tasks.get(i).getId() %></td>
-               				<td><%=ProjectManagerFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto()).getNomeProgetto() %></td>
+               				<td>
+               				<a href="pm-project-detail.jsp?id=<%=tasks.get(i).getIdProgetto() %>">
+               				<%=ProjectManagerFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto()).getNomeProgetto() %>
+               				</a>
+               				</td>
                				<td><%=tasks.get(i).getNomeTask() %></td>
                				<td><%=tasks.get(i).getDescrizione() %></td>
                				
