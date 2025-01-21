@@ -80,6 +80,35 @@
 	}
 	
 </style>
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const optionValue = urlParams.get('option');
+        if (optionValue) {
+            const selectElement = document.getElementById('userType');
+            selectElement.value = optionValue;
+        }
+        const error = urlParams.get('error');
+        const erDiv = document.getElementById('error');
+        erDiv.style.display='none';
+        if(error) {
+           
+        	erDiv.style.display='block';
+            if(error === 'task_not_found') {
+            	 console.log(error);
+				erDiv.textContent = 'Task non trovata';
+            }
+  
+        }
+    };
+
+
+
+
+
+
+
+</script>
 </head>
 <jsp:include page="../nav.jsp"/>
 <body>
@@ -89,7 +118,10 @@
             <h4>Elenco progetti</h4>
         </div>
         <div class="card-body">
-            
+            		<div id="error" class="alert alert-danger" >
+								
+					</div>
+		
 
             <div>
             	<table class="table table-striped" id="tabella">
@@ -99,7 +131,7 @@
                				<th>Nome</th>
                				<th>Descrizione</th>
                				<th>Inizio</th>
-               				<th>FIne</th>
+               				<th>Fine</th>
                				<th>Completamento</th>
                				<th>Cliente</th>
                				<th>Responsabile</th>
