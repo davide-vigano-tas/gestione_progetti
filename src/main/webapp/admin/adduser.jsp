@@ -13,10 +13,184 @@ String csrfToken = UUID.randomUUID().toString();
 	request.setAttribute("csrfToken", csrfToken);
 	
 %>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	  const form = document.getElementById('form-modal');
+	  const inputs = form.querySelectorAll('input');
+	  const submitBtn = document.getElementById('submitBtn');
+	  function checkValidity(input) {
+	    const value = input.value.trim();
+	    const name = input.name;
+	
+	    if (name === 'nome') {
+	      const infoNome = document.getElementById('infoNome');
+	      const nomeRegex = /^[a-zA-Z ,.\'-]{2,30}$/;  // Only letters and certain characters, 2 to 30 characters
+	      infoNome.style.display='none';
+	      if (!value) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoNome.style.display='block';
+	        infoNome.textContent = 'Il campo nome non può essere vuoto';
+	        return false;
+	      }
+	
+	      if (!nomeRegex.test(value)) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoNome.style.display='block';
+	        infoNome.textContent = 'Da 2 a 30 caratteri. (Solo lettere e caratteri validi)';
+	        return false;
+	      }
+	
+	      input.classList.add('is-valid');
+	      input.classList.remove('is-invalid');
+	      infoNome.textContent = '';
+	      return true;
+	    }
+	
+	    if (name === 'cognome') {
+	      const infoCognome = document.getElementById('infoCognome');
+	      const cognomeRegex = /^[a-zA-Z ,.\'-]{2,30}$/;
+	      infoCognome.style.display='none';
+	      if (!value) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoCognome.style.display='block';
+	        infoCognome.textContent = 'Il campo cognome non può essere vuoto';
+	        return false;
+	      }
+	
+	      if (!cognomeRegex.test(value)) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoCognome.style.display='block';
+	        infoCognome.textContent = 'Da 2 a 30 caratteri. (Solo lettere e caratteri validi)';
+	        return false;
+	      }
+	
+	      input.classList.add('is-valid');
+	      input.classList.remove('is-invalid');
+	      infoCognome.textContent = '';
+	      return true;
+	    }
+	
+	    if (name === 'username') {
+	      const infoUsername = document.getElementById('infoUsername');
+	      const usernameRegex = /^[a-zA-Z0-9!.-]{4,10}$/;
+	      infoUsername.style.display='none';
+	      if (!value) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoUsername.style.display='block';
+	        infoUsername.textContent = 'Il campo username non può essere vuoto';
+	        return false;
+	      }
+	
+	      if (!usernameRegex.test(value)) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoUsername.style.display='block';
+	        infoUsername.textContent = 'Da 4 a 10 caratteri. (Lettere e/o numeri e/o .-!)';
+	        return false;
+	      }
+	
+	      input.classList.add('is-valid');
+	      input.classList.remove('is-invalid');
+	      infoUsername.textContent = '';
+	      return true;
+	    }
+	
+	    if (name === 'password') {
+	      const infoPassword = document.getElementById('infoPassword');
+	      const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^?!=])[a-zA-Z0-9@#$%^?!=]{7,15}$/;
+	      infoPassword.style.display='none';
+		   if (!value) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoPassword.style.display='block';
+	        infoPassword.textContent = 'La password non può essere vuota';
+	        return false;
+	      }
 
+	      if (!passwordRegex.test(value)) {
+		        input.classList.add('is-invalid');
+		        input.classList.remove('is-valid');
+		        infoPassword.style.display='block';
+		        infoPassword.textContent = 'Da 7 a 15 caratteri. (Almeno una minuscola, maiuscola, numero e carattere speciale)';
+		        return false;
+		   }
+	
+	      input.classList.add('is-valid');
+	      input.classList.remove('is-invalid');
+	      infoPassword.textContent = '';
+	      return true;
+	    }
+	
+	    if (name === 'email') {
+	      const infoEmail = document.getElementById('infoEmail');
+	      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	      infoEmail.style.display='none';
+	      if (!value) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoEmail.style.display='block';
+	        infoEmail.textContent = 'Il campo email non può essere vuoto';
+	        return false;
+	      }
+	
+	      if (!emailRegex.test(value)) {
+	        input.classList.add('is-invalid');
+	        input.classList.remove('is-valid');
+	        infoEmail.style.display='block';
+	        infoEmail.textContent = 'Inserisci una email valida';
+	        return false;
+	      }
+	
+	      input.classList.add('is-valid');
+	      input.classList.remove('is-invalid');
+	      infoEmail.textContent = '';
+	      return true;
+	    }
+	
+	    return true;
+	  }
+	
+	  function validateForm() {
+	    let isValid = true;
+	
+	    inputs.forEach(input => {
+	      if (!checkValidity(input)) {
+	        isValid = false;
+	      }
+	    });
+	
+	    return isValid;
+	  }
+
+
+	  form.addEventListener('click', function (e) {
+		   validateForm();
+
+			console.log("Click");
+		});
+	  form.addEventListener('input', function (e) {
+		   validateForm();
+		});
+		
+	  submitBtn.addEventListener('click', function (e) {
+	    e.preventDefault();  // Prevent form submission if validation fails
+	    if (validateForm()) {
+	      form.submit();  // Submit the form if validation is successful
+	    } else {
+	      alert('Please correct the errors in the form.');
+	    }
+	  });
+	});
+
+</script>
 
 	<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog">
-	<form action="/<%= application.getServletContextName()%>/admin/addUser" method="post">
+	<form action="/<%= application.getServletContextName()%>/admin/addUser" method="post" id="form-modal">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -140,7 +314,7 @@ String csrfToken = UUID.randomUUID().toString();
 						data-bs-dismiss="modal">
 							Annulla
 						</button>
-						<button type="submit" class="btn btn-primary" style="background-color: green; witdh: 150px">
+						<button type="submit" class="btn btn-primary" id="submitBtn" style="background-color: green; witdh: 150px">
 							<i class="bi bi-send-plus-fill"></i>&nbsp;&nbsp;Salva
 						</button>
 				

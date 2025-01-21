@@ -119,7 +119,18 @@
 								</td>
                 				<td><%=obj.getOreLavorate() %></td>
                 				<td><%=obj.getData()%></td>
-                				<td><%=obj.isApprovato() ? "approvato" : "non approvato"%></td>
+                				<td>	<%
+                					String stato;
+                					if(obj.isApprovato()==null){ 
+                						stato = "in attesa";
+                					} else if(obj.isApprovato()){
+                						stato = "approvato" ;
+                						
+                					} else{
+                						stato = "rifiutato" ;
+                					}
+                					%>
+                				<td><%=stato %></td></td>
                 			</tr>
                 			<%
                 			}
