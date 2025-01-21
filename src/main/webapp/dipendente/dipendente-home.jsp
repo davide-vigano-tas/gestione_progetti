@@ -125,7 +125,7 @@
                 </div>
                 
                 <div class="col-md-3 text-center">
-                	<a class="btn" href="Pagina con tutte le tasks">
+                	<a class="btn" href="dip-tasks.jsp">
                      <i class="bi bi-code" style="font-size: 2rem;"></i><br>
                      <strong>Tasks</strong>
                 	</a>
