@@ -191,13 +191,17 @@
                		</tbody>
                	</table>
 			</div>
-			<div class="my-3">
+			<div class="d-flex my-3 gap-3">
 			<a href="/<%= application.getServletContextName()%>/admin/reportProgetto?id=<%=user_id %>"
 		  class="btn btn-primary" style="margin-bottom: 10px; background-color: green;">
 		 <i class="bi bi-filetype-pdf"></i>&nbsp;Scarica report progetto in PDF</a>
 			
-			</div>
+		
+			<a href="/<%= application.getServletContextName()%>/admin/reportTasks?id=<%=user_id %>"
+		  class="btn btn-primary" style="margin-bottom: 10px; background-color: green;">
+		 <i class="bi bi-filetype-csv"></i>&nbsp;Scarica report delle task in CSV</a>
 			
+			</div>
 			</div>
 			
 			</div>
