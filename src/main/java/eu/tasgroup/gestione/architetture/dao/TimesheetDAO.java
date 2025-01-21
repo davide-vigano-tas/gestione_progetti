@@ -103,7 +103,8 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				timesheet.setIdTask(rs.getLong(4));
 				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
-				timesheet.setApprovato(rs.getBoolean(7));
+				timesheet.setApprovato(rs.getObject(7) != null ? rs.getBoolean(7) : null);
+
 			}
 
 		} catch (SQLException e) {
@@ -130,7 +131,7 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				timesheet.setIdTask(rs.getLong(4));
 				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
-				timesheet.setApprovato(rs.getBoolean(7));
+				timesheet.setApprovato(rs.getObject(7) != null ? rs.getBoolean(7) : null);
 				timesheets[i] = timesheet;
 			}
 		} catch (SQLException e) {
@@ -157,7 +158,7 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				timesheet.setIdTask(rs.getLong(4));
 				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
-				timesheet.setApprovato(rs.getBoolean(7));
+				timesheet.setApprovato(rs.getObject(7) != null ? rs.getBoolean(7) : null);
 				timesheets.add(timesheet);
 			}
 		} catch (SQLException e) {
@@ -183,7 +184,7 @@ public class TimesheetDAO extends DAOAdapter<Timesheet> implements DAOConstants{
 				timesheet.setIdTask(rs.getLong(4));
 				timesheet.setOreLavorate(rs.getDouble(5));
 				timesheet.setData(new java.util.Date(rs.getDate(6).getTime()));
-				timesheet.setApprovato(rs.getBoolean(7));
+				timesheet.setApprovato(rs.getObject(7) != null ? rs.getBoolean(7) : null);
 				timesheets.add(timesheet);
 			}
 		} catch (SQLException e) {

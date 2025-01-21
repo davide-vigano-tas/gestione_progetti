@@ -13,7 +13,7 @@ public class Timesheet implements Serializable {
 	private long idTask;
 	private double oreLavorate;
 	private Date data;
-	private boolean approvato;
+	private Boolean approvato;
 
 	public long getId() {
 		return id;
@@ -63,11 +63,12 @@ public class Timesheet implements Serializable {
 		this.data = data;
 	}
 
-	public boolean isApprovato() {
+	public Boolean isApprovato() {
+		System.out.println(approvato);
 		return approvato;
 	}
 
-	public void setApprovato(boolean approvato) {
+	public void setApprovato(Boolean approvato) {
 		this.approvato = approvato;
 	}
 

@@ -1,3 +1,5 @@
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.Project"%>
+<%@page import="eu.tasgroup.gestione.businesscomponent.model.ProjectTask"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -118,7 +120,93 @@
             <hr>
             
             <div>
-            	<!-- TODO: bisogna fare prima i progetti e le task -->
+            	<form action="/<%= application.getServletContextName()%>/dipendente/insertTimesheet" method="post" class="form-horizontal needs-validation" id="utenteForm">
+					<input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
+					
+						<!-- --------------------------dipendente -->
+						<input type="hidden" name="dipendente" id="dipendente" class="form-control" value="<%=user.getId()%>">
+						<%
+							Project project = new Project();
+						%>
+						<div class="mb-3 row">
+						  	<label for="project" class="col-sm-2 col-form-label">Project</label>
+						  	<div class="col-sm-6">
+						    <div class="input-group">
+							<input  disabled="disabled" id="project" value="<%=project.getNomeProgetto()!=null ? project.getNomeProgetto(): "selezionare la task"%>">
+							</div>
+							</div>
+						</div>
+						<!-- ---------------------------------  Task -->
+						<div class="mb-3 row">
+						  <label for="task" class="col-sm-2 col-form-label">Task</label>
+						  <div class="col-sm-6">
+						    <div class="input-group">
+						      <span class="input-group-text" id="task-icon">
+						      	<!-- <i class="bi bi-person"></i>-->
+						      </span>
+						      <select name="task" id="task" class="form-control">
+						      	<%
+						      	List<ProjectTask> tasks = DipendenteFacade.getInstance().getProjectTaskByDipendente(user.getId());
+						      		for(int i =0; i < tasks.size(); i++){
+						      	%>
+						      		<option value="<%=tasks.get(i).getId() %>"><%=tasks.get(i).getNomeTask()%></option>
+						      		
+						      	<%
+						      	//TODO
+										project = DipendenteFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto());						      	
+						      		}
+						      	%>
+						      </select>
+						    </div>
+						    <div class="invalid-feedback" id="infoTask">
+						      inserire un budget
+						    </div>
+						  </div>
+						</div>
+					
+						
+						<!-- ---------------------------------  ore -->
+						<div class="mb-3 row">
+						  <label for="ore" class="col-sm-2 col-form-label">Ore lavorate</label>
+						  <div class="col-sm-6">
+						    <div class="input-group">
+						      <span class="input-group-text" id="ore-icon">
+						        <!-- <i class="bi bi-person"></i>-->
+						      </span>
+						      <input type="number" name="ore" id="ore" class="form-control" required>
+						    </div>
+						    <div class="invalid-feedback" id="oreInfo">
+						      inserire una data
+						    </div>
+						  </div>
+						</div>
+						
+						<!-- ---------------------------------  data -->
+						<div class="mb-3 row">
+						  <label for="data" class="col-sm-2 col-form-label">Data</label>
+						  <div class="col-sm-6">
+						    <div class="input-group">
+						      <span class="input-group-text" id="data-icon">
+						        <!-- <i class="bi bi-person"></i>-->
+						      </span>
+						      <input type="date" name="data" id="data" class="form-control" required>
+						    </div>
+						    <div class="invalid-feedback" id="dataInfo">
+						      inserire una data
+						    </div>
+						  </div>
+						</div>
+						
+						<!-- Submit Button -->
+						<div class="row">
+						  <div class="col-sm-6 offset-sm-2">
+						    <button type="submit" class="btn btn-primary" id="submitBtn">
+						      crea nuova task
+						      <i class="bi bi-send"></i>
+						    </button>
+						  </div>
+						</div>
+				</form>
             
             </div>
             

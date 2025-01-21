@@ -86,7 +86,7 @@ CREATE TABLE timesheets (
     id_task INT NOT NULL,
     ore_lavorate DECIMAL(5,2) NOT NULL,
     data DATE NOT NULL,
-    approvato BOOLEAN DEFAULT FALSE,
+    approvato BOOLEAN,
     CONSTRAINT fk_employee_timesheet FOREIGN KEY (id_dipendente) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_project_timesheet FOREIGN KEY (id_progetto) REFERENCES projects(id) ON DELETE CASCADE,
     CONSTRAINT fk_task_timesheet FOREIGN KEY (id_task) REFERENCES project_tasks(id) ON DELETE CASCADE

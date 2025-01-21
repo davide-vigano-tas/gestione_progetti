@@ -8,7 +8,7 @@
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Timesheet"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="error.jsp"%>
+    pageEncoding="UTF-8" errorPage="../error.jsp"%>
     
 <%
 	if(session.getAttribute("username") != null) {	
@@ -148,11 +148,22 @@
                 			%>
                 			<tr>
                 				<td><%=timesheets.get(i).getId() %></td>
-                				<td><%=DipendenteFacade.getInstance().getProjectById(timesheets.get(i).getIdProgetto()) %></td>
-                				<td><%=DipendenteFacade.getInstance().getProjectTaskById(timesheets.get(i).getIdTask()) %></td>
+                				<td><%=DipendenteFacade.getInstance().getProjectById(timesheets.get(i).getIdProgetto()).getNomeProgetto() %></td>
+                				<td><%=DipendenteFacade.getInstance().getProjectTaskById(timesheets.get(i).getIdTask()).getNomeTask() %></td>
                 				<td><%=timesheets.get(i).getOreLavorate() %></td>
                 				<td><%=timesheets.get(i).getData()%></td>
-                				<td><%=timesheets.get(i).isApprovato() ? "approvato" : "rifiutato"%></td>
+                				<%
+                					String stato;
+                					if(timesheets.get(i).isApprovato()==null){ 
+                						stato = "in attesa";
+                					} else if(timesheets.get(i).isApprovato()){
+                						stato = "approvato" ;
+                						
+                					} else{
+                						stato = "rifiutato" ;
+                					}
+                					%>
+                				<td><%=stato %></td>
                 			</tr>
                 			<%
                 			}
