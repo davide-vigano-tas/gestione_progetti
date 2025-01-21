@@ -3,6 +3,7 @@ package eu.tasgroup.gestione.controller;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.mail.MessagingException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,8 @@ import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 import eu.tasgroup.gestione.businesscomponent.security.Algoritmo;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
+import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
+import eu.tasgroup.gestione.businesscomponent.utility.OTPUtil;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -32,7 +35,6 @@ public class LoginServlet extends HttpServlet {
 		try {
 			af = AdminFacade.getInstance();
 		} catch (DAOException | NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
@@ -70,8 +72,38 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("username", username);
 				session.setMaxInactiveInterval(1800);
 
-				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name())) {
-					response.sendRedirect("cliente/cliente-home.jsp");
+				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name())) {	
+					
+		            String otp = OTPUtil.generateOTP();
+		            session.setAttribute("otp", otp);
+
+		            // Invia OTP via email
+		            try {
+		            	
+		            	String emailContent = "<!DOCTYPE html><html lang=\"en\">"
+		                        + "<head><meta charset=\"UTF-8\"></head>"
+		                        + "<body>"
+		                        + "<div style='background-color:#f4f4f4;padding:20px;'>"
+		                        + "<div style='max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;'>"
+		                        + "<h1 style='text-align:center;color:#007bff;'>Verifica il tuo accesso</h1>"
+		                        + "<p style='text-align:center;'>Il tuo codice OTP è:</p>"
+		                        + "<h2 style='text-align:center;color:#007bff;'>"
+		                        + otp
+		                        + "</h2>"
+		                        + "<p style='text-align:center;'>Questo codice è valido per 5 minuti.</p>"
+		                        + "</div></div></body></html>";
+		            	
+		                EmailUtil.sendEmail(user.getEmail(), "Il tuo codice OTP", emailContent);
+		            } catch (MessagingException e) {
+		                e.printStackTrace();
+		                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nell'invio dell'email.");
+		                return;
+		            }
+
+		            // Reindirizza alla pagina per inserire l'OTP
+		            response.sendRedirect("otp-verification.jsp");
+		            
+		            //response.sendRedirect("cliente/cliente-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE)) && userType.equals(Ruoli.DIPENDENTE.name())) {
 					response.sendRedirect("dipendente/dipendente-home.jsp");
