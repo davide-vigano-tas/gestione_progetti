@@ -60,7 +60,7 @@ public class InsertTask extends HttpServlet {
 			
 			pmf.createOrUpdateProjectTask(task);
 			
-			response.sendRedirect("pm-projects.jsp");
+			response.sendRedirect("pm-tasks.jsp");
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
