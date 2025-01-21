@@ -143,7 +143,7 @@
 			<div class="row mb-3">
 
             <div class="table-responsive">
-            	<table class="table table-striped" id="tabella">
+            	<table class="table table-striped" >
                		<thead>
                			<tr>
                				<th>Id</th>
@@ -153,6 +153,7 @@
                				<th>Stato</th>
                				<th>Scadenza</th>
                				<th>Fase</th>
+               				<th>Timesheets</th>
                			</tr>
                		</thead>
                		<tbody>
@@ -165,13 +166,24 @@
               
                				<td><%=tasks.get(i).getNomeTask() %></td>
                				<td><%=tasks.get(i).getDescrizione() %></td>
-               				
+               				<td>
+               				 <a type="submit" class="btn btn-default btn-sm" 
+									href="/<%= application.getServletContextName()%>/admin/dettagliUtente.jsp?id=<%=tasks.get(i).getIdDipendente()%>">
+											<%=AdminFacade.getInstance().getUserById(tasks.get(i).getIdDipendente()).getEmail() %>
+									</a>
+               				</td>
                				
                				<td><%=tasks.get(i).getStato() %></td>
                				<td><%=tasks.get(i).getScadenza() %></td>
                				<td><%=tasks.get(i).getFase() %></td>
 
-               				
+               				<td>
+               				  <a type="submit" class="btn btn-default btn-sm" 
+									href="/<%= application.getServletContextName()%>/admin/task_timesheets.jsp?task=<%=tasks.get(i).getId()%>">
+											<i class="bi bi-calendar3-range"></i>
+											&nbsp;Timesheets
+									</a>
+							</td>
                			</tr>
                			<%
                			}

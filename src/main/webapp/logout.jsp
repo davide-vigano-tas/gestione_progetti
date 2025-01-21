@@ -46,13 +46,14 @@ if (session.getAttribute("username") != null) {
 					<h3 class="panel-title">Logout</h3>
 				</div>
 				<div class="panel-body text-center">
-					<span class="glyphicon glyphicon-log-out"
-						style="font-size: 50px; color: blue;"> </span>
+					<i class="bi bi-box-arrow-left"
+						style="font-size: 30px; color: blue;"> </i>
 					<h4 class="mt-3">Logout effettuato correttamente</h4>
 					<p>
 						<a href="login.jsp" class="btn modal-default"
-							style="margin-top: 30px"> <i
-							class="glyphicon glyphicon-log-in"></i> &nbsp;Effettua il login
+							style="margin-top: 30px">
+							 <i class="bi bi-box-arrow-in-right" style=" color: blue;"></i> 
+							 &nbsp;Effettua il login
 							per accedere ai nostri servizi
 						</a>
 				</div>
