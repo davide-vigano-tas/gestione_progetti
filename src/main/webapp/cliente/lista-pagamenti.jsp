@@ -40,52 +40,65 @@ if (session.getAttribute("username") != null) {
 <body>
 	<jsp:include page="../nav.jsp" />
 	<div class="container mt-5">
-        <h1 class="mb-4">Elenco Pagamenti</h1>
+		<h1 class="mb-4">Elenco Pagamenti</h1>
 
-        <%
-            // Recupera la lista dei pagamenti dall'attributo della richiesta
-            List<Payment> payments = Arrays.asList(ClienteFacade.getInstance().getPaymentByCliente(user));
-            if (payments == null || payments.isEmpty()) {
-        %>
-            <div class="alert alert-warning">Non sono stati trovati pagamenti per questo cliente.</div>
-        <%
-            } else {
-        %>
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID Pagamento</th>
-                        <th>ID Progetto</th>
-                        <th>Importo (€)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        for (Payment payment : payments) {
-                    %>
-                    <tr>
-                        <td><%= payment.getId() %></td>
-                        <td><%= payment.getIdProgetto() %></td>
-                        <td><%= payment.getCifra() %></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-        <%
-            }
-        %>
-		<a href="<%= application.getContextPath() %>/cliente/cliente-home.jsp" class="btn btn-secondary">Torna alla Home</a>
+		<%
+		// Recupera la lista dei pagamenti dall'attributo della richiesta
+		List<Payment> payments = Arrays.asList(ClienteFacade.getInstance().getPaymentByCliente(user));
+		if (payments == null || payments.isEmpty()) {
+		%>
+		<div class="alert alert-warning">Non sono stati trovati
+			pagamenti per questo cliente.</div>
+		<%
+		} else {
+		%>
+		<table class="table table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>ID Pagamento</th>
+					<th>ID Progetto</th>
+					<th>Importo (€)</th>
+					<th>Genera Fattura</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+				for (Payment payment : payments) {
+				%>
+				<tr>
+					<td><%=payment.getId()%></td>
+					<td><%=payment.getIdProgetto()%></td>
+					<td><%=payment.getCifra()%></td>
+					<td>
+						<form action="<%=application.getContextPath()%>/cliente/generaFattura"
+							method="POST" target="_blank">
+							<input type="hidden" name="idPagamento"
+								value="<%=payment.getId()%>">
+							<button type="submit" class="btn btn-primary">Scarica
+								PDF</button>
+						</form>
+					</td>
+				</tr>
+				<%
+				}
+				%>
+			</tbody>
+		</table>
+
+		<%
+		}
+		%>
+		<a href="<%=application.getContextPath()%>/cliente/cliente-home.jsp"
+			class="btn btn-secondary">Torna alla Home</a>
 	</div>
 	<footer><%@ include file="../footer.html"%></footer>
 </body>
 </html>
 <%
-    } else {
-        response.sendRedirect("/gestionale-progetti/cliente/dashboard.jsp");
-    }
 } else {
-    response.sendRedirect("/gestionale-progetti/login.jsp");
+response.sendRedirect("/gestionale-progetti/cliente/dashboard.jsp");
+}
+} else {
+response.sendRedirect("/gestionale-progetti/login.jsp");
 }
 %>

@@ -25,7 +25,86 @@
 <%@ include file="../cdn.html" %>
 <title>Tas home</title>
 <link rel="stylesheet" href="/<%= application.getServletContextName() %>/css/style.css"> 
+
+
+
+<script>
+
+$(document).ready(function(){
+	function fetchLog(query) {
+		$.ajax({
+			url: '<%= request.getContextPath()%>/admin/getlogs',
+			type: 'GET',
+			success:function(response) {
+				$('#logTableBody').html(response);
+			},
+			error: function(error) {
+				console.error(error);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form[action*=deleteLog]', function(e){
+		e.preventDefault();
+		var form = $(this);
+		//Sweet alert
+		Swal.fire({
+			title: 'Sei sicuro di voler eliminare il log?',
+			text: 'Non potrai annullare questa operazione!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085D6',
+			cancelButtonColor: '#D33',
+			confirmButtonText: 'Si, elimina',
+			cancelButtonText: 'Annulla',
+			//Con css classes
+			customClass: {
+				popup: 'swal2-custom-popup',
+				title: 'swal2-custom-title',
+				confirmButton: 'swal2-custom-confirm',
+				cancelButton: 'swal2-custom-cancel'
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: form.attr('action'),
+					type: 'POST',
+					data: form.serialize(),
+					success: function(response) {
+						fetchLog();
+						Swal.fire({
+							title: 'Eliminato!',
+							text: 'Log è stato eliminato.',
+							icon: 'success',
+							customClass: {
+								popup: 'swal2-custom-popup',
+								title: 'swal2-custom-title',
+								confirmButton: 'swal2-custom-confirm'
+							}
+						});
+					},
+					error: function(error) {
+						console.error(error);
+						Swal.fire({
+							title: 'Errore!',
+							text: 'C\'e stato un problema durante l\'eliminazione del log',
+							icon: 'error',
+							customClass: {
+								popup: 'swal2-custom-popup',
+								title: 'swal2-custom-title',
+								confirmButton: 'swal2-custom-confirm'
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+});
+
+</script>
 <script src="../js/data_table.js"></script>
+
 <style>
 	
 	.content-section {
@@ -89,16 +168,17 @@
 
 		
 			<div class="table-responsive my-2" >
-			<table id="itemTable" class="table table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th style="width: 20%;">Id</th>
 						<th style="width: 20%;">Utente</th>
 						<th style="width: 20%;">Operazione</th>
 						<th style="width: 20%;">Data</th>
+					<th style="width: 20%;">&nbsp;</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="logTableBody">
 					<%
 					
 						AuditLog[] auditLogs = AdminFacade.getInstance().getAllAuditLogs();
@@ -124,15 +204,21 @@
 								
 								</td>
 								
-								<td style="vertical-align: middle;">
-									
-						 			<%=got.getOperazione()%>						     
-								
-								</td>
+							
 								
 								<td style="vertical-align: middle;">
 									
 						 			<%=formato.format(got.getData())%>						     
+								
+								</td>
+								
+							<td style="vertical-align: middle;">
+									
+						 			<form action="/<%= application.getServletContextName()%>/admin/deleteLog?id=<%=got.getId()%>" method="post">
+									<button type="submit" class="btn btn-danger btn-sm">
+										<i class="bi bi-trash"></i>
+									</button>
+								</form>					     
 								
 								</td>
 								

@@ -1,6 +1,7 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
 /**
@@ -52,7 +54,11 @@ public class LockUser extends HttpServlet {
 			
 			user.setLocked(true);
 			af.createUser(user);
-			
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Bloccato : "+user.getUsername());
+			log.setUtente((String) request.getSession().getAttribute("username"));
+			af.createOrupdateAuditLog(log);
 			response.sendRedirect("../admin/dettagliUtente.jsp?id="+user_id);
 		}catch (Exception e) {
 			e.printStackTrace();
