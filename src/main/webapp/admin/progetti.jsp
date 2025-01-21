@@ -118,10 +118,7 @@
 									href="/<%= application.getServletContextName()%>/admin/dettagliProgetto.jsp?id=<%=projects[i].getId() %>">
 											<%=projects[i].getId() %>
 									</a>
-               				
-               				
-               				
-               				
+
                				</td>
                				<td><%=projects[i].getNomeProgetto() %></td>
                				<td><%=projects[i].getDescrizione() %></td>
@@ -131,7 +128,7 @@
                				<td>
                				
                			<a type="submit" class="btn btn-default btn-sm" 
-									href="/<%= application.getServletContextName()%>/admin/dettagliUtente.jsp?id=<%=AdminFacade.getInstance().getUserById(projects[i].getIdResponsabile()).getId()%>">
+									href="/<%= application.getServletContextName()%>/admin/dettagliUtente.jsp?id=<%=AdminFacade.getInstance().getUserById(projects[i].getIdCliente()).getId()%>">
 											<%=AdminFacade.getInstance().getUserById(projects[i].getIdCliente()).getEmail() %>
 									</a>
                				
