@@ -68,6 +68,7 @@ public class LoginServlet extends HttpServlet {
 				
 				Role[] roles = af.getRolesById(user.getId());
 				session.setAttribute("username", username);
+				session.setMaxInactiveInterval(1800);
 
 				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name())) {
 					response.sendRedirect("cliente/cliente-home.jsp");
