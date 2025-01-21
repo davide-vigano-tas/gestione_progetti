@@ -62,7 +62,15 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("login.jsp?error=not_found");
 					return ;
 				}
+				if(user.isLocked()) {
+					response.sendRedirect("login.jsp?error=locked");
+					return ;
+				}
 				if(!Algoritmo.verificaPassword(password, user.getPassword())) {
+					user.setTentativiFalliti(user.getTentativiFalliti()+1);
+					if(user.getTentativiFalliti() == 5) {
+						user.setLocked(true);
+					}
 					response.sendRedirect("login.jsp?error=incorrect_password");
 					return;
 				}

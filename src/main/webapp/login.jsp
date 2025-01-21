@@ -56,6 +56,9 @@
             if(error === 'incorrect_password')  {
 				erDiv.textContent = 'Password errata';
             }
+            if(error === 'locked')  {
+				erDiv.textContent = 'Utente bloccato';
+            }
         }
     };
 
