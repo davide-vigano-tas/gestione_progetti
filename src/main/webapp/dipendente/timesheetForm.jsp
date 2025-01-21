@@ -80,6 +80,7 @@
 	}
 	
 </style>
+
 </head>
 <jsp:include page="../nav.jsp"/>
 <body>
@@ -125,14 +126,16 @@
 					
 						<!-- --------------------------dipendente -->
 						<input type="hidden" name="dipendente" id="dipendente" class="form-control" value="<%=user.getId()%>">
-						<%
-							Project project = new Project();
-						%>
+						
+						<!-- Progetto -->
 						<div class="mb-3 row">
 						  	<label for="project" class="col-sm-2 col-form-label">Project</label>
 						  	<div class="col-sm-6">
 						    <div class="input-group">
-							<input  disabled="disabled" id="project" value="<%=project.getNomeProgetto()!=null ? project.getNomeProgetto(): "selezionare la task"%>">
+						    <span class="input-group-text" id="data-icon">
+						        <!-- <i class="bi bi-person"></i>-->
+						      </span>
+							<input id="project"  class="form-control" readonly="readonly" placeholder="Nome Progetto"></input>
 							</div>
 							</div>
 						</div>
@@ -145,15 +148,16 @@
 						      	<!-- <i class="bi bi-person"></i>-->
 						      </span>
 						      <select name="task" id="task" class="form-control">
+						      	<option selected="selected" disabled="disabled">Seleziona una task</option>
 						      	<%
 						      	List<ProjectTask> tasks = DipendenteFacade.getInstance().getProjectTaskByDipendente(user.getId());
 						      		for(int i =0; i < tasks.size(); i++){
 						      	%>
-						      		<option value="<%=tasks.get(i).getId() %>"><%=tasks.get(i).getNomeTask()%></option>
-						      		
+						      		<option value="<%=tasks.get(i).getId() %>" 
+						      			data-project-name="<%=DipendenteFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto()).getNomeProgetto() %>">
+						      		<%=tasks.get(i).getNomeTask()%>
+						      		</option>
 						      	<%
-						      	//TODO
-										project = DipendenteFacade.getInstance().getProjectById(tasks.get(i).getIdProgetto());						      	
 						      		}
 						      	%>
 						      </select>
@@ -216,8 +220,19 @@
 
 
 <footer><%@ include file="../footer.html" %></footer>
+<script>
+
+var mySelect = document.getElementById('task');
+mySelect.onchange = (event) => {
+    var inputText = event.target.selectedOptions[0].getAttribute('data-project-name');
+    console.log("CIAO");
+    console.log(inputText);
+		document.getElementById('project').value= inputText
+}
+</script>
 </body>
 </html>
+
 
 <% } else { 
 	 response.sendRedirect("/gestionale-progetti/login.jsp");
