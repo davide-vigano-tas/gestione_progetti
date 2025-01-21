@@ -1,6 +1,7 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
 
 
@@ -50,6 +52,11 @@ public class DeleteSkill extends HttpServlet {
 				return;
 			}
 			af.deleteSkill(skill);
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Eliminata skill : "+skill.getTipo().name());
+			log.setUtente((String) request.getSession().getAttribute("username"));
+			af.createOrupdateAuditLog(log);
 			response.sendRedirect("../admin/skills.jsp");
 		}catch (Exception e) {
 			e.printStackTrace();

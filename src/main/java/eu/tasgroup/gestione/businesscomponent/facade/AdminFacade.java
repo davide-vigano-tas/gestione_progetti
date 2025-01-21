@@ -273,13 +273,17 @@ public class AdminFacade {
 	}
 	
 	/*-------------------------------Update Auditlog*/
-	public void updateAuditLog(AuditLog log) throws DAOException, NamingException {
+	public void createOrupdateAuditLog(AuditLog log) throws DAOException, NamingException {
 		auditLogBC.createOrUpdate(log);
 	}
 	
 	/*-------------------------------Delete auditLog*/
 	public void deleteAuditLog(AuditLog log) throws DAOException, NamingException {
 		auditLogBC.delete(log.getId());
+	}
+	
+	public AuditLog getAuditLogById(long id) throws DAOException, NamingException {
+		return auditLogBC.getById(id);
 	}
 	
 }

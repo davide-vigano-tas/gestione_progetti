@@ -130,7 +130,8 @@
                 						stato = "rifiutato" ;
                 					}
                 					%>
-                				<td><%=stato %></td></td>
+                					<%=stato %>
+                					</td>
                 			</tr>
                 			<%
                 			}

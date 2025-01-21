@@ -1,7 +1,6 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.naming.NamingException;
@@ -12,17 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
-import eu.tasgroup.gestione.businesscomponent.enumerated.Skills;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
 
 
-@WebServlet("/admin/addSkill")
-public class AddSkill extends HttpServlet {
+@WebServlet("/admin/deleteLog")
+public class DeleteLog extends HttpServlet {
 
 
-	private static final long serialVersionUID = -237068466821484677L;
+	private static final long serialVersionUID = 8804615766958336638L;
 	private AdminFacade af;
 	
 	
@@ -41,25 +39,21 @@ public class AddSkill extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String skill = request.getParameter("skill");
+		String id = request.getParameter("id");
 		
 		try {
-			if(skill == null) {
-				response.sendRedirect("../admin/skills.jsp?error=invalid_skill");
+			if(id == null) {
+				response.sendRedirect("../admin/auditlogs.jsp?error=invalid_log");
 				return;
 			}
-			Skill[] skills = af.getAllSkills();
-			if(Arrays.asList(skills).stream().allMatch( s -> !s.getTipo().equals(Skills.valueOf(skill)))) {
-				Skill s = new Skill();
-				s.setTipo(Skills.valueOf(skill));
-				af.createSkill(s);
-				AuditLog log = new AuditLog();
-				log.setData(new Date());
-				log.setOperazione("Aggiunta skill : "+s.getTipo().name());
-				log.setUtente((String) request.getSession().getAttribute("username"));
-				af.createOrupdateAuditLog(log);
+			AuditLog log = af.getAuditLogById(Long.parseLong(id));
+			if(log == null) {
+				response.sendRedirect("../admin/auditlogs.jsp?error=not_found");
+				return;
 			}
-			response.sendRedirect("../admin/skills.jsp");
+			af.deleteAuditLog(log);
+		
+			response.sendRedirect("../admin/auditlogs.jsp");
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());

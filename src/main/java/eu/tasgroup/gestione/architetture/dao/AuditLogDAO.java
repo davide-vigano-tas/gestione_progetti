@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 
@@ -23,7 +24,7 @@ public class AuditLogDAO extends DAOAdapter<AuditLog> implements DAOConstants {
 			ps = conn.prepareStatement(INSERT_AUDIT_LOG);
 			ps.setString(1, entity.getUtente());
 			ps.setString(2, entity.getOperazione());
-			ps.setDate(3, new java.sql.Date(entity.getData().getTime()));
+			ps.setTimestamp(3, new Timestamp(entity.getData().getTime()));
 
 			ps.execute();
 		} catch (SQLException e) {
@@ -40,7 +41,7 @@ public class AuditLogDAO extends DAOAdapter<AuditLog> implements DAOConstants {
 
 			ps.setString(1, entity.getUtente());
 			ps.setString(2, entity.getOperazione());
-			ps.setDate(3, new java.sql.Date(entity.getData().getTime()));
+			ps.setTimestamp(3, new Timestamp(entity.getData().getTime()));
 			ps.setLong(4, entity.getId());
 
 			ps.execute();
@@ -78,7 +79,7 @@ public class AuditLogDAO extends DAOAdapter<AuditLog> implements DAOConstants {
 				auditLog.setId(rs.getLong(1));
 				auditLog.setUtente(rs.getString(2));
 				auditLog.setOperazione(rs.getString(3));
-				auditLog.setData(new java.util.Date(rs.getDate(4).getTime()));
+				auditLog.setData(new java.util.Date(rs.getTimestamp(4).getTime()));
 
 			}
 
@@ -106,7 +107,7 @@ public class AuditLogDAO extends DAOAdapter<AuditLog> implements DAOConstants {
 				auditLog.setId(rs.getLong(1));
 				auditLog.setUtente(rs.getString(2));
 				auditLog.setOperazione(rs.getString(3));
-				auditLog.setData(new java.util.Date(rs.getDate(4).getTime()));
+				auditLog.setData(new java.util.Date(rs.getTimestamp(4).getTime()));
 
 				auditLogs[i] = auditLog;
 			}
