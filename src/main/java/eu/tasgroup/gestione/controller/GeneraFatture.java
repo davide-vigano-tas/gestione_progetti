@@ -47,7 +47,6 @@ public class GeneraFatture extends HttpServlet {
 			}
 
 		} catch (NumberFormatException | DAOException | NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
