@@ -70,4 +70,12 @@
 		<servlet-name>DipendenteAPI</servlet-name>
 		<url-pattern>/api/dipendente</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProgettoAPI</servlet-name>
+		<servlet-class>eu.tasgroup.gestione.restcontroller.ProgettoAPI</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProgettoAPI</servlet-name>
+		<url-pattern>/api/progetto</url-pattern>
+	</servlet-mapping>
 </web-app>
