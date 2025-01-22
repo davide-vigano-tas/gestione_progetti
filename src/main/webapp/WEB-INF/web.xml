@@ -27,40 +27,20 @@
 		<session-timeout>20</session-timeout>
 	</session-config>
 	<filter>
-		<filter-name>CORS</filter-name>
-		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
-		<init-param>
-			<param-name>cors.allowGenericHttpRequests</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.allowOrigin</param-name>
-			<param-value>http://127.0.0.1:4200</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.allowSubdomains</param-name>
-			<param-value>false</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.supportedMethods</param-name>
-			<param-value>GET, POST, PUT, DELETE</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.supportedHeaders</param-name>
-			<param-value>*</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.supportCredentials</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.maxAge</param-name>
-			<param-value>3600</param-value>
-		</init-param>
+		<filter-name>JwtAuthenticationFilter</filter-name>
+		<filter-class>eu.tasgroup.gestione.filter.JwtAuthenticationFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>CORS</filter-name>
-		<url-pattern>/api/*</url-pattern>
+		<filter-name>JwtAuthenticationFilter</filter-name>
+		<url-pattern>/api/dipendente/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>JwtAuthenticationFilter</filter-name>
+		<url-pattern>/api/progetto/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>JwtAuthenticationFilter</filter-name>
+		<url-pattern>/api/pagamento/*</url-pattern>
 	</filter-mapping>
 	<servlet>
 		<servlet-name>DipendenteAPI</servlet-name>
@@ -84,6 +64,14 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PagamentoAPI</servlet-name>
-		<url-pattern>/api/progetto</url-pattern>
+		<url-pattern>/api/pagamento</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>LoginJWTServlet</servlet-name>
+		<servlet-class>eu.tasgroup.gestione.restcontroller.LoginJWTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginJWTServlet</servlet-name>
+		<url-pattern>/api/login</url-pattern>
 	</servlet-mapping>
 </web-app>
