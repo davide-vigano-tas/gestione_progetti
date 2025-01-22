@@ -12,6 +12,7 @@ import eu.tasgroup.gestione.businesscomponent.PaymentBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
 import eu.tasgroup.gestione.businesscomponent.SkillBC;
+import eu.tasgroup.gestione.businesscomponent.TicketBC;
 import eu.tasgroup.gestione.businesscomponent.TimesheetBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
@@ -23,6 +24,7 @@ import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
+import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 import eu.tasgroup.gestione.businesscomponent.model.Timesheet;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
@@ -36,6 +38,7 @@ public class AdminFacade {
 	private SkillBC skillBC;
 	private TimesheetBC timesheetBC;
 	private AuditLogBC auditLogBC;
+	private TicketBC ticketBC;
 	private AdminFacade() throws DAOException, NamingException {
 		
 		userBC = new UserBC();
@@ -45,6 +48,7 @@ public class AdminFacade {
 		skillBC = new SkillBC();
 		timesheetBC = new TimesheetBC();
 		auditLogBC = new AuditLogBC();
+		ticketBC = new TicketBC();
 	}
 	
 	public static AdminFacade getInstance() throws DAOException, NamingException {
@@ -286,5 +290,34 @@ public class AdminFacade {
 		return auditLogBC.getById(id);
 	}
 	
+	/*------------------------------Ticket*/
+	
+	public Ticket[] getAllTicket() throws DAOException, NamingException {
+		return ticketBC.getAll();
+	}
+	
+	public Ticket getTicketById(long id) throws DAOException, NamingException {
+		return ticketBC.getById(id);
+	}
+	
+	public Ticket[] getAllOpen() throws DAOException, NamingException {
+		return ticketBC.getAllOpen();
+	}
+	
+	public Ticket[] getAllClosed() throws DAOException, NamingException {
+		return ticketBC.getAllClosed();
+	}
+	
+	public Ticket[] getByDipendente(long id) throws DAOException, NamingException {
+		return ticketBC.getByDipendente(id);
+	}
+	
+	public void closeTicket(long id) throws DAOException, NamingException {
+		ticketBC.closeTicket(id);
+	}
+	
+	public void deleteTicket(long id) throws DAOException, NamingException {
+		ticketBC.deleteTicket(id);
+	}
 }
 

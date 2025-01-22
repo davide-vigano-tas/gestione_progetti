@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
+import eu.tasgroup.gestione.businesscomponent.TicketBC;
 import eu.tasgroup.gestione.businesscomponent.TimesheetBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
@@ -17,6 +18,7 @@ import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
+import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 import eu.tasgroup.gestione.businesscomponent.model.Timesheet;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
@@ -27,8 +29,10 @@ public class ProjectManagerFacade {
 	private ProjectBC projectBC;
 	private ProjectTaskBC projectTaskBC;
 	private TimesheetBC timesheetBC;
+	private TicketBC ticketBC;
 
-	private ProjectManagerFacade() {
+	private ProjectManagerFacade() throws DAOException {
+		ticketBC = new TicketBC();
 	}
 
 	public static ProjectManagerFacade getInstance() throws DAOException, NamingException {
@@ -206,5 +210,19 @@ public class ProjectManagerFacade {
 		Project project = projectBC.getById(idProgetto);
 		project.setPercentualeCompletamento(n);
 		projectBC.createOrUpdate(project);
+	}
+	
+	/*----------------------------------------Ticket*/
+	
+	public void createorUpdateTicket(Ticket ticket) throws DAOException, NamingException {
+		ticketBC.createOrUpdate(ticket);
+	}
+	
+	public Ticket[] getByDipendente(long id) throws DAOException, NamingException {
+		return ticketBC.getByDipendente(id);
+	}
+	
+	public Ticket getTicketById(long id) throws DAOException, NamingException {
+		return ticketBC.getById(id);
 	}
 }

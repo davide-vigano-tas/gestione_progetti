@@ -189,6 +189,17 @@ public class DipendenteFacade {
 	
 	/*----------------------------------------Ticket*/
 	
+	public void createorUpdateTicket(Ticket ticket) throws DAOException, NamingException {
+		ticketBC.createOrUpdate(ticket);
+	}
+	
+	public Ticket[] getByDipendente(long id) throws DAOException, NamingException {
+		return ticketBC.getByDipendente(id);
+	}
+	
+	public Ticket getTicketById(long id) throws DAOException, NamingException {
+		return ticketBC.getById(id);
+	}
 
 	
 }

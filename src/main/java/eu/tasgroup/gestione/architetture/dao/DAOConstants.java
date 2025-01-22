@@ -177,6 +177,18 @@ public interface DAOConstants {
 	String DELETE_AUDIT_LOG = "delete from audit_logs where id = ?;";
 
 
+	
+	//--------------Ticket
+	
+	String INSERT_TICKET = "insert into tickets(opener, title, description, created_at) values(?, ?, ?, ?)";
+	String UPDATE_TICKET = "update tickets set title = ?, description = ? where id = ?";
+	String SELECT_TICKETS = "select * from tickets";
+	String SELECT_TICKETS_BY_DIP = "select * from tickets where opener = ?";
+	String SELECT_TICKET = "select * from tickets where id = ?";
+	String CLOSE_TICKET = "update tickets set closed_at = ? where id = ?";
+	String DELETE_TICKET = "delete from tickets where id = ?";
+	String SELECT_OPEN = "select * from tickets where closed_at is null";
+	String SELECT_CLOSED = "select * from tickets where closed_at is not null";
 
 
 
