@@ -12,6 +12,7 @@ import eu.tasgroup.gestione.businesscomponent.AuditLogBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
 import eu.tasgroup.gestione.businesscomponent.SkillBC;
+import eu.tasgroup.gestione.businesscomponent.TicketBC;
 import eu.tasgroup.gestione.businesscomponent.TimesheetBC;
 import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
@@ -22,6 +23,7 @@ import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
+import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 import eu.tasgroup.gestione.businesscomponent.model.Timesheet;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 
@@ -34,6 +36,8 @@ public class DipendenteFacade {
 	private ProjectTaskBC ptBC;
 	private SkillBC sBC;
 	private AuditLogBC auditLogBC ;
+	private TicketBC ticketBC;
+	
 	
 	private DipendenteFacade() throws DAOException, NamingException {
 		
@@ -42,6 +46,8 @@ public class DipendenteFacade {
 		tBC = new TimesheetBC();
 		ptBC = new ProjectTaskBC();
 		sBC = new SkillBC();
+		ticketBC = new TicketBC();
+		auditLogBC = new AuditLogBC();
 	}
 	
 	public static DipendenteFacade getInstance() throws DAOException, NamingException {
@@ -180,5 +186,9 @@ public class DipendenteFacade {
 	public void createOrupdateAuditLog(AuditLog log) throws DAOException, NamingException {
 		auditLogBC.createOrUpdate(log);
 	}
+	
+	/*----------------------------------------Ticket*/
+	
+
 	
 }
