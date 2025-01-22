@@ -63,7 +63,7 @@ public class InsertTask extends HttpServlet {
 			
 			// calcolo percentuale progetto
 			List<ProjectTask> tasks;
-			int percentuale = 0;
+			double percentuale = 0;
 			double percentualeParziale;
 			// Ciclo su tutte le fasi
 			for (Fase faseCiclo : Fase.values()) {
@@ -84,14 +84,15 @@ public class InsertTask extends HttpServlet {
 						percentualeParziale = 10 / tasks.size();
 						for (ProjectTask el : tasks) {
 							if (el.getStato() == StatoTask.COMPLETATO)
-								percentuale += Math.ceil(percentualeParziale);
+								percentuale += percentualeParziale;
 						}
 					}
 				}
 			}
 			if(percentuale>100)
 				percentuale=100;
-			pmf.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), percentuale);
+			int value= (int) percentuale;
+			pmf.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), value );
 			
 			response.sendRedirect("pm-tasks.jsp");
 		}catch (Exception e) {

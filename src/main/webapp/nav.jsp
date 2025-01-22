@@ -69,7 +69,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/skills.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dipendente/dip-skills.jsp">
                        Le tue skill
                     </a>
                 </li>

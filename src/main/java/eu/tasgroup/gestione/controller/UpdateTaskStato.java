@@ -52,7 +52,7 @@ public class UpdateTaskStato extends HttpServlet {
 				// calcolo percentuale progetto
 				ProjectTask task = df.getProjectTaskById(id);
 				List<ProjectTask> tasks;
-				int percentuale = 0;
+				double percentuale = 0;
 				double percentualeParziale;
 				// Ciclo su tutte le fasi
 				for (Fase fase : Fase.values()) {
@@ -73,14 +73,15 @@ public class UpdateTaskStato extends HttpServlet {
 							percentualeParziale = 10 / tasks.size();
 							for (ProjectTask el : tasks) {
 								if (el.getStato() == StatoTask.COMPLETATO)
-									percentuale += Math.ceil(percentualeParziale);
+									percentuale += percentualeParziale;
 							}
 						}
 					}
 				}
 				if(percentuale>100)
 					percentuale=100;
-				df.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), percentuale);
+				int value= (int) percentuale;
+				df.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), value);
 
 			}
 
