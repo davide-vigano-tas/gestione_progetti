@@ -77,8 +77,7 @@ public class LoginServlet extends HttpServlet {
 					
 				
 				Role[] roles = af.getRolesById(user.getId());
-				session.setAttribute("username", username);
-				session.setMaxInactiveInterval(1800);
+
 
 				if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.CLIENTE)) && userType.equals(Ruoli.CLIENTE.name())) {	
 					
@@ -115,13 +114,19 @@ public class LoginServlet extends HttpServlet {
 		            //response.sendRedirect("cliente/cliente-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE)) && userType.equals(Ruoli.DIPENDENTE.name())) {
+					session.setAttribute("username", username);
+					session.setMaxInactiveInterval(1800);
 					response.sendRedirect("dipendente/dipendente-home.jsp");
 
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER)) && userType.equals(Ruoli.PROJECT_MANAGER.name())) {
+					session.setAttribute("username", username);
+					session.setMaxInactiveInterval(1800);
 					response.sendRedirect("projectManager/projectManager-home.jsp");
 					return;
 				} if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN)) && userType.equals(Ruoli.ADMIN.name())) {
+					session.setAttribute("username", username);
+					session.setMaxInactiveInterval(1800);
 					response.sendRedirect("admin/admin-home.jsp");
 					return;
 				} 

@@ -65,7 +65,7 @@ if(request.getParameter("id") == null) {
 							Annulla
 						</button>
 						<button type="submit" class="btn btn-primary" id="submitBtn" style=" witdh: 150px">
-							<i class="bi bi-send-plus-fill"></i>&nbsp;&nbsp;Chiudi
+							<i class="bi bi-door-closed-fill"></i>>&nbsp;&nbsp;Chiudi
 						</button>
 				
 				</div>
