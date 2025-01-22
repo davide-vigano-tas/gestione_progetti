@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.naming.NamingException;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
+import eu.tasgroup.gestione.businesscomponent.AuditLogBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
 import eu.tasgroup.gestione.businesscomponent.SkillBC;
@@ -16,6 +17,7 @@ import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
@@ -31,6 +33,7 @@ public class DipendenteFacade {
 	private TimesheetBC tBC;
 	private ProjectTaskBC ptBC;
 	private SkillBC sBC;
+	private AuditLogBC auditLogBC ;
 	
 	private DipendenteFacade() throws DAOException, NamingException {
 		
@@ -164,6 +167,18 @@ public class DipendenteFacade {
 	/*-------------------------------Utenti in base al ruolo*/
 	public User[] getAllDipendenti() throws DAOException, NamingException {
 		return userBC.getByRole(Ruoli.DIPENDENTE);
+	}
+	
+	//---------------------skill del dipendnete
+	public Skill[] getSkillsByUser(long id) throws DAOException, NamingException {
+		return sBC.getByUser(id);
+	}
+	//---------------------skill del dipendnete
+	public Skill getSkillsById(long id) throws DAOException, NamingException {
+		return sBC.getByID(id);
+	}
+	public void createOrupdateAuditLog(AuditLog log) throws DAOException, NamingException {
+		auditLogBC.createOrUpdate(log);
 	}
 	
 }
