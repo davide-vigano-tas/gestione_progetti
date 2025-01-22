@@ -78,4 +78,12 @@
 		<servlet-name>ProgettoAPI</servlet-name>
 		<url-pattern>/api/progetto</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>PagamentoAPI</servlet-name>
+		<servlet-class>eu.tasgroup.gestione.restcontroller.PagamentoAPI</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PagamentoAPI</servlet-name>
+		<url-pattern>/api/progetto</url-pattern>
+	</servlet-mapping>
 </web-app>
