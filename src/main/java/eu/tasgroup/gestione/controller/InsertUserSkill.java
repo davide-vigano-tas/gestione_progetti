@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
-import eu.tasgroup.gestione.businesscomponent.enumerated.Skills;
 import eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Skill;
