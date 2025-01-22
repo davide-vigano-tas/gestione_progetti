@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.ProjectTask"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.enumerated.Fase"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Project"%>
@@ -116,6 +117,29 @@ if (session.getAttribute("username") != null) {
                 </div>
             </div>
         </div>
+        <table class="table table-striped">
+        	<thead>
+        		<tr>
+        			<th>id</th>
+        			<th>nome</th>
+        			<th>cognome</th>
+        			<th>username</th>
+        			<th>email</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<%Set<User> users = ProjectManagerFacade.getInstance().getDipendentiByBroject(project_id);
+        		for(User u : users){ %>
+        		<tr>
+        			<td><%=u.getId() %></td>
+        			<td><%=u.getNome() %></td>
+        			<td><%=u.getCognome() %></td>
+        			<td><%=u.getUsername() %></td>
+        			<td><%=u.getEmail() %></td>
+        		</tr>
+        		<%} %>
+        	</tbody>
+        </table>
     </div>
 
     <footer><%@ include file="../footer.html" %></footer>

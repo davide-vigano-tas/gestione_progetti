@@ -1,7 +1,9 @@
 package eu.tasgroup.gestione.businesscomponent.facade;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.NamingException;
 
@@ -224,5 +226,15 @@ public class ProjectManagerFacade {
 	
 	public Ticket getTicketById(long id) throws DAOException, NamingException {
 		return ticketBC.getById(id);
+	}
+	
+	//-------------------------------
+	public Set<User> getDipendentiByBroject(long idProject) throws DAOException, NamingException{
+		List<ProjectTask> tasks = projectTaskBC.getByProject(idProject);
+		 Set<User> dipendenti = new HashSet<User>();
+		for(ProjectTask task : tasks) {
+			dipendenti.add(userBC.getById(task.getIdDipendente()));
+		}
+		return dipendenti;
 	}
 }
