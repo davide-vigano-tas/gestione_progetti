@@ -16,6 +16,7 @@ import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
+import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
 
 /**
  * Servlet implementation class NewProject
@@ -56,6 +57,7 @@ public class UpdateTaskStato extends HttpServlet {
 				double percentualeParziale;
 				// Ciclo su tutte le fasi
 				for (Fase fase : Fase.values()) {
+					double percentualeFase =0;
 					// grupppo di task appartenenti alla determinata fase
 					tasks = df.getTaskByFaseAndProject(fase, task.getIdProgetto());
 
@@ -66,14 +68,37 @@ public class UpdateTaskStato extends HttpServlet {
 						if (fase != Fase.PLAN && fase != Fase.DEPLOY) {
 							percentualeParziale = 20 / tasks.size();
 							for (ProjectTask el : tasks) {
-								if (el.getStato() == StatoTask.COMPLETATO)
-									percentuale += Math.ceil(percentualeParziale);
+								if (el.getStato() == StatoTask.COMPLETATO) {
+									percentuale += percentualeParziale;
+									percentualeFase += percentualeParziale;
+								}
+							}
+							if(percentualeFase>=20) {
+					        	String emailContent = "<!DOCTYPE html><html lang=\"en\">"
+					                    + "<head><meta charset=\"UTF-8\"></head>"
+					                    + "<body>"
+					                    + "<div style='background-color:#f4f4f4;padding:20px;'>"
+					                    + "<div style='max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;'>"
+					                    + "<h1 style='text-align:center;color:#007bff;'>Fase: "+fase+" completata</h1>"
+					                    + "</div></div></body></html>";
+					        	EmailUtil.sendEmail(df.getById(df.getProjectById(task.getIdProgetto()).getIdResponsabile()).getEmail(), "Fase completata", emailContent);
 							}
 						} else {
 							percentualeParziale = 10 / tasks.size();
 							for (ProjectTask el : tasks) {
 								if (el.getStato() == StatoTask.COMPLETATO)
 									percentuale += percentualeParziale;
+								percentualeFase += percentualeParziale;
+							}
+							if(percentualeFase>=10) {
+					        	String emailContent = "<!DOCTYPE html><html lang=\"en\">"
+					                    + "<head><meta charset=\"UTF-8\"></head>"
+					                    + "<body>"
+					                    + "<div style='background-color:#f4f4f4;padding:20px;'>"
+					                    + "<div style='max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;'>"
+					                    + "<h1 style='text-align:center;color:#007bff;'>Fase: "+fase+" completata</h1>"
+					                    + "</div></div></body></html>";
+					        	EmailUtil.sendEmail(df.getById(df.getProjectById(task.getIdProgetto()).getIdResponsabile()).getEmail(), "Fase completata", emailContent);
 							}
 						}
 					}
