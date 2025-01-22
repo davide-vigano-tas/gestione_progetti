@@ -67,6 +67,13 @@ public class DipendenteFacade {
 		return created;
 	}
 	
+	public void deleteDipendente(long id)throws DAOException, NamingException {
+		User u = userBC.getById(id);
+		
+		userBC = new UserBC();
+		userBC.delete(u);
+	}
+	
 	/*-------------------------------dip in base all'id*/
 	public User getById(long id) throws DAOException, NamingException {
 		
