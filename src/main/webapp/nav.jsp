@@ -81,6 +81,11 @@
                        Apri un ticket
                     </a>
                 </li>
+              <li class="nav-item">
+                    <a class="nav-link navbar-text"  href="<%= application.getContextPath() %>/dipendente/dip-tickets.jsp">
+                       Ticket
+                    </a>
+                </li>
             </ul>
                        
                <%
@@ -110,6 +115,12 @@
                        Apri un ticket
                     </a>
                 </li>
+                   <li class="nav-item">
+                    <a class="nav-link navbar-text"  href="<%= application.getContextPath() %>/projectManager/pm-tickets.jsp">
+                       Ticket
+                    </a>
+                </li>
+                
             </ul>
             
                <%

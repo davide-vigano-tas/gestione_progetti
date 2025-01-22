@@ -81,7 +81,7 @@ public class TicketDAO extends DAOAdapter<Ticket> implements DAOConstants {
 				ticket.setTitle(rs.getString(3));
 				ticket.setDescription(rs.getString(4));
 				ticket.setCreated_at(new Date(rs.getTimestamp(5).getTime()));
-				Timestamp closedAt = rs.getTimestamp(5);
+				Timestamp closedAt = rs.getTimestamp(6);
 				if(closedAt != null) {
 					ticket.setClosed_at(new Date(closedAt.getTime()));
 				}
@@ -127,7 +127,7 @@ public class TicketDAO extends DAOAdapter<Ticket> implements DAOConstants {
 				ticket.setTitle(rs.getString(3));
 				ticket.setDescription(rs.getString(4));
 				ticket.setCreated_at(new Date(rs.getTimestamp(5).getTime()));
-				Timestamp closedAt = rs.getTimestamp(5);
+				Timestamp closedAt = rs.getTimestamp(6);
 				if(closedAt != null) {
 					ticket.setClosed_at(new Date(closedAt.getTime()));
 				}
@@ -188,7 +188,10 @@ public class TicketDAO extends DAOAdapter<Ticket> implements DAOConstants {
 				ticket.setTitle(rs.getString(3));
 				ticket.setDescription(rs.getString(4));
 				ticket.setCreated_at(new Date(rs.getTimestamp(5).getTime()));
-			
+				Timestamp closedAt = rs.getTimestamp(6);
+				if(closedAt != null) {
+					ticket.setClosed_at(new Date(closedAt.getTime()));
+				}
 
 				tickets[i] = ticket;
 			}
@@ -215,7 +218,7 @@ public class TicketDAO extends DAOAdapter<Ticket> implements DAOConstants {
 				ticket.setTitle(rs.getString(3));
 				ticket.setDescription(rs.getString(4));
 				ticket.setCreated_at(new Date(rs.getTimestamp(5).getTime()));
-				Timestamp closedAt = rs.getTimestamp(5);
+				Timestamp closedAt = rs.getTimestamp(6);
 				if(closedAt != null) {
 					ticket.setClosed_at(new Date(closedAt.getTime()));
 				}
