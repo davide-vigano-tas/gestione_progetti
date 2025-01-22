@@ -160,4 +160,10 @@ public class DipendenteFacade {
 		}
 		return projects;
 	}
+	
+	/*-------------------------------Utenti in base al ruolo*/
+	public User[] getAllDipendenti() throws DAOException, NamingException {
+		return userBC.getByRole(Ruoli.DIPENDENTE);
+	}
+	
 }
