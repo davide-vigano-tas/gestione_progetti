@@ -1,15 +1,20 @@
 package eu.tasgroup.gestione.businesscomponent;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.naming.NamingException;
 
 import eu.tasgroup.gestione.architecture.dbaccess.DBAccess;
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.architetture.dao.ProjectDAO;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoProgetto;
+import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
+import eu.tasgroup.gestione.businesscomponent.model.User;
+import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
 
 public class ProjectBC {
 	private Connection conn;
@@ -25,6 +30,23 @@ public class ProjectBC {
 			conn = DBAccess.getConnection();
 			if (projectDAO.getById(conn, project.getId()) != null) {
 				projectDAO.update(conn, project);
+	        	String emailContent = "<!DOCTYPE html><html lang=\"en\">"
+	                    + "<head><meta charset=\"UTF-8\"></head>"
+	                    + "<body>"
+	                    + "<div style='background-color:#f4f4f4;padding:20px;'>"
+	                    + "<div style='max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;'>"
+	                    + "<h1 style='text-align:center;'>Progetto "+ project.getNomeProgetto()+" Aggiornato</h1>"
+	                    + "<p style='text-align:center;'>Descrizione:</p>"
+	                    + "<h4 style='text-align:center;'>"
+	                    + project.getDescrizione()
+	                    + "</h4>"
+	                    + "<p style='text-align:center;'>Percentuale completamento:</p>"
+	                    + "<h4 style='text-align:center;'>"
+	                    + project.getPercentualeCompletamento() +"%"
+	                    + "</h4>"
+	                    + "</div></div></body></html>";
+	        	User resp = AdminFacade.getInstance().getUserById(project.getIdResponsabile());
+	        	EmailUtil.sendEmail(resp.getEmail(), "Progetto aggiornato", emailContent);
 				return projectDAO.getById(conn, project.getId());
 			} else {
 				projectDAO.create(conn, project);
@@ -39,10 +61,26 @@ public class ProjectBC {
 					if (projects[i].getId() > newProject.getId())
 						newProject = projects[i];
 				}
+	        	String emailContent = "<!DOCTYPE html><html lang=\"en\">"
+	                    + "<head><meta charset=\"UTF-8\"></head>"
+	                    + "<body>"
+	                    + "<div style='background-color:#f4f4f4;padding:20px;'>"
+	                    + "<div style='max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;'>"
+	                    + "<h1 style='text-align:center;'>Progetto "+ project.getNomeProgetto()+" creato</h1>"
+	                    + "<p style='text-align:center;'>Descrizione:</p>"
+	                    + "<h4 style='text-align:center;'>"
+	                    + project.getDescrizione()
+	                    + "</h4>"
+	                    + "</div></div></body></html>";
+	        	User resp = AdminFacade.getInstance().getUserById(project.getIdResponsabile());
+	        	EmailUtil.sendEmail(resp.getEmail(), "Creazione progetto", emailContent);
 
 				return newProject;
 			}
 
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			throw new DAOException(new SQLException(e.getMessage()));
 		} finally {
 			DBAccess.closeConnection(conn);
 		}
