@@ -209,7 +209,18 @@
 					</form>
 					</div>
 					<% } %>
-				
+					
+					<% if(Arrays.asList(user_roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {%>
+						
+					<div class="my-2">
+						
+						<a href="/<%= application.getServletContextName()%>/admin/user_timesheets.jsp?id=<%=retrieved.getId()%>"  class="btn btn-primary btn-sm my-3">
+							<i class="bi bi-calendar2-range"></i>
+							&nbsp;Monitoraggio performance
+						</a>
+					
+					</div>
+					<% } %>
 				</div>
 			</div>
 			
