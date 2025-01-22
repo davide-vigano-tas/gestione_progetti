@@ -58,19 +58,27 @@
             %>
                         <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/tasks.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dipendente/dip-tasks.jsp">
                         Tasks
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/developer/timsheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dipendente/DipendenteTimesheets.jsp">
                         Timesheets
                     </a>
                 </li>
                 
                 <li class="nav-item">
+
                     <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dipendente/dip-skills.jsp">
+
                        Le tue skill
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link navbar-text" style="color: red;" href="<%= application.getContextPath() %>/dipendente/ticket-form.jsp">
+                       Apri un ticket
                     </a>
                 </li>
             </ul>
@@ -80,19 +88,26 @@
             %>
                 <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/dipendenti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/projectManager/dipendenti.jsp">
                         Dipendenti
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/progetti.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/projectManager/pm-projects.jsp">
                         Progetti
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/dip/projman/timesheets.jsp">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/projectManager/pm-timesheets.jsp">
                        Timesheets
+                    </a>
+                </li>
+                
+                                
+                <li class="nav-item">
+                    <a class="nav-link navbar-text" style="color: red;" href="<%= application.getContextPath() %>/projectManager/ticket-form.jsp">
+                       Apri un ticket
                     </a>
                 </li>
             </ul>

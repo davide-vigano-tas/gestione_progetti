@@ -11,13 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.jupiter.api.DisplayNameGenerator.Simple;
-
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
-import eu.tasgroup.gestione.businesscomponent.model.Role;
-import eu.tasgroup.gestione.businesscomponent.model.User;
 
 @WebServlet("/admin/getlogs")
 public class GetLogs extends HttpServlet {

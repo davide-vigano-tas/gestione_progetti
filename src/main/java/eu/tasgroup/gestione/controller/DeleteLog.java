@@ -1,7 +1,6 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
-import eu.tasgroup.gestione.businesscomponent.model.Skill;
 
 
 @WebServlet("/admin/deleteLog")
