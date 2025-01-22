@@ -15,7 +15,7 @@
 		String username = (String) session.getAttribute("username");
 		User user = ProjectManagerFacade.getInstance().getProjectManagerByUsername(username);
 		Role[] roles = ProjectManagerFacade.getInstance().getRolesById(user.getId());
-		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
+		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.PROJECT_MANAGER))) {
 			SimpleDateFormat formato = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
 			
    %>
@@ -93,8 +93,8 @@
            
         	erDiv.style.display='block';
      
-            if(error === 'invalid_skill')  {
-				erDiv.textContent = 'Skill non valida';
+            if(error === 'invalid_values')  {
+				erDiv.textContent = 'Valori non validi';
             }
         }
     };
@@ -106,7 +106,7 @@
 <body>
 <div class="container">
 			<header class="page-header">
-			<h3>Skill</h3>
+			<h3>Ticket</h3>
 		</header>
 		<div id="error" class="alert alert-danger" >
 								

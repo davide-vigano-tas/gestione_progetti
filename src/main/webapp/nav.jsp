@@ -160,6 +160,11 @@
                        AuditLog
                     </a>
                 </li>
+                         <li class="nav-item">
+                    <a class="nav-link navbar-text" href="<%= application.getContextPath() %>/admin/tickets.jsp">
+                       Ticket
+                    </a>
+                </li>
             </ul>
 
             <%

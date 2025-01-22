@@ -57,8 +57,8 @@ public class InserisciTicket extends HttpServlet {
 			t.setCreated_at(new Date());
 			ProjectManagerFacade.getInstance().createorUpdateTicket(t);
 			if(ruolo.equals(Ruoli.DIPENDENTE)) 
-				response.sendRedirect("../dipendente/dip-tickets.jsp");
-			else response.sendRedirect("../projectManager/pm-tickets.jsp");
+				response.sendRedirect("dipendente/dip-tickets.jsp");
+			else response.sendRedirect("projectManager/pm-tickets.jsp");
 			
 		} catch (DAOException | NamingException e) {
 			// TODO Auto-generated catch block

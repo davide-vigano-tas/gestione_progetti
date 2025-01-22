@@ -1,3 +1,4 @@
+<%@page import="eu.tasgroup.gestione.businesscomponent.facade.AdminFacade"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Ticket"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade"%>
 <%@page import="eu.tasgroup.gestione.businesscomponent.model.Skill"%>
@@ -12,10 +13,11 @@
     <%
     if(session.getAttribute("username") != null) {	
 		String username = (String) session.getAttribute("username");
-		User user = DipendenteFacade.getInstance().getByUsername(username);
-		Role[] roles = DipendenteFacade.getInstance().getRolesById(user.getId());
-		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.DIPENDENTE))) {
+		User user = AdminFacade.getInstance().getByUsername(username);
+		Role[] roles = AdminFacade.getInstance().getRolesById(user.getId());
+		if(Arrays.asList(roles).stream().anyMatch(r -> r.getRole().equals(Ruoli.ADMIN))) {
 			SimpleDateFormat formato = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
+			
 			
    %>
 <!DOCTYPE html>
@@ -77,29 +79,7 @@
 	
 	
 </style>
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const optionValue = urlParams.get('option');
-        if (optionValue) {
-            const selectElement = document.getElementById('userType');
-            selectElement.value = optionValue;
-        }
-        const error = urlParams.get('error');
-        const erDiv = document.getElementById('error');
-        erDiv.style.display='none';
-        if(error) {
-           
-        	erDiv.style.display='block';
-     
-            if(error === 'invalid_values')  {
-				erDiv.textContent = 'Valori non validi';
-            }
-        }
-    };
 
-   
-</script>
 </head>
 <jsp:include page="../nav.jsp"/>
 <body>
@@ -107,29 +87,31 @@
 			<header class="page-header">
 			<h3>Ticket</h3>
 		</header>
-		<div id="error" class="alert alert-danger" >
-								
-					</div>
 		
 			<div class="table-responsive my-2">
 			<table id="itemTable" class="table table-hover">
 				<thead>
 					<tr>
 						<th style="width: 20%;">Id</th>
+						<th style="width: 20%;">Utente</th>
 						<th style="width: 20%;">Titolo</th>
 						<th style="width: 20%;">Descrizione</th>
 						<th style="width: 20%;">Apertura</th>
 						<th style="width: 20%;">Chiusura</th>
-						<th style="width: 20%;">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
 					
-								<%Ticket[] tickets = DipendenteFacade.getInstance().getByDipendente(user.getId());
-								for(Ticket el : tickets){ %>
+								<%Ticket[] tickets = AdminFacade.getInstance().getAllTicket();
+								for(Ticket el : tickets){ 
+									User utente = AdminFacade.getInstance().getUserById(el.getOpener());
+											%>
 							<tr>
 								<td style="vertical-align: middle;">
 									<%=el.getId() %>
+								</td>
+								<td style="vertical-align: middle;">
+									<%=utente.getEmail()%>
 								</td>
 								<td style="vertical-align: middle;">
 									<%=el.getTitle() %>
@@ -143,17 +125,15 @@
 								</td>
 								
 								<% if(el.getClosed_at() == null) {%>
+				
 								<td style="vertical-align: middle;">
-									Aperto
-								</td>
-								<td style="vertical-align: middle;">
-			<div class="my-2">
-				<button type="button" class="btn btn-primary btn-sm" style="background-color:  green;"
-					data-bs-toggle="modal" data-bs-target="#updateModal_<%=el.getId()%>">
-						<i class="bi bi-person-add"></i>&nbsp;Modifica
+				<div class="my-2">
+				<button type="button" class="btn btn-primary btn-sm" style="background-color:  orange;"
+					data-bs-toggle="modal" data-bs-target="#closeModal_<%=el.getId()%>">
+						<i class="bi bi-door-closed-fill"></i>&nbsp;Chiudi
 					</button>
 			</div>
-				<jsp:include page="updateTicket.jsp">
+				<jsp:include page="closeTicket.jsp">
 					<jsp:param value="<%=el.getId() %>" name="id"/>
 				 </jsp:include>
 								</td>
@@ -163,9 +143,7 @@
 								<td style="vertical-align: middle;">
 									Chiuso il <%=formato.format(el.getClosed_at()) %>
 								</td>
-								<td style="vertical-align: middle;">
-									Controlla su <%=user.getEmail() %>
-								</td>
+						
 								<% } %>
 								
 								

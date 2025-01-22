@@ -41,8 +41,8 @@ public class UpdateTicket extends HttpServlet {
 			else ruolo = Ruoli.PROJECT_MANAGER;
 			if(titolo == null || descrizione == null || id == null) {
 				if(ruolo.equals(Ruoli.DIPENDENTE)) 
-						response.sendRedirect("../dipendente/ticket-form.jsp?error=invalid_values");
-				else response.sendRedirect("../projectManager/ticket-form.jsp?error=invalid_values");
+						response.sendRedirect("../dipendente/dip-tickets.jsp?error=invalid_values");
+				else response.sendRedirect("../projectManager/dip-tickets.jsp?error=invalid_values");
 				return;
 			}
 			
