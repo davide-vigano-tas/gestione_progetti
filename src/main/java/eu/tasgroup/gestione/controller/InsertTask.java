@@ -16,6 +16,7 @@ import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.facade.ProjectManagerFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 
@@ -93,6 +94,12 @@ public class InsertTask extends HttpServlet {
 				percentuale=100;
 			int value= (int) percentuale;
 			pmf.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), value );
+			
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Aggiunta task : "+nome + " da utente: " +(String) request.getSession().getAttribute("username"));
+			log.setUtente((String) request.getSession().getAttribute("username"));
+			pmf.createOrupdateAuditLog(log);
 			
 			response.sendRedirect("pm-tasks.jsp");
 		}catch (Exception e) {

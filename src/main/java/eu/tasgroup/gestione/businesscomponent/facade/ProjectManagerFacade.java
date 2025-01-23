@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.naming.NamingException;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
+import eu.tasgroup.gestione.businesscomponent.AuditLogBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectBC;
 import eu.tasgroup.gestione.businesscomponent.ProjectTaskBC;
 import eu.tasgroup.gestione.businesscomponent.TicketBC;
@@ -16,6 +17,7 @@ import eu.tasgroup.gestione.businesscomponent.UserBC;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
@@ -32,9 +34,11 @@ public class ProjectManagerFacade {
 	private ProjectTaskBC projectTaskBC;
 	private TimesheetBC timesheetBC;
 	private TicketBC ticketBC;
+	private AuditLogBC auditLogBC;
 
-	private ProjectManagerFacade() throws DAOException {
+	private ProjectManagerFacade() throws DAOException, NamingException {
 		ticketBC = new TicketBC();
+		auditLogBC = new AuditLogBC();
 	}
 
 	public static ProjectManagerFacade getInstance() throws DAOException, NamingException {
@@ -236,5 +240,9 @@ public class ProjectManagerFacade {
 			dipendenti.add(userBC.getById(task.getIdDipendente()));
 		}
 		return dipendenti;
+	}
+	
+	public void createOrupdateAuditLog(AuditLog log) throws DAOException, NamingException {
+		auditLogBC.createOrUpdate(log);
 	}
 }

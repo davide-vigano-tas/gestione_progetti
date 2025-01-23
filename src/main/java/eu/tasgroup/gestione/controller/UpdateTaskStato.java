@@ -1,6 +1,7 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -14,6 +15,7 @@ import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
@@ -109,7 +111,11 @@ public class UpdateTaskStato extends HttpServlet {
 				df.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), value);
 
 			}
-
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Stato task aggiornanato a : "+stato + " da utente: " +(String) request.getSession().getAttribute("username"));
+			log.setUtente((String) request.getSession().getAttribute("username"));
+			df.createOrupdateAuditLog(log);
 			response.sendRedirect("dip-tasks.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
