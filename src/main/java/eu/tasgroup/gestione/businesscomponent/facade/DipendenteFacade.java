@@ -208,5 +208,10 @@ public class DipendenteFacade {
 		return ticketBC.getById(id);
 	}
 
+	public Project createOrUpdateProject(Project project) throws DAOException, NamingException {
+		projectBC = new ProjectBC();
+		return projectBC.createOrUpdate(project);
+	}
+
 	
 }

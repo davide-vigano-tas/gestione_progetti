@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Fase;
+import eu.tasgroup.gestione.businesscomponent.enumerated.StatoProgetto;
 import eu.tasgroup.gestione.businesscomponent.enumerated.StatoTask;
 import eu.tasgroup.gestione.businesscomponent.facade.DipendenteFacade;
 import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
+import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
@@ -47,6 +49,13 @@ public class UpdateTaskStato extends HttpServlet {
 
 			if (stato.equals(StatoTask.DA_INIZIARE)) {
 				stato = StatoTask.IN_PROGRESS;
+				
+				Project project = df.getProjectById(df.getProjectTaskById(id).getIdProgetto());
+				if(project.getStato() == StatoProgetto.CREATO) {
+					project.setStato(StatoProgetto.IN_PROGRESS);
+					df.createOrUpdateProject(project);
+				}
+				
 				df.updateProjectTaskStato(stato, id);
 			}else if (stato.equals(StatoTask.IN_PROGRESS)) {
 				stato = StatoTask.COMPLETATO;
@@ -105,8 +114,14 @@ public class UpdateTaskStato extends HttpServlet {
 						}
 					}
 				}
-				if(percentuale>100)
+				if(percentuale>=100) {
 					percentuale=100;
+
+					Project project = df.getProjectById(df.getProjectTaskById(id).getIdProgetto());
+					project.setStato(StatoProgetto.COMPLETATO);
+					df.createOrUpdateProject(project);
+				}
+				
 				int value= (int) percentuale;
 				df.updatePercentualeCompletamentoProjectID(task.getIdProgetto(), value);
 
