@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.ProjectManagerFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.security.EscapeHTML;
 
@@ -62,6 +63,12 @@ public class InsertProject extends HttpServlet {
 			project.setCostoProgetto(costo);
 			
 			pmf.createOrUpdateProject(project);
+			
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Progetto : "+nome + " creato da utente: " +(String) request.getSession().getAttribute("username"));
+			log.setUtente((String) request.getSession().getAttribute("username"));
+			pmf.createOrupdateAuditLog(log);
 			
 			response.sendRedirect("pm-projects.jsp");
 		}catch (Exception e) {
