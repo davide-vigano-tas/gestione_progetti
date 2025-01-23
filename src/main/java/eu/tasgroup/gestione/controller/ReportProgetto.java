@@ -2,6 +2,7 @@ package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.naming.NamingException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.utility.InvoicePDFGenerator;
 
@@ -34,6 +36,10 @@ public class ReportProgetto extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+        String username = (String) request.getSession().getAttribute("username");
+        if(username == null) {
+        	response.sendRedirect("login.jsp");
+        }
 		String id_p = request.getParameter("id");
 		if(id_p == null) {
 			LOGGER.severe("ID ordine non trovato nella richiesta");
@@ -57,6 +63,11 @@ public class ReportProgetto extends HttpServlet {
 					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
 							"Errore durante la generazione della report.");
 				}
+				AuditLog log = new AuditLog();
+				log.setData(new Date());
+				log.setOperazione("Produzione report pdf");
+				log.setUtente(username);
+				AdminFacade.getInstance().createOrupdateAuditLog(log);
 			} else {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Progetto non trovato.");
 			}

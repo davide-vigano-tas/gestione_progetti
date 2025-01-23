@@ -3,6 +3,7 @@ package eu.tasgroup.gestione.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Project;
 import eu.tasgroup.gestione.businesscomponent.model.ProjectTask;
 
@@ -46,7 +48,10 @@ public class CSVTasks extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        String username = (String) request.getSession().getAttribute("username");
+        if(username == null) {
+        	response.sendRedirect("login.jsp");
+        }
 		String id = request.getParameter("id");
 		if(id == null) {
 			LOGGER.severe("ID ordine non trovato nella richiesta");
@@ -78,6 +83,11 @@ public class CSVTasks extends HttpServlet {
         					";"+task.getFase());
         		}
         		writer.flush();
+        		AuditLog log = new AuditLog();
+        		log.setData(new Date());
+        		log.setOperazione("Stampa CSV task");
+        		log.setUtente(username);
+        		AdminFacade.getInstance().createOrupdateAuditLog(log);
         	}catch (DAOException | NamingException e) {
 				e.printStackTrace();
 				throw new ServletException(e.getMessage());

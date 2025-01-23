@@ -15,6 +15,7 @@ import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.facade.ProjectManagerFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 import eu.tasgroup.gestione.businesscomponent.model.User;
@@ -56,6 +57,12 @@ public class InserisciTicket extends HttpServlet {
 			t.setOpener(user.getId());
 			t.setCreated_at(new Date());
 			ProjectManagerFacade.getInstance().createorUpdateTicket(t);
+			
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Apertura ticket");
+			log.setUtente(username);
+			AdminFacade.getInstance().createOrupdateAuditLog(log);
 			if(ruolo.equals(Ruoli.DIPENDENTE)) 
 				response.sendRedirect("dipendente/dip-tickets.jsp");
 			else response.sendRedirect("projectManager/pm-tickets.jsp");

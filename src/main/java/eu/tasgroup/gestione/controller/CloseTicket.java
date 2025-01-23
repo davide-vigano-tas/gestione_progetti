@@ -1,6 +1,8 @@
 package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.mail.MessagingException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 import eu.tasgroup.gestione.businesscomponent.model.User;
 import eu.tasgroup.gestione.businesscomponent.utility.EmailUtil;
@@ -48,6 +51,11 @@ public class CloseTicket extends HttpServlet {
                     + "</h4>"
                     + "</div></div></body></html>";
         	EmailUtil.sendEmail(utente.getEmail(), "Chiusura ticket", emailContent);
+        	AuditLog log = new AuditLog();
+        	log.setData(new Date());
+        	log.setOperazione("Chiusura ticket di aperto da "+utente.getEmail());
+        	log.setUtente(username);
+        	AdminFacade.getInstance().createOrupdateAuditLog(log);
         	response.sendRedirect("../admin/tickets.jsp");
 			
 		} catch (DAOException | NamingException | MessagingException e) {

@@ -2,6 +2,7 @@ package eu.tasgroup.gestione.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import eu.tasgroup.gestione.architetture.dao.DAOException;
 import eu.tasgroup.gestione.businesscomponent.enumerated.Ruoli;
 import eu.tasgroup.gestione.businesscomponent.facade.AdminFacade;
 import eu.tasgroup.gestione.businesscomponent.facade.ProjectManagerFacade;
+import eu.tasgroup.gestione.businesscomponent.model.AuditLog;
 import eu.tasgroup.gestione.businesscomponent.model.Role;
 import eu.tasgroup.gestione.businesscomponent.model.Ticket;
 
@@ -50,6 +52,11 @@ public class UpdateTicket extends HttpServlet {
 			t.setTitle(titolo);
 			t.setDescription(descrizione);
 			ProjectManagerFacade.getInstance().createorUpdateTicket(t);
+			AuditLog log = new AuditLog();
+			log.setData(new Date());
+			log.setOperazione("Update ticket");
+			log.setUtente(username);
+			AdminFacade.getInstance().createOrupdateAuditLog(log);
 			if(ruolo.equals(Ruoli.DIPENDENTE)) 
 				response.sendRedirect("dipendente/dip-tickets.jsp");
 			else response.sendRedirect("projectManager/pm-tickets.jsp");
