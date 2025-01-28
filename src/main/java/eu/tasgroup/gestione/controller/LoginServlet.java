@@ -102,6 +102,8 @@ public class LoginServlet extends HttpServlet {
 		                        + "</div></div></body></html>";
 		            	
 		                EmailUtil.sendEmail(user.getEmail(), "Il tuo codice OTP", emailContent);
+						session.setAttribute("username", username);
+						session.setMaxInactiveInterval(1800);
 		            } catch (MessagingException e) {
 		                e.printStackTrace();
 		                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nell'invio dell'email.");
